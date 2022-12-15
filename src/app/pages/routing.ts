@@ -7,6 +7,20 @@ const Routing: Routes = [
       import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
   },
   {
+    path: 'inventory-management',
+    loadChildren: () =>
+      import(
+        '../modules/inventory-management/inventory-management.module'
+      ).then((m) => m.InventoryManagementModule),
+  },
+  {
+    path: 'product',
+    loadChildren: () =>
+      import(
+        '../modules/inventory-management/basic-information/product/product.component'
+      ).then((m) => m.ProductComponent),
+  },
+  {
     path: 'builder',
     loadChildren: () =>
       import('./builder/builder.module').then((m) => m.BuilderModule),
