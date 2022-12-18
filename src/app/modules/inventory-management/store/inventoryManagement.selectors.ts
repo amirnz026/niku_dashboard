@@ -36,7 +36,7 @@ export const findTabRouteByIndexSelector = (index: number) =>
   createSelector(selectFeature, (state) => {
     if (state.tabs.length === 1) {
       console.log('1');
-      return '/dashboard';
+      return '/';
     } // only tab close
     else if (index === state.tabs.length - 1) {
       console.log('2');

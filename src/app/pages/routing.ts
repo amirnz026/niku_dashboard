@@ -59,7 +59,7 @@ const Routing: Routes = [
   },
   {
     path: '',
-    redirectTo: '/inventory-management/inventory',
+    redirectTo: '/inventory-management',
     pathMatch: 'full',
   },
   {
