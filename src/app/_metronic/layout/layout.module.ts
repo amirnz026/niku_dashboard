@@ -88,7 +88,7 @@ const routes: Routes = [
     DropdownMenusModule,
     NgbTooltipModule,
     TranslateModule,
-    ThemeModeModule
+    ThemeModeModule,
   ],
   exports: [RouterModule],
 })

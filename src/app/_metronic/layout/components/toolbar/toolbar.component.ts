@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ILayout, LayoutType } from '../../core/configs/config';
 import { LayoutService } from '../../core/layout.service';
 
@@ -33,6 +33,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   appPageTitleCSSClass: string = '';
   appPageTitleBreadcrumb: boolean;
   appPageTitleDescription: boolean;
+
+  title$: Observable<string>;
 
   constructor(private layout: LayoutService) {}
 

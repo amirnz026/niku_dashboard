@@ -1461,6 +1461,27 @@
   dependencies:
     "tslib" "^2.3.0"
 
+"@ngrx/effects@^14.0.0":
+  "integrity" "sha512-+nh8bGYglTrBUvmVGQvO1asFA646pGVkmKIhSf0vEXsP/ckLZDM3U2iRkjS7358Li6pVqhP0N3+gnVlhDAK+Ag=="
+  "resolved" "https://registry.npmjs.org/@ngrx/effects/-/effects-14.0.0.tgz"
+  "version" "14.0.0"
+  dependencies:
+    "tslib" "^2.0.0"
+
+"@ngrx/store-devtools@^14.0.0":
+  "integrity" "sha512-tn1tES3ok/JjpaybXQXcXnL2XaAUWQyRznvt3j7/YFodA4HvKB2KqXZp4G+CV7tQmoaDcMuBjF/VH6G7/Ti73g=="
+  "resolved" "https://registry.npmjs.org/@ngrx/store-devtools/-/store-devtools-14.0.0.tgz"
+  "version" "14.0.0"
+  dependencies:
+    "tslib" "^2.0.0"
+
+"@ngrx/store@^14.0.0":
+  "integrity" "sha512-Og3GID0d/9g+Y9c4mUkgF1Spmig73qqoeXFxQ8tQxWCiiqTxDU2bb19ZWOaooSRmMv3AhD6UTjLtlhLcfJBpKQ=="
+  "resolved" "https://registry.npmjs.org/@ngrx/store/-/store-14.0.0.tgz"
+  "version" "14.0.0"
+  dependencies:
+    "tslib" "^2.0.0"
+
 "@ngtools/webpack@14.0.0":
   "integrity" "sha512-lUcJ5DiRCY+Xj01R38bDbAlELbO+0yT3n4zshBeiuzo/Lc+yQM2XhVe9stsI5I+SwH6YsCU9kp+jb7iaZh7L7w=="
   "resolved" "https://registry.npmjs.org/@ngtools/webpack/-/webpack-14.0.0.tgz"
@@ -4342,6 +4363,11 @@
   "resolved" "https://registry.npmjs.org/image-size/-/image-size-0.5.5.tgz"
   "version" "0.5.5"
 
+"immer@^9.0.16":
+  "integrity" "sha512-qenGE7CstVm1NrHQbMh8YaSzTZTFNP3zPqr3YU0S0UY441j4bJTg4A2Hh5KAhwgaiU6ZZ1Ar6y/2f4TblnMReQ=="
+  "resolved" "https://registry.npmjs.org/immer/-/immer-9.0.16.tgz"
+  "version" "9.0.16"
+
 "immutable@^4.0.0":
   "integrity" "sha512-oNkuqVTA8jqG1Q6c+UglTOD1xhC1BtjKI7XkCXRkZHrN5m18/XsnUp8Q89GkQO/z+0WjonSvl0FLhDYftp46nQ=="
   "resolved" "https://registry.npmjs.org/immutable/-/immutable-4.1.0.tgz"
@@ -5265,6 +5291,13 @@
   "integrity" "sha512-WOWNDt15K2h0txm8Mcqx/k0AlKyTcqoiPmKNETIe01IDdg/kv6VsWSWy8sU1iWOY9b1JxbH0xwQBiAOxWHKdSA=="
   "resolved" "https://registry.npmjs.org/ng-inline-svg-2/-/ng-inline-svg-2-14.0.2.tgz"
   "version" "14.0.2"
+
+"ngrx-immer@^2.0.1":
+  "integrity" "sha512-rAyYeO5Rukg7agoVJGwVtxy7YkJ1FZpRHUrdzUMfE3oQQT84P2phxY4F0KFsgZ1kJNq76MRbVIdBqH+XolBtUA=="
+  "resolved" "https://registry.npmjs.org/ngrx-immer/-/ngrx-immer-2.0.1.tgz"
+  "version" "2.0.1"
+  dependencies:
+    "tslib" "^2.3.0"
 
 "ngx-clipboard@15.1.0":
   "integrity" "sha512-dUJl1cNtdkCqL953oAhP7wmUPFrqW2aDg5OPhwPU9R3cLEdQgU2NbsHEUz4zaPyEopTXu8SR37onVm1Ep8qOHg=="

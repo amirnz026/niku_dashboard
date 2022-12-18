@@ -5,7 +5,5 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './inventory-management.component.html',
 })
 export class InventoryManagementComponent implements OnInit {
-  constructor() {}
-
   ngOnInit(): void {}
 }

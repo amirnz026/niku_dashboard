@@ -1,9 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppStateInterface } from 'src/app/types/appState.interface';
+import * as imActions from '../../store/inventoryManagement.actions';
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
 })
-export class ProductComponent {
-  constructor() {}
+export class ProductComponent implements OnInit {
+  constructor(private store: Store<AppStateInterface>) {}
+
+  ngOnInit(): void {
+    this.store.dispatch(
+      imActions.addTab({
+        tabName: 'کالا / خدمت',
+        tabRoute: '/inventory-management/product',
+      })
+    );
+  }
 }

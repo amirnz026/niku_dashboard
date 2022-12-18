@@ -1,8 +1,20 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LayoutType } from '../../../core/configs/config';
 import { LayoutInitService } from '../../../core/layout-init.service';
 import { LayoutService } from '../../../core/layout.service';
+import { Store } from '@ngrx/store';
+import { select } from '@ngrx/store';
+import {
+  currentTabEqualActiveTabSelector,
+  findTabRouteByIndexSelector,
+  tabIndexSelector,
+  tabsSelector,
+} from 'src/app/modules/inventory-management/store/inventoryManagement.selectors';
+import { AppStateInterface } from 'src/app/types/appState.interface';
+import { Observable, take } from 'rxjs';
+import { TabInterface } from 'src/app/modules/inventory-management/types/tab.interface';
+import * as imActions from 'src/app/modules/inventory-management/store/inventoryManagement.actions';
 
 @Component({
   selector: 'app-header-menu',
@@ -10,9 +22,44 @@ import { LayoutService } from '../../../core/layout.service';
   styleUrls: ['./header-menu.component.scss'],
 })
 export class HeaderMenuComponent implements OnInit {
-  constructor(private router: Router, private layout: LayoutService, private layoutInit: LayoutInitService) {}
+  tabs$: Observable<TabInterface[]>;
+  closingTabIndex$: Observable<number | undefined>;
+  currentTabEqualActiveTab$: Observable<boolean>;
+  constructor(
+    private router: Router,
+    private layout: LayoutService,
+    private layoutInit: LayoutInitService,
+    private store: Store<AppStateInterface>
+  ) {}
+  ngOnInit(): void {
+    this.tabs$ = this.store.pipe(select(tabsSelector));
+  }
 
-  ngOnInit(): void {}
+  closeTab(tabName: string): void {
+    this.currentTabEqualActiveTab$ = this.store.pipe(
+      select(currentTabEqualActiveTabSelector(tabName))
+    );
+
+    this.closingTabIndex$ = this.store.pipe(select(tabIndexSelector(tabName)));
+
+    this.currentTabEqualActiveTab$
+      .pipe(take(1))
+      .subscribe((currentTabEqualActiveTab) => {
+        if (currentTabEqualActiveTab) {
+          this.closingTabIndex$.pipe(take(1)).subscribe((index) => {
+            if (index !== undefined)
+              this.store
+                .pipe(select(findTabRouteByIndexSelector(index)))
+                .pipe(take(1))
+                .subscribe((tabRoute) => {
+                  console.log(index);
+                  this.store.dispatch(imActions.closeTab({ tabName }));
+                  this.router.navigateByUrl(tabRoute!);
+                });
+          });
+        } else this.store.dispatch(imActions.closeTab({ tabName }));
+      });
+  }
 
   calculateMenuItemCssClass(url: string): string {
     return checkIsActive(this.router.url, url) ? 'active' : '';
@@ -22,11 +69,13 @@ export class HeaderMenuComponent implements OnInit {
     this.layoutInit.setBaseLayoutType(layoutType);
   }
 
-  setToolbar(toolbarLayout: 'classic' | 'accounting' | 'extended' | 'reports' | 'saas') {
-    const currentConfig = {...this.layout.layoutConfigSubject.value};
+  setToolbar(
+    toolbarLayout: 'classic' | 'accounting' | 'extended' | 'reports' | 'saas'
+  ) {
+    const currentConfig = { ...this.layout.layoutConfigSubject.value };
     if (currentConfig && currentConfig.app && currentConfig.app.toolbar) {
       currentConfig.app.toolbar.layout = toolbarLayout;
-      this.layout.saveBaseConfig(currentConfig)
+      this.layout.saveBaseConfig(currentConfig);
     }
   }
 }
