@@ -33,13 +33,7 @@
   .menu-icon-#{$name} {
     .menu-item {
       //$title-color, $icon-color, $bullet-color, $arrow-color, $bg-color
-      @include menu-link-default-state(
-        null,
-        var(--kt-text-#{$name}),
-        null,
-        null,
-        null
-      );
+      @include menu-link-default-state(null, #000000, null, null, null);
     }
   }
 

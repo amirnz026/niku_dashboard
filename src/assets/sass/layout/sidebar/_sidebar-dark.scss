@@ -20,14 +20,14 @@
 
     .btn-custom {
       @include button-custom-variant(
-        $color: #b5b5c3,
-        $icon-color: #b5b5c3,
+        $color: #5e6278,
+        $icon-color: #5e6278,
         $border-color: null,
-        $bg-color: rgba(63, 66, 84, 0.35),
-        $color-active: #b5b5c3,
-        $icon-color-active: null,
+        $bg-color: #f4f6fa,
+        $color-active: #5e6278,
+        $icon-color-active: #181c32,
         $border-color-active: null,
-        $bg-color-active: rgba(63, 66, 84, 0.35)
+        $bg-color-active: #e8ebf0
       );
     }
 
@@ -63,7 +63,7 @@
 
         @include menu-link-show-state(
           $title-color: #181c32,
-          $icon-color: #181c32,
+          $icon-color: #0c656a,
           $bullet-color: #181c32,
           $arrow-color: #181c32,
           $bg-color: null
