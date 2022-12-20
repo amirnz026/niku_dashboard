@@ -10,11 +10,11 @@ import {
   findTabRouteByIndexSelector,
   tabIndexSelector,
   tabsSelector,
-} from 'src/app/modules/inventory-management/store/inventoryManagement.selectors';
+} from 'src/app/ngrx/tabs/tabs.selectors';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import { Observable, take } from 'rxjs';
-import { TabInterface } from 'src/app/modules/inventory-management/types/tab.interface';
-import * as imActions from 'src/app/modules/inventory-management/store/inventoryManagement.actions';
+import { TabInterface } from 'src/app/types/tab/tab.interface';
+import * as tabsActions from 'src/app/ngrx/tabs/tabs.actions';
 
 @Component({
   selector: 'app-header-menu',
@@ -53,11 +53,11 @@ export class HeaderMenuComponent implements OnInit {
                 .pipe(take(1))
                 .subscribe((tabRoute) => {
                   console.log(index);
-                  this.store.dispatch(imActions.closeTab({ tabName }));
+                  this.store.dispatch(tabsActions.closeTab({ tabName }));
                   this.router.navigateByUrl(tabRoute!);
                 });
           });
-        } else this.store.dispatch(imActions.closeTab({ tabName }));
+        } else this.store.dispatch(tabsActions.closeTab({ tabName }));
       });
   }
 

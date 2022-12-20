@@ -1,16 +1,15 @@
-import { AppStateInterface } from 'src/app/types/appState.interface';
 import { createSelector } from '@ngrx/store';
+import { AppStateInterface } from 'src/app/types/appState.interface';
 
-export const selectFeature = (state: AppStateInterface) =>
-  state.inventoryManagement;
+export const selectTabsFeature = (state: AppStateInterface) => state.tabsState;
 
 export const tabsSelector = createSelector(
-  selectFeature,
+  selectTabsFeature,
   (state) => state.tabs
 );
 
 export const substituteTabRouteSelector = (tabName: string) =>
-  createSelector(selectFeature, (state) => {
+  createSelector(selectTabsFeature, (state) => {
     let indexOfClosingTab = 0;
     for (let i = 0; i < state.tabs.length; i++) {
       if (state.tabs[i].tabName === tabName) {
@@ -26,14 +25,14 @@ export const substituteTabRouteSelector = (tabName: string) =>
   });
 
 export const tabIndexSelector = (tabName: string) =>
-  createSelector(selectFeature, (state) => {
+  createSelector(selectTabsFeature, (state) => {
     for (let i = 0; i < state.tabs.length; i++) {
       if (state.tabs[i].tabName === tabName) return i;
     }
   });
 
 export const findTabRouteByIndexSelector = (index: number) =>
-  createSelector(selectFeature, (state) => {
+  createSelector(selectTabsFeature, (state) => {
     if (state.tabs.length === 1) {
       console.log('1');
       return '/';
@@ -56,7 +55,7 @@ export const findTabRouteByIndexSelector = (index: number) =>
   });
 
 export const currentTabEqualActiveTabSelector = (tabName: string) =>
-  createSelector(selectFeature, (state) => {
+  createSelector(selectTabsFeature, (state) => {
     let activeTabIndex!: number;
     let currentTabIndex!: number;
     for (let i = 0; i < state.tabs.length; i++) {

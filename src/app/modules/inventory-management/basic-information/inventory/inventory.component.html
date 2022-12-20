@@ -1,1 +1,14 @@
-<!-- <app-advance-tables-widget1></app-advance-tables-widget1> -->
+<ag-grid-angular
+  class="ag-theme-alpine"
+  style="height: 1000px; width: 1000px"
+  [rowData]="rowData$ | async"
+  [columnDefs]="colDefs"
+  [defaultColDef]="defaultColDef"
+  [rowSelection]="'multiple'"
+  [animateRows]="true"
+  (cellClicked)="onCellClicked($event)"
+  [enableRtl]="true"
+  [pagination]="true"
+  [localeText]="langFa"
+></ag-grid-angular>
+<!-- <button (click)="clearSelection()">Clear Selection</button> -->

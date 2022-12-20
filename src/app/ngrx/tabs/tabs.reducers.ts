@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
-import * as imActions from './inventoryManagement.actions';
 import { immerOn } from 'ngrx-immer/store';
-import { TabsStateInterface } from '../types/tabsState.interface';
+import * as tabsActions from 'src/app/ngrx/tabs/tabs.actions';
+import { TabsStateInterface } from 'src/app/types/tab/tabsState.interface';
 
 export const initialState: TabsStateInterface = {
   tabs: [],
@@ -11,9 +11,9 @@ export const initialState: TabsStateInterface = {
     order: 0,
   },
 };
-export const reducers = createReducer(
+export const tabsReducers = createReducer(
   initialState,
-  immerOn(imActions.addTab, (state, action) => {
+  immerOn(tabsActions.addTab, (state, action) => {
     state.activeTab.tabName = action.tabName;
     state.activeTab.tabRoute = action.tabRoute;
     let isOpenTab = false;
@@ -31,7 +31,7 @@ export const reducers = createReducer(
       });
     }
   }),
-  immerOn(imActions.closeTab, (state, action) => {
+  immerOn(tabsActions.closeTab, (state, action) => {
     state.tabs = state.tabs.filter((tab) => tab.tabName !== action.tabName);
   })
 );

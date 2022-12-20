@@ -5,3 +5,6 @@
 // Replace above style with this css file to enable RTL styles
 @import "./assets/sass/plugins.scss";
 @import "./assets/sass/style.angular.scss";
+
+@import "ag-grid-community/dist/styles/ag-grid.css";
+@import "ag-grid-community/dist/styles/ag-theme-alpine.css";

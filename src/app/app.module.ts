@@ -15,6 +15,7 @@ import { environment } from 'src/environments/environment';
 import { FakeAPIService } from './_fake/fake-api.service';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { tabsReducers } from './ngrx/tabs/tabs.reducers';
 // #fake-end#
 
 function appInitializer(authService: AuthService) {
@@ -46,6 +47,7 @@ function appInitializer(authService: AuthService) {
     InlineSVGModule.forRoot(),
     NgbModule,
     StoreModule.forRoot({}),
+    StoreModule.forFeature('tabsState', tabsReducers),
     StoreDevtoolsModule.instrument({
       maxAge: 1000,
       logOnly: environment.production,

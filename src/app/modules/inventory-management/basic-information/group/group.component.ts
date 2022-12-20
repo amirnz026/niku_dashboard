@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppStateInterface } from 'src/app/types/appState.interface';
-import * as imActions from '../../store/inventoryManagement.actions';
+import * as tabsActions from 'src/app/ngrx/tabs/tabs.actions';
 
 @Component({
   selector: 'app-group',
@@ -12,7 +12,7 @@ export class GroupComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(
-      imActions.addTab({
+      tabsActions.addTab({
         tabName: 'گروه',
         tabRoute: '/inventory-management/group',
       })

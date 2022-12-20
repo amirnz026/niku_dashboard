@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import { ModalConfig, ModalComponent } from '../../_metronic/partials';
 import { Store } from '@ngrx/store';
-import * as imActions from 'src/app/modules/inventory-management/store/inventoryManagement.actions';
+import * as tabsActions from 'src/app/ngrx/tabs/tabs.actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,7 +20,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(
-      imActions.addTab({
+      tabsActions.addTab({
         tabName: 'داشبورد',
         tabRoute: '/dashboard',
       })
