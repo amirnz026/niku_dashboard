@@ -8,3 +8,28 @@
 
 @import "ag-grid-community/dist/styles/ag-grid.css";
 @import "ag-grid-community/dist/styles/ag-theme-alpine.css";
+.ag-theme-alpine {
+  font-family: Shabnam, "Open Sans", sans-serif;
+  --ag-foreground-color: #000000;
+  --ag-background-color: white;
+  --ag-header-foreground-color: #787878;
+  --ag-header-background-color: #f0f0f0;
+  --ag-odd-row-background-color: rgb(0, 0, 0, 0.03);
+  --ag-header-column-resize-handle-color: #000000;
+  --ag-border-color: white;
+  --ag-card-radius: 10px;
+  --ag-card-shadow: 0 10px 40px rgb(83, 0, 106);
+  --ag-popup-shadow: var(--ag-card-shadow);
+  --ag-tab-min-width: 350px;
+  .ag-menu {
+    background-color: white;
+    border-radius: 0.5rem;
+  }
+
+  .ag-menu-header {
+    background-color: #f0f0f0;
+    .ag-icon {
+      color: #5e6278;
+    }
+  }
+}
