@@ -6,11 +6,11 @@ import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagemen
 @Component({
   selector: 'app-inventory-management',
   templateUrl: './inventory-management.component.html',
+  styleUrls: ['./inventory-management.component.scss'],
 })
 export class InventoryManagementComponent implements OnInit {
   constructor(private store: Store<AppStateInterface>) {}
   ngOnInit(): void {
-    console.log('yoyoy');
     this.store.dispatch(imActions.getInventories());
   }
 }

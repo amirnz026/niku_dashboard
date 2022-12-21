@@ -1,6 +1,6 @@
 <ag-grid-angular
   class="ag-theme-alpine"
-  style="height: 1000px; width: 1000px"
+  style="height: 75vh; width: 100%"
   [rowData]="rowData$ | async"
   [columnDefs]="colDefs"
   [defaultColDef]="defaultColDef"
@@ -10,5 +10,10 @@
   [enableRtl]="true"
   [pagination]="true"
   [localeText]="langFa"
+  [gridOptions]="gridOptions"
+  (gridReady)="onGridReady($event)"
+  (firstDataRendered)="onFirstDataRendered($event)"
+  (gridReady)="onGridReady($event)"
+  [colResizeDefault]="colResizeDefault"
 ></ag-grid-angular>
 <!-- <button (click)="clearSelection()">Clear Selection</button> -->

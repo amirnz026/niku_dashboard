@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { select, Store } from '@ngrx/store';
-import { ColDef } from 'ag-grid-community';
+import { ColDef, ColumnApi, GridApi, GridOptions } from 'ag-grid-community';
 import { Observable } from 'rxjs';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import * as tabsActions from 'src/app/ngrx/tabs/tabs.actions';
@@ -12,12 +12,17 @@ import { AG_GRID_LOCALE_FA } from 'src/app/language/persian/ag-grid/AG_GRID_LOCA
 @Component({
   selector: 'app-inventory',
   templateUrl: './inventory.component.html',
+  styleUrls: ['./inventory.component.scss'],
 })
 export class InventoryComponent implements OnInit {
+  private gridApi: GridApi;
+  private gridColumnApi: ColumnApi;
+  colResizeDefault: any;
   langFa = AG_GRID_LOCALE_FA;
   tabName = 'انبار';
   tabRoute = '/inventory-management/inventory';
   rowData$: Observable<any[]>;
+
   colDefs: ColDef[] = [
     { headerName: 'نام انبار', field: 'name' },
     { headerName: 'دسته بندی', field: 'category' },
@@ -30,10 +35,26 @@ export class InventoryComponent implements OnInit {
   defaultColDef: ColDef = {
     sortable: true,
     filter: true,
+    resizable: true,
   };
 
   @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
-  constructor(private store: Store<AppStateInterface>) {}
+  constructor(private store: Store<AppStateInterface>) {
+    this.colResizeDefault = 'shift';
+  }
+  gridOptions: GridOptions = {
+    // PROPERTIES
+    // Objects like myRowData and myColDefs would be created in your application
+
+    // EVENTS
+    // Add event handlers
+    onRowClicked: (event) => console.log('A row was clicked'),
+    onColumnResized: (event) => console.log('A column was resized'),
+    onGridReady: (event) => console.log('The grid is now ready'),
+
+    // CALLBACKS
+    // getRowHeight: (params) => 25,
+  };
 
   ngOnInit(): void {
     this.store.dispatch(
@@ -52,5 +73,14 @@ export class InventoryComponent implements OnInit {
   }
   clearSelection() {
     this.agGrid.api.deselectAll();
+  }
+  onGridReady(params: any) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+    this.gridColumnApi.autoSizeAllColumns;
+    this.gridColumnApi.autoSizeColumns;
+  }
+  onFirstDataRendered(params: any) {
+    this.gridApi.sizeColumnsToFit();
   }
 }
