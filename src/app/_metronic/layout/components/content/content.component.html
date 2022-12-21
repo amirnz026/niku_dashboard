@@ -1,5 +1,4 @@
-<ng-container *ngIf="appContentContiner">
-  <!--begin::Content container-->
+<!-- <ng-container *ngIf="appContentContiner">
   <div
     id="kt_app_content_container"
     class="app-container d-flex align-items-stretch justify-content-between"
@@ -11,8 +10,10 @@
   >
     <router-outlet></router-outlet>
   </div>
-  <!--end::Content container-->
 </ng-container>
 <ng-container *ngIf="!appContentContiner">
   <router-outlet></router-outlet>
-</ng-container>
+</ng-container> -->
+<div class="my-component-container">
+  <router-outlet></router-outlet>
+</div>
