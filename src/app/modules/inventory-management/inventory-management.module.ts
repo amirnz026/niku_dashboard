@@ -15,6 +15,12 @@ import { InventoryManagementEffects } from 'src/app/ngrx/inventory-management/in
 import { UsersCellComponent } from '../ag-grid/users-cell/users-cell.component';
 import { StatusCellComponent } from '../ag-grid/status-cell/status-cell.component';
 import { GridStyle01Component } from '../ag-grid/grid/grid-style01/grid-style01.component';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
+import { FormsModule } from '@angular/forms';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @NgModule({
   declarations: [
@@ -26,6 +32,7 @@ import { GridStyle01Component } from '../ag-grid/grid/grid-style01/grid-style01.
   ],
   imports: [
     HttpClientModule,
+    FormsModule,
     CommonModule,
     InventoryManagementRoutingModule,
     WidgetsModule,
@@ -35,6 +42,11 @@ import { GridStyle01Component } from '../ag-grid/grid/grid-style01/grid-style01.
     AgGridModule,
     EffectsModule.forRoot(),
     EffectsModule.forFeature([InventoryManagementEffects]),
+    InputTextModule,
+    ButtonModule,
+    DropdownModule,
+    InputSwitchModule,
+    MultiSelectModule,
   ],
   providers: [InventoryManagementService],
 })

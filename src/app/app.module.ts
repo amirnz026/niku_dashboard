@@ -17,6 +17,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { tabsReducers } from './ngrx/tabs/tabs.reducers';
 // #fake-end#
+// primeNG
 
 function appInitializer(authService: AuthService) {
   return () => {

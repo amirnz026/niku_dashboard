@@ -1,5 +1,31 @@
 .flex {
   display: flex;
-  justify-content: space-around;
+  gap: 10rem;
+}
+
+.form-container {
+  background-color: rgb(236, 236, 236);
+}
+
+.card {
+  padding: 0.5rem 1rem;
+  width: 30rem;
+}
+
+h5 {
+  padding: 1rem 0 0.5rem 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0.5rem 0.5rem 0;
   align-items: center;
+}
+
+:host ::ng-deep .p-dropdown {
+  width: 100%;
+}
+:host ::ng-deep .p-multiselect {
+  width: 100%;
 }

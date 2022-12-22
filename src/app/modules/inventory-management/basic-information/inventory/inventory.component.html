@@ -1,5 +1,28 @@
 <div class="flex">
-  <div class="card"><h1>hello world</h1></div>
+  <div class="card">
+    <div class="header">
+      <h3>انبار جدید</h3>
+      <img alt="Logo" src="./assets/media/icons/duotune/general/gen040.svg" />
+    </div>
+    <h5>نام انبار</h5>
+    <input type="text" pInputText placeholder="نام انبار" />
+    <h5>دسته بندی</h5>
+    <p-dropdown
+      [options]="categories"
+      [(ngModel)]="selectedCity"
+      optionLabel="name"
+    ></p-dropdown>
+    <h5>فعال</h5>
+    <p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>
+    <h5>دسترسی کاربران</h5>
+    <p-multiSelect
+      [options]="users"
+      [(ngModel)]="selectedUsers"
+      defaultLabel="۰ کاربر انتخاب شده"
+      optionLabel="name"
+      display="chip"
+    ></p-multiSelect>
+  </div>
   <app-grid-style01
     [rowInputData$]="rowData$"
     [colInputDefs]="colDefs"
