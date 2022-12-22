@@ -23,7 +23,7 @@
   --ag-tab-min-width: 350px;
   .ag-menu {
     background-color: white;
-    border-radius: 0.5rem;
+    border-radius: 1rem;
   }
 
   .ag-menu-header {
@@ -32,8 +32,13 @@
       color: #5e6278;
     }
   }
+  --ag-secondary-border-color: #e9ebf0;
 }
 
 .my-component-container {
   margin: 0 1.5rem;
+}
+.ag-row .ag-cell {
+  display: flex;
+  align-items: center;
 }

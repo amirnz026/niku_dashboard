@@ -1,0 +1,13 @@
+@import "src/assets/sass/core/components/_variables.scss";
+.user-container {
+  display: flex;
+  gap: 0.7rem;
+  align-items: center;
+  height: 2.5rem;
+}
+.user {
+  background-color: $primary-dimmed;
+  color: $primary-active;
+  border-radius: 1rem;
+  padding: 0 1rem;
+}

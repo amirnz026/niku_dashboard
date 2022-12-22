@@ -12,9 +12,18 @@ import { AgGridModule } from 'ag-grid-angular';
 import 'ag-grid-enterprise';
 import { InventoryManagementService } from 'src/app/services/inventory-management/inventory-management.service';
 import { InventoryManagementEffects } from 'src/app/ngrx/inventory-management/inventoryManagement.effects';
+import { UsersCellComponent } from '../ag-grid/users-cell/users-cell.component';
+import { StatusCellComponent } from '../ag-grid/status-cell/status-cell.component';
+import { GridStyle01Component } from '../ag-grid/grid/grid-style01/grid-style01.component';
 
 @NgModule({
-  declarations: [InventoryManagementComponent, InventoryComponent],
+  declarations: [
+    InventoryManagementComponent,
+    InventoryComponent,
+    UsersCellComponent,
+    StatusCellComponent,
+    GridStyle01Component,
+  ],
   imports: [
     HttpClientModule,
     CommonModule,

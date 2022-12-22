@@ -1,19 +1,9 @@
-<ag-grid-angular
-  class="ag-theme-alpine"
-  style="height: 78vh; width: 100%"
-  [rowData]="rowData$ | async"
-  [columnDefs]="colDefs"
-  [defaultColDef]="defaultColDef"
-  [rowSelection]="'multiple'"
-  [animateRows]="true"
-  (cellClicked)="onCellClicked($event)"
-  [enableRtl]="true"
-  [pagination]="true"
-  [localeText]="langFa"
-  [gridOptions]="gridOptions"
-  (gridReady)="onGridReady($event)"
-  (firstDataRendered)="onFirstDataRendered($event)"
-  (gridReady)="onGridReady($event)"
-  [colResizeDefault]="colResizeDefault"
-></ag-grid-angular>
-<!-- <button (click)="clearSelection()">Clear Selection</button> -->
+<div class="yoyo">
+  <div>
+    <h1>yoyoyo</h1>
+  </div>
+  <app-grid-style01
+    [rowInputData$]="rowData$"
+    [colInputDefs]="colDefs"
+  ></app-grid-style01>
+</div>

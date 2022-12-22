@@ -16,7 +16,7 @@ export const inventories: InventoryInterface[] = [
   {
     name: 'انبار اول',
     category: 'اولیه',
-    status: 'فعال',
+    status: 'غیر فعال',
     users: ['امیرحسین نظری', 'علی نادری', 'امیرمحمد الموتی'],
   },
   {
@@ -34,7 +34,7 @@ export const inventories: InventoryInterface[] = [
   {
     name: 'انبار اول',
     category: 'اولیه',
-    status: 'فعال',
+    status: 'غیر فعال',
     users: ['امیرحسین نظری', 'علی نادری', 'امیرمحمد الموتی'],
   },
   {
@@ -52,7 +52,7 @@ export const inventories: InventoryInterface[] = [
   {
     name: 'انبار اول',
     category: 'اولیه',
-    status: 'فعال',
+    status: 'غیر فعال',
     users: ['امیرحسین نظری', 'علی نادری', 'امیرمحمد الموتی'],
   },
   {
