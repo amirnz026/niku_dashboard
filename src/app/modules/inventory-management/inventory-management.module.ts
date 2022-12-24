@@ -22,6 +22,7 @@ import { FormsModule } from '@angular/forms';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ActionsCellComponent } from '../ag-grid/actions-cell/actions-cell.component';
+import { MoodComponent } from '../ag-grid/grid/grid-style01/mood.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ActionsCellComponent } from '../ag-grid/actions-cell/actions-cell.compo
     StatusCellComponent,
     GridStyle01Component,
     ActionsCellComponent,
+    MoodComponent,
   ],
   imports: [
     HttpClientModule,

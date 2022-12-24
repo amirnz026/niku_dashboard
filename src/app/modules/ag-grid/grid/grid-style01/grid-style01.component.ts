@@ -22,9 +22,7 @@ export class GridStyle01Component implements OnInit {
   @Input() colInputDefs: ColDef[];
   @Input() tableName: string;
   defaultColDef: ColDef = {
-    sortable: true,
-    filter: true,
-    resizable: true,
+    flex: 1,
   };
 
   @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
@@ -35,7 +33,6 @@ export class GridStyle01Component implements OnInit {
     // onRowClicked: (event) => console.log('A row was clicked'),
     // onColumnResized: (event) => console.log('A column was resized'),
     // onGridReady: (event) => console.log('The grid is now ready'),
-
     // CALLBACKS
     getRowHeight: (params) => 65,
   };
@@ -52,7 +49,7 @@ export class GridStyle01Component implements OnInit {
     this.gridColumnApi = params.columnApi;
   }
   onFirstDataRendered(params: any) {
-    this.gridApi.sizeColumnsToFit();
+    // this.gridApi.sizeColumnsToFit();
   }
 
   onFilterTextBoxChanged() {

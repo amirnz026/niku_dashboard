@@ -9,6 +9,8 @@ import { UsersCellComponent } from 'src/app/modules/ag-grid/users-cell/users-cel
 import { StatusCellComponent } from 'src/app/modules/ag-grid/status-cell/status-cell.component';
 import { inventoryFormStateSelector } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
 import { ActionsCellComponent } from 'src/app/modules/ag-grid/actions-cell/actions-cell.component';
+import { ICellEditorParams } from 'ag-grid-community';
+import { IRow } from 'src/app/_fake/deleteLater';
 
 @Component({
   selector: 'app-inventory',
@@ -33,23 +35,27 @@ export class InventoryComponent implements OnInit {
       field: 'name',
       headerCheckboxSelection: true,
       checkboxSelection: true,
+      flex: 2,
     },
-    { headerName: 'دسته بندی', field: 'category' },
+    { headerName: 'دسته بندی', field: 'category', flex: 2 },
     {
       headerName: 'وضعیت',
       field: 'status',
       cellRenderer: StatusCellComponent,
+      flex: 1,
     },
     {
       headerName: 'کاربران',
       field: 'users',
       cellRenderer: UsersCellComponent,
       autoHeight: true,
+      flex: 5,
     },
     {
       headerName: 'عملیات',
       field: 'actions',
       cellRenderer: ActionsCellComponent,
+      flex: 1,
     },
   ];
 
