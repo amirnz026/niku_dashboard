@@ -4,9 +4,14 @@ import { Observable } from 'rxjs';
 import { CellClickedEvent } from 'ag-grid-community/dist/lib/events';
 import { AgGridAngular } from 'ag-grid-angular';
 import { AG_GRID_LOCALE_FA } from 'src/app/language/persian/ag-grid/AG_GRID_LOCALE_FA';
+import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
+import { Store } from '@ngrx/store';
+import { AppStateInterface } from 'src/app/types/appState.interface';
+
 @Component({
   selector: 'app-grid-style01',
   templateUrl: './grid-style01.component.html',
+  styleUrls: ['./grid-style01.component.scss'],
 })
 export class GridStyle01Component implements OnInit {
   private gridApi: GridApi;
@@ -14,8 +19,8 @@ export class GridStyle01Component implements OnInit {
   colResizeDefault: any;
   langFa = AG_GRID_LOCALE_FA;
   @Input() rowInputData$: Observable<any[]>;
-
   @Input() colInputDefs: ColDef[];
+  @Input() tableName: string;
   defaultColDef: ColDef = {
     sortable: true,
     filter: true,
@@ -23,7 +28,7 @@ export class GridStyle01Component implements OnInit {
   };
 
   @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
-  constructor() {}
+  constructor(private store: Store<AppStateInterface>) {}
   gridOptions: GridOptions = {
     // EVENTS
     // Add event handlers
@@ -48,5 +53,15 @@ export class GridStyle01Component implements OnInit {
   }
   onFirstDataRendered(params: any) {
     this.gridApi.sizeColumnsToFit();
+  }
+
+  onFilterTextBoxChanged() {
+    this.gridApi.setQuickFilter(
+      (document.getElementById('filter-text-box') as HTMLInputElement).value
+    );
+  }
+  openForm(): void {
+    if (this.tableName === 'inventory')
+      this.store.dispatch(imActions.openInventoryForm());
   }
 }

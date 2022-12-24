@@ -1,15 +1,19 @@
-<div class="flex">
-  <div class="card">
+<div class="row-flex">
+  <div *ngIf="isForm$ | async" class="card">
     <div class="header">
       <h3>انبار جدید</h3>
-      <img alt="Logo" src="./assets/media/icons/duotune/general/gen040.svg" />
+      <img
+        alt="Logo"
+        src="./assets/media/icons/duotune/general/gen040.svg"
+        (click)="closeForm()"
+      />
     </div>
     <h5>نام انبار</h5>
     <input type="text" pInputText placeholder="نام انبار" />
     <h5>دسته بندی</h5>
     <p-dropdown
       [options]="categories"
-      [(ngModel)]="selectedCity"
+      [(ngModel)]="selectedCategories"
       optionLabel="name"
     ></p-dropdown>
     <h5>فعال</h5>
@@ -22,9 +26,11 @@
       optionLabel="name"
       display="chip"
     ></p-multiSelect>
+    <p-button label="ایجاد انبار" [loading]="false"></p-button>
   </div>
   <app-grid-style01
     [rowInputData$]="rowData$"
     [colInputDefs]="colDefs"
+    [tableName]="'inventory'"
   ></app-grid-style01>
 </div>

@@ -21,6 +21,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { ActionsCellComponent } from '../ag-grid/actions-cell/actions-cell.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
     UsersCellComponent,
     StatusCellComponent,
     GridStyle01Component,
+    ActionsCellComponent,
   ],
   imports: [
     HttpClientModule,
@@ -47,6 +49,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
     DropdownModule,
     InputSwitchModule,
     MultiSelectModule,
+    ButtonModule,
   ],
   providers: [InventoryManagementService],
 })

@@ -8,3 +8,8 @@ export const inventoriesSelector = createSelector(
   selectInventoryManagementFeature,
   (state) => state.inventories
 );
+
+export const inventoryFormStateSelector = createSelector(
+  selectInventoryManagementFeature,
+  (state) => state.isInventoryForm
+);

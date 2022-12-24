@@ -1,3 +1,24 @@
+<div class="table-controls">
+  <span class="p-input-icon-right">
+    <i class="pi pi-search"></i>
+    <input
+      type="text"
+      pInputText
+      placeholder="فیلتر..."
+      (input)="onFilterTextBoxChanged()"
+      id="filter-text-box"
+      type="text"
+      class="table-search-input"
+    />
+  </span>
+  <p-button
+    label="انبار جدید"
+    icon="pi pi-plus-circle"
+    iconPos="right"
+    (onClick)="openForm()"
+  ></p-button>
+</div>
+
 <ag-grid-angular
   class="ag-theme-alpine"
   style="height: 78vh; width: 100%"

@@ -5,6 +5,7 @@ import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagemen
 
 export const initialState: InventoryManagementInterface = {
   inventories: [],
+  isInventoryForm: true,
   isLoading: false,
   error: '',
 };
@@ -20,5 +21,11 @@ export const inventoryManagementReducers = createReducer(
   immerOn(imActions.getInventoriesFailure, (state, action) => {
     state.error = action.error;
     state.isLoading = false;
+  }),
+  immerOn(imActions.openInventoryForm, (state) => {
+    state.isInventoryForm = true;
+  }),
+  immerOn(imActions.closeInventoryForm, (state) => {
+    state.isInventoryForm = false;
   })
 );

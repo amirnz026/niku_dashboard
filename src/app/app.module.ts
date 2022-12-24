@@ -16,6 +16,8 @@ import { FakeAPIService } from './_fake/fake-api.service';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { tabsReducers } from './ngrx/tabs/tabs.reducers';
+import { RippleModule } from 'primeng/ripple';
+
 // #fake-end#
 // primeNG
 
@@ -54,6 +56,7 @@ function appInitializer(authService: AuthService) {
       logOnly: environment.production,
       autoPause: true,
     }),
+    RippleModule,
   ],
   providers: [
     {

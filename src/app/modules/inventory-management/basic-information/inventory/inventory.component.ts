@@ -3,9 +3,13 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import * as tabsActions from 'src/app/ngrx/tabs/tabs.actions';
+import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
 import { inventoriesSelector } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
 import { UsersCellComponent } from 'src/app/modules/ag-grid/users-cell/users-cell.component';
 import { StatusCellComponent } from 'src/app/modules/ag-grid/status-cell/status-cell.component';
+import { inventoryFormStateSelector } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
+import { ActionsCellComponent } from 'src/app/modules/ag-grid/actions-cell/actions-cell.component';
+
 @Component({
   selector: 'app-inventory',
   templateUrl: './inventory.component.html',
@@ -14,27 +18,38 @@ import { StatusCellComponent } from 'src/app/modules/ag-grid/status-cell/status-
 export class InventoryComponent implements OnInit {
   tabName = 'انبار';
   tabRoute = '/inventory-management/inventory';
-  rowData$: Observable<any[]>;
   categories: any[];
   users: any[];
-
   selectedUsers: any[];
   checked = true;
+  selectedCategories: any;
 
-  selectedCity: any;
+  rowData$: Observable<any[]>;
+  isForm$: Observable<boolean>;
 
   colDefs = [
     {
       headerName: 'نام انبار',
       field: 'name',
+      headerCheckboxSelection: true,
+      checkboxSelection: true,
     },
     { headerName: 'دسته بندی', field: 'category' },
-    { headerName: 'وضعیت', field: 'status', cellRenderer: StatusCellComponent },
+    {
+      headerName: 'وضعیت',
+      field: 'status',
+      cellRenderer: StatusCellComponent,
+    },
     {
       headerName: 'کاربران',
       field: 'users',
       cellRenderer: UsersCellComponent,
       autoHeight: true,
+    },
+    {
+      headerName: 'عملیات',
+      field: 'actions',
+      cellRenderer: ActionsCellComponent,
     },
   ];
 
@@ -65,5 +80,9 @@ export class InventoryComponent implements OnInit {
     //   'https://www.ag-grid.com/example-assets/row-data.json'
     // );
     this.rowData$ = this.store.pipe(select(inventoriesSelector));
+    this.isForm$ = this.store.pipe(select(inventoryFormStateSelector));
+  }
+  closeForm(): void {
+    this.store.dispatch(imActions.closeInventoryForm());
   }
 }

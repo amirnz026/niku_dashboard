@@ -14,3 +14,11 @@ export const getInventoriesFailure = createAction(
   '[Inventory Management] Get Inventories Failure',
   props<{ error: 'An error has occurred while fetching inventories' }>()
 );
+
+export const openInventoryForm = createAction(
+  '[Inventory Management] Open Inventory Form'
+);
+
+export const closeInventoryForm = createAction(
+  '[Inventory Management] Close Inventory Form'
+);
