@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { InventoryInterface } from 'src/app/types/inventory-management/inventory/inventory.interface';
+import { InventoryCategoryInterface } from 'src/app/types/inventory-management/inventory/inventoryCategory.interface';
 
 export const getInventories = createAction(
   '[Inventory Management] Get Inventories'
@@ -12,7 +13,7 @@ export const getInventoriesSuccess = createAction(
 
 export const getInventoriesFailure = createAction(
   '[Inventory Management] Get Inventories Failure',
-  props<{ error: 'An error has occurred while fetching inventories' }>()
+  props<{ error: 'error while fetching inventories' }>()
 );
 
 export const openInventoryForm = createAction(
@@ -21,4 +22,16 @@ export const openInventoryForm = createAction(
 
 export const closeInventoryForm = createAction(
   '[Inventory Management] Close Inventory Form'
+);
+
+export const getInventoryCategories = createAction(
+  '[Inventory Management] Get Inventory Categories'
+);
+export const getInventoryCategoriesSuccess = createAction(
+  '[Inventory Management] Get Inventory Categories Success',
+  props<{ inventoryCategories: InventoryCategoryInterface[] }>()
+);
+export const getInventoryCategoriesFailure = createAction(
+  '[Inventory Management] Get Inventory Categories Failure',
+  props<{ error: 'error while fetching inventory categories' }>()
 );

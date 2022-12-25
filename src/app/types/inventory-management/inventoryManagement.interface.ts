@@ -1,8 +1,9 @@
 import { InventoryInterface } from 'src/app/types/inventory-management/inventory/inventory.interface';
+import { InventoryCategoryInterface } from './inventory/inventoryCategory.interface';
 
 export interface InventoryManagementInterface {
-  inventories: InventoryInterface[];
   isInventoryForm: boolean;
+  inventories: InventoryInterface[];
   isLoading: boolean;
   error: string;
 }

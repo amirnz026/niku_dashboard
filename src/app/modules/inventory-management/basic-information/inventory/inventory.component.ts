@@ -36,7 +36,7 @@ export class InventoryComponent implements OnInit {
       field: 'name',
       headerCheckboxSelection: true,
       checkboxSelection: true,
-      flex: 1,
+      flex: 2,
     },
     { headerName: 'دسته بندی', field: 'category', flex: 1 },
     {
@@ -64,17 +64,17 @@ export class InventoryComponent implements OnInit {
 
   constructor(private store: Store<AppStateInterface>) {
     this.categories = [
-      { name: 'دسته بندی اول', code: 'NY' },
-      { name: 'دسته بندی دوم', code: 'RM' },
-      { name: 'دسته بندی سوم', code: 'LDN' },
-      { name: 'دسته بندی چهارم', code: 'IST' },
-      { name: 'دسته بندی پنجم', code: 'PRS' },
+      { name: 'دسته بندی اول' },
+      { name: 'دسته بندی دوم' },
+      { name: 'دسته بندی سوم' },
+      { name: 'دسته بندی چهارم' },
+      { name: 'دسته بندی پنجم' },
     ];
     this.users = [
-      { name: 'امیر نظری', code: 'NY', inactive: false },
-      { name: 'امیر الموتی', code: 'RM', inactive: true },
-      { name: 'علی نادری', code: 'LDN', inactive: false },
-      { name: 'محمد محمدی', code: 'IST', inactive: true },
+      { name: 'امیر نظری' },
+      { name: 'امیر الموتی' },
+      { name: 'علی نادری' },
+      { name: 'محمد محمدی' },
     ];
   }
 

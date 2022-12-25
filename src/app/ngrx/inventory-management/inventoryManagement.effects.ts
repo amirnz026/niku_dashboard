@@ -21,6 +21,23 @@ export class InventoryManagementEffects {
       })
     )
   );
+  getInventoryCategories$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(imActions.getInventoryCategories),
+      mergeMap(() => {
+        return this.inventoryManagementService.getInventoryCategories().pipe(
+          map((inventoryCategories) =>
+            imActions.getInventoryCategoriesSuccess({ inventoryCategories })
+          ),
+          catchError((error) =>
+            of(
+              imActions.getInventoryCategoriesFailure({ error: error.message })
+            )
+          )
+        );
+      })
+    )
+  );
 
   constructor(
     private actions$: Actions,
