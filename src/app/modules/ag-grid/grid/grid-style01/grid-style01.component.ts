@@ -47,6 +47,15 @@ export class GridStyle01Component implements OnInit {
     // onGridReady: (event) => console.log('The grid is now ready'),
     // CALLBACKS
     getRowHeight: (params) => 65,
+    getRowStyle: (params) => {
+      if (params.node.rowIndex !== null) {
+        if (params.node.rowIndex % 2 === 0) {
+          return { background: '#f9f9f9' };
+        } else {
+          return { background: '#f6f6f6' };
+        }
+      }
+    },
   };
 
   public sideBar: SideBarDef | string | string[] | boolean | null = {

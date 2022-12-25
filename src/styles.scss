@@ -25,9 +25,10 @@
 
   --ag-background-color: white;
   --ag-odd-row-background-color: #f4f6fa;
-  --ag-header-background-color: #f4f6fa;
+  --ag-header-background-color: white;
 
   --ag-border-color: rgba(255, 255, 255, 0);
+  --ag-alpine-active-color: #3b82f6;
 
   .ag-menu {
     background-color: white;
@@ -56,4 +57,8 @@ body .p-component {
 
 h5 {
   color: #5e6278;
+}
+
+.disable-interactions {
+  pointer-events: none;
 }

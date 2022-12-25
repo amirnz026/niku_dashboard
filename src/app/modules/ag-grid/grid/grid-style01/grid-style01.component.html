@@ -20,8 +20,12 @@
 </div>
 
 <ag-grid-angular
-  class="ag-theme-alpine"
-  style="height: 76vh; width: 100%"
+  class="ag-theme-alpine card"
+  style="
+    height: 76vh;
+    width: 100%;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  "
   [rowData]="rowInputData$ | async"
   [columnDefs]="colInputDefs"
   [defaultColDef]="defaultColDef"
