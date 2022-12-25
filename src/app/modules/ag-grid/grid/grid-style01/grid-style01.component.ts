@@ -1,5 +1,11 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { ColDef, ColumnApi, GridApi, GridOptions } from 'ag-grid-community';
+import {
+  ColDef,
+  ColumnApi,
+  GridApi,
+  GridOptions,
+  SideBarDef,
+} from 'ag-grid-community';
 import { Observable } from 'rxjs';
 import { CellClickedEvent } from 'ag-grid-community/dist/lib/events';
 import { AgGridAngular } from 'ag-grid-angular';
@@ -25,6 +31,9 @@ export class GridStyle01Component implements OnInit {
   @Input() tableName: string;
   defaultColDef: ColDef = {
     flex: 1,
+    resizable: true,
+    sortable: true,
+    filter: true,
     tooltipComponent: CustomTooltipComponent,
   };
 
@@ -38,6 +47,31 @@ export class GridStyle01Component implements OnInit {
     // onGridReady: (event) => console.log('The grid is now ready'),
     // CALLBACKS
     getRowHeight: (params) => 65,
+  };
+
+  public sideBar: SideBarDef | string | string[] | boolean | null = {
+    toolPanels: [
+      {
+        id: 'columns',
+        labelDefault: 'Columns',
+        labelKey: 'columns',
+        iconKey: 'columns',
+        toolPanel: 'agColumnsToolPanel',
+        toolPanelParams: {
+          suppressRowGroups: true,
+          suppressValues: true,
+          suppressPivots: true,
+          suppressPivotMode: true,
+        },
+      },
+      {
+        id: 'filters',
+        labelDefault: 'Filters',
+        labelKey: 'filters',
+        iconKey: 'filter',
+        toolPanel: 'agFiltersToolPanel',
+      },
+    ],
   };
 
   ngOnInit(): void {}
