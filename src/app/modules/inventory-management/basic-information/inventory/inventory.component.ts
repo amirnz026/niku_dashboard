@@ -4,14 +4,17 @@ import { Observable } from 'rxjs';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import * as tabsActions from 'src/app/ngrx/tabs/tabs.actions';
 import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
-import { inventoriesSelector } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
+import {
+  inventoriesSelector,
+  inventoryCategoriesSelector,
+} from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
 import { UsersCellComponent } from 'src/app/modules/ag-grid/users-cell/users-cell.component';
 import { StatusCellComponent } from 'src/app/modules/ag-grid/status-cell/status-cell.component';
 import { inventoryFormStateSelector } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
 import { ActionsCellComponent } from 'src/app/modules/ag-grid/actions-cell/actions-cell.component';
-import { ColDef, ICellEditorParams } from 'ag-grid-community';
-import { IRow } from 'src/app/_fake/deleteLater';
-import { left, right } from '@popperjs/core';
+import { ColDef } from 'ag-grid-community';
+import { left } from '@popperjs/core';
+import { InventoryCategoryInterface } from 'src/app/types/inventory-management/inventory/inventoryCategory.interface';
 
 @Component({
   selector: 'app-inventory',
@@ -21,7 +24,7 @@ import { left, right } from '@popperjs/core';
 export class InventoryComponent implements OnInit {
   tabName = 'انبار';
   tabRoute = '/inventory-management/inventory';
-  categories: any[];
+  categories$: Observable<InventoryCategoryInterface[]>;
   users: any[];
   selectedUsers: any[];
   checked = true;
@@ -63,13 +66,6 @@ export class InventoryComponent implements OnInit {
   ];
 
   constructor(private store: Store<AppStateInterface>) {
-    this.categories = [
-      { name: 'دسته بندی اول' },
-      { name: 'دسته بندی دوم' },
-      { name: 'دسته بندی سوم' },
-      { name: 'دسته بندی چهارم' },
-      { name: 'دسته بندی پنجم' },
-    ];
     this.users = [
       { name: 'امیر نظری' },
       { name: 'امیر الموتی' },
@@ -85,11 +81,9 @@ export class InventoryComponent implements OnInit {
         tabRoute: this.tabRoute,
       })
     );
-    // this.rowData$ = this.http.get<any[]>(
-    //   'https://www.ag-grid.com/example-assets/row-data.json'
-    // );
     this.rowData$ = this.store.pipe(select(inventoriesSelector));
     this.isForm$ = this.store.pipe(select(inventoryFormStateSelector));
+    this.categories$ = this.store.pipe(select(inventoryCategoriesSelector));
   }
   closeForm(): void {
     this.store.dispatch(imActions.closeInventoryForm());

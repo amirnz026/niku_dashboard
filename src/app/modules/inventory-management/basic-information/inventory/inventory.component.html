@@ -12,7 +12,7 @@
     <input type="text" pInputText placeholder="نام انبار" />
     <h5>دسته بندی</h5>
     <p-dropdown
-      [options]="categories"
+      [options]="(categories$ | async)!"
       [(ngModel)]="selectedCategories"
       optionLabel="name"
     ></p-dropdown>
