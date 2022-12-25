@@ -1,0 +1,17 @@
+.container {
+  background-color: white;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.user {
+  background-color: #eff8fd;
+  border-radius: 5rem;
+  color: #187de4;
+  padding: 0.8rem;
+  display: inline-block;
+}

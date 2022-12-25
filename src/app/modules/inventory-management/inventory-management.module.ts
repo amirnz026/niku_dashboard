@@ -23,6 +23,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ActionsCellComponent } from '../ag-grid/actions-cell/actions-cell.component';
 import { MoodComponent } from '../ag-grid/grid/grid-style01/mood.component';
+import { CustomTooltipComponent } from '../ag-grid/tooltip/custom-tooltip.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { MoodComponent } from '../ag-grid/grid/grid-style01/mood.component';
     GridStyle01Component,
     ActionsCellComponent,
     MoodComponent,
+    CustomTooltipComponent,
   ],
   imports: [
     HttpClientModule,

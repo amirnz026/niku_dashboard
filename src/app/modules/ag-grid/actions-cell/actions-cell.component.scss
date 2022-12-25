@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  gap: 1rem;
+}
+button {
+  height: 3rem;
+  gap: 0.5rem;
+}
+
+:host ::ng-deep .p-button {
+  background-color: #f4f6fa;
+  color: #5e6278;
+}

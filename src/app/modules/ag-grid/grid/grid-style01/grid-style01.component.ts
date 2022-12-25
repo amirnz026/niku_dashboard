@@ -7,6 +7,7 @@ import { AG_GRID_LOCALE_FA } from 'src/app/language/persian/ag-grid/AG_GRID_LOCA
 import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
 import { Store } from '@ngrx/store';
 import { AppStateInterface } from 'src/app/types/appState.interface';
+import { CustomTooltipComponent } from 'src/app/modules/ag-grid/tooltip/custom-tooltip.component';
 
 @Component({
   selector: 'app-grid-style01',
@@ -16,6 +17,7 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
 export class GridStyle01Component implements OnInit {
   private gridApi: GridApi;
   private gridColumnApi: ColumnApi;
+  public tooltipShowDelay = 1000;
   colResizeDefault: any;
   langFa = AG_GRID_LOCALE_FA;
   @Input() rowInputData$: Observable<any[]>;
@@ -23,6 +25,7 @@ export class GridStyle01Component implements OnInit {
   @Input() tableName: string;
   defaultColDef: ColDef = {
     flex: 1,
+    tooltipComponent: CustomTooltipComponent,
   };
 
   @ViewChild(AgGridAngular) agGrid!: AgGridAngular;

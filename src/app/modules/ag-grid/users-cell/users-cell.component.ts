@@ -9,27 +9,15 @@ import { ICellRendererParams } from 'ag-grid-community';
 })
 export class UsersCellComponent implements OnInit, ICellRendererAngularComp {
   value: any;
-  dropdownLabel: string;
-  users: any[];
-  categories: any[];
-  selectedCategories: any;
-  selectedUsers: any[];
+  usersCount = 0;
 
   agInit(params: ICellRendererParams): void {
-    this.dropdownLabel = 'hihih';
     this.value = params.value;
+    this.usersCount = params.value.length;
   }
   refresh(params: ICellRendererParams): boolean {
     return false;
   }
 
-  ngOnInit(): void {
-    this.categories = [
-      { name: 'دسته بندی اول', code: 'NY' },
-      { name: 'دسته بندی دوم', code: 'RM' },
-      { name: 'دسته بندی سوم', code: 'LDN' },
-      { name: 'دسته بندی چهارم', code: 'IST' },
-      { name: 'دسته بندی پنجم', code: 'PRS' },
-    ];
-  }
+  ngOnInit(): void {}
 }

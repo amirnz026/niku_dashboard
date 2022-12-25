@@ -9,8 +9,9 @@ import { UsersCellComponent } from 'src/app/modules/ag-grid/users-cell/users-cel
 import { StatusCellComponent } from 'src/app/modules/ag-grid/status-cell/status-cell.component';
 import { inventoryFormStateSelector } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
 import { ActionsCellComponent } from 'src/app/modules/ag-grid/actions-cell/actions-cell.component';
-import { ICellEditorParams } from 'ag-grid-community';
+import { ColDef, ICellEditorParams } from 'ag-grid-community';
 import { IRow } from 'src/app/_fake/deleteLater';
+import { left, right } from '@popperjs/core';
 
 @Component({
   selector: 'app-inventory',
@@ -29,15 +30,15 @@ export class InventoryComponent implements OnInit {
   rowData$: Observable<any[]>;
   isForm$: Observable<boolean>;
 
-  colDefs = [
+  colDefs: ColDef[] = [
     {
       headerName: 'نام انبار',
       field: 'name',
       headerCheckboxSelection: true,
       checkboxSelection: true,
-      flex: 2,
+      flex: 1,
     },
-    { headerName: 'دسته بندی', field: 'category', flex: 2 },
+    { headerName: 'دسته بندی', field: 'category', flex: 1 },
     {
       headerName: 'وضعیت',
       field: 'status',
@@ -49,13 +50,15 @@ export class InventoryComponent implements OnInit {
       field: 'users',
       cellRenderer: UsersCellComponent,
       autoHeight: true,
-      flex: 5,
+      flex: 1,
+      tooltipField: 'users',
     },
     {
       headerName: 'عملیات',
       field: 'actions',
       cellRenderer: ActionsCellComponent,
-      flex: 1,
+      pinned: left,
+      width: 140,
     },
   ];
 
