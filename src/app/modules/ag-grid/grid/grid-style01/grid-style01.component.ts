@@ -56,6 +56,7 @@ export class GridStyle01Component implements OnInit {
         }
       }
     },
+    suppressNoRowsOverlay: true,
   };
 
   public sideBar: SideBarDef | string | string[] | boolean | null = {

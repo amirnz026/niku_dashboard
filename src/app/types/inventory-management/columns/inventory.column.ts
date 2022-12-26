@@ -34,4 +34,11 @@ export const inventoryColDef: ColDef[] = [
     pinned: left,
     width: 140,
   },
+  { headerName: 'دسته بندی', field: 'category', flex: 1 },
+  {
+    headerName: 'وضعیت',
+    field: 'status',
+    cellRenderer: StatusCellComponent,
+    flex: 1,
+  },
 ];
