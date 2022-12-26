@@ -55,7 +55,7 @@ export const inventoryNameFormUpdate = createAction(
 );
 export const inventoryCategoryFormUpdate = createAction(
   '[Inventory Management] Change Inventory Category Name Form Element',
-  props<{ inventoryCategoryName: InventoryCategoryInterface }>()
+  props<{ inventoryCategoryName: InventoryCategoryInterface[] }>()
 );
 export const inventoryUsersFormUpdate = createAction(
   '[Inventory Management] Change Inventory Users Form Element',

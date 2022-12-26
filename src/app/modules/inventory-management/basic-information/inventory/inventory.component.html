@@ -17,6 +17,7 @@
         placeholder="نام انبار"
         formControlName="inventoryName"
         class="input"
+        (ngModelChange)="onChange('inventoryName', $event)"
         [ngClass]="{
           'ng-invalid ng-dirty':
             (isSubmitted && inventoryName && inventoryName.errors) ||
@@ -44,7 +45,7 @@
         optionLabel="name"
         formControlName="categoriesDropdown"
         placeholder="یک دسته بندی انتخاب کنید"
-        #categories
+        (ngModelChange)="onChange('categoriesDropdown', $event)"
         [ngClass]="{
           'ng-invalid ng-dirty':
             (isSubmitted && categoriesDropdown && categoriesDropdown.errors) ||

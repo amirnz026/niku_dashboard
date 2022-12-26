@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import * as tabsActions from 'src/app/ngrx/tabs/tabs.actions';
 import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
@@ -51,7 +51,7 @@ export class InventoryComponent implements OnInit {
   isSubmitted = false;
 
   inventoryNameForm$: Observable<string | null>;
-  inventoryCategoryForm$: Observable<InventoryCategoryInterface | null>;
+  inventoryCategoryForm$: Observable<InventoryCategoryInterface[] | null>;
   inventoryUsersForm$: Observable<InventoryUserInterface | null>;
   inventoryStatusForm$: Observable<boolean | null>;
 
@@ -149,21 +149,15 @@ export class InventoryComponent implements OnInit {
     });
     this.inventoryUsersForm$.subscribe((value) => {
       this.inventoryCreationForm.patchValue({
-        categoriesDropdown: value,
-      });
-    });
-    this.inventoryCategoryForm$.subscribe((value) => {
-      this.inventoryCreationForm.patchValue({
         usersDropdown: value,
       });
     });
+
     this.inventoryStatusForm$.subscribe((value) => {
       this.inventoryCreationForm.patchValue({
         status: value,
       });
     });
-
-    this.onChanges();
   }
   closeForm(): void {
     this.store.dispatch(imActions.closeInventoryForm());
@@ -185,30 +179,22 @@ export class InventoryComponent implements OnInit {
   get usersDropdown() {
     return this.inventoryCreationForm.get('usersDropdown');
   }
-  onChanges(): void {
-    // this.inventoryCreationForm
-    //   .get('inventoryName')
-    //   ?.valueChanges.subscribe((val) => {
-    //     this.store.dispatch(
-    //       imActions.inventoryNameFormUpdate({ inventoryName: val })
-    //     );
-    //   });
-    this.inventoryCreationForm
-      .get('categoriesDropdown')
-      ?.valueChanges.subscribe((val) => {
-        console.log(val);
-        this.store.dispatch(
-          imActions.inventoryCategoryFormUpdate({
-            inventoryCategoryName: val,
-          })
-        );
-      });
-    // this.inventoryCreationForm
-    //   .get('usersDropdown')
-    //   ?.valueChanges.subscribe((val) => {
-    //     this.store.dispatch(
-    //       imActions.inventoryUsersFormUpdate({ inventoryUsers: val })
-    //     );
-    //   });
+
+  onChange(
+    elementType: 'inventoryName' | 'categoriesDropdown',
+    val: any
+  ): void {
+    console.log(val);
+    if (elementType === 'inventoryName') {
+      this.store.dispatch(
+        imActions.inventoryNameFormUpdate({ inventoryName: val })
+      );
+    } else if (elementType === 'categoriesDropdown') {
+      this.store.dispatch(
+        imActions.inventoryCategoryFormUpdate({
+          inventoryCategoryName: val,
+        })
+      );
+    }
   }
 }

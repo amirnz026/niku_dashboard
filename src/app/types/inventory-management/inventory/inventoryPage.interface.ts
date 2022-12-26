@@ -19,7 +19,7 @@ export interface InventoryPageInterface {
   errorInventoryUsers: string;
   // Form Elements
   inventoryNameForm: string | null;
-  inventoryCategoryForm: InventoryCategoryInterface | null;
+  inventoryCategoryForm: InventoryCategoryInterface[];
   inventoryUsersForm: InventoryUserInterface | null;
   inventoryStatusForm: boolean | null;
 }
