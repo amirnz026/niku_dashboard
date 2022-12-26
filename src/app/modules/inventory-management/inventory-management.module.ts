@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { InventoryManagementRoutingModule } from './inventory-management-routing.module';
 import { InventoryManagementComponent } from './inventory-management.component';
 import { StoreModule } from '@ngrx/store';
+import { ReactiveFormsModule } from '@angular/forms';
 import { inventoryManagementReducers } from 'src/app/ngrx/inventory-management/inventoryManagement.reducers';
 import { ModalsModule, WidgetsModule } from '../../_metronic/partials';
 import { InventoryComponent } from './basic-information/inventory/inventory.component';
@@ -24,6 +25,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { ActionsCellComponent } from '../ag-grid/actions-cell/actions-cell.component';
 import { MoodComponent } from '../ag-grid/grid/grid-style01/mood.component';
 import { CustomTooltipComponent } from '../ag-grid/tooltip/custom-tooltip.component';
+import { FormValidationErrorComponent } from '../partials/form-validation-error/form-validation-error.component';
 
 @NgModule({
   declarations: [
@@ -35,10 +37,12 @@ import { CustomTooltipComponent } from '../ag-grid/tooltip/custom-tooltip.compon
     ActionsCellComponent,
     MoodComponent,
     CustomTooltipComponent,
+    FormValidationErrorComponent,
   ],
   imports: [
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     CommonModule,
     InventoryManagementRoutingModule,
     WidgetsModule,

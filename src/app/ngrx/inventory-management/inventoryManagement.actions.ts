@@ -48,3 +48,20 @@ export const getInventoryUsersFailure = createAction(
   '[Inventory Management] Get Inventory Users Failure',
   props<{ error: 'error while fetching inventory users' }>()
 );
+
+export const inventoryNameFormUpdate = createAction(
+  '[Inventory Management] Change Inventory Name Form Element',
+  props<{ inventoryName: string }>()
+);
+export const inventoryCategoryFormUpdate = createAction(
+  '[Inventory Management] Change Inventory Category Name Form Element',
+  props<{ inventoryCategoryName: InventoryCategoryInterface }>()
+);
+export const inventoryUsersFormUpdate = createAction(
+  '[Inventory Management] Change Inventory Users Form Element',
+  props<{ inventoryUsers: InventoryUserInterface }>()
+);
+export const inventoryStatusFormUpdate = createAction(
+  '[Inventory Management] Change Inventory Status Form Element',
+  props<{ status: boolean }>()
+);

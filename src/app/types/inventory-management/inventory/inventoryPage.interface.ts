@@ -17,4 +17,9 @@ export interface InventoryPageInterface {
   inventoryUsers: InventoryUserInterface[];
   inInventoryUsersLoading: boolean;
   errorInventoryUsers: string;
+  // Form Elements
+  inventoryNameForm: string | null;
+  inventoryCategoryForm: InventoryCategoryInterface | null;
+  inventoryUsersForm: InventoryUserInterface | null;
+  inventoryStatusForm: boolean | null;
 }

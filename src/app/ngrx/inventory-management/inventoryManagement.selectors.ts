@@ -23,3 +23,19 @@ export const inventoryUsersSelector = createSelector(
   selectInventoryPageFeature,
   (state) => state.inventoryUsers
 );
+export const inventoryNameFormSelector = createSelector(
+  selectInventoryPageFeature,
+  (state) => state.inventoryNameForm
+);
+export const inventoryCategoryFormSelector = createSelector(
+  selectInventoryPageFeature,
+  (state) => state.inventoryCategoryForm
+);
+export const inventoryUsersFormSelector = createSelector(
+  selectInventoryPageFeature,
+  (state) => state.inventoryUsersForm
+);
+export const inventoryStatusFormSelector = createSelector(
+  selectInventoryPageFeature,
+  (state) => state.inventoryStatusForm
+);

@@ -8,25 +8,94 @@
         (click)="closeForm()"
       />
     </div>
-    <h5>نام انبار</h5>
-    <input type="text" pInputText placeholder="نام انبار" />
-    <h5>دسته بندی</h5>
-    <p-dropdown
-      [options]="(categories$ | async)!"
-      [(ngModel)]="selectedCategories"
-      optionLabel="name"
-    ></p-dropdown>
-    <h5>فعال</h5>
-    <p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>
-    <h5>دسترسی کاربران</h5>
-    <p-multiSelect
-      [options]="(users$ | async)!"
-      [(ngModel)]="selectedUsers"
-      defaultLabel="۰ کاربر انتخاب شده"
-      optionLabel="name"
-      display="chip"
-    ></p-multiSelect>
-    <p-button label="ایجاد انبار" [loading]="false"></p-button>
+    <form [formGroup]="inventoryCreationForm" (ngSubmit)="onSubmit()">
+      <h5>نام انبار</h5>
+
+      <input
+        type="text"
+        pInputText
+        placeholder="نام انبار"
+        formControlName="inventoryName"
+        class="input"
+        [ngClass]="{
+          'ng-invalid ng-dirty':
+            (isSubmitted && inventoryName && inventoryName.errors) ||
+            (inventoryName &&
+              inventoryName.invalid &&
+              (inventoryName.dirty || inventoryName.touched))
+        }"
+      />
+      <ng-container
+        *ngIf="
+          (isSubmitted && inventoryName && inventoryName.errors) ||
+          (inventoryName &&
+            inventoryName.invalid &&
+            (inventoryName.dirty || inventoryName.touched))
+        "
+      >
+        <app-form-validation-error
+          error="نام انبار نمی تواند خالی باشد"
+        ></app-form-validation-error>
+      </ng-container>
+      <h5>دسته بندی</h5>
+
+      <p-dropdown
+        [options]="(categories$ | async)!"
+        optionLabel="name"
+        formControlName="categoriesDropdown"
+        placeholder="یک دسته بندی انتخاب کنید"
+        #categories
+        [ngClass]="{
+          'ng-invalid ng-dirty':
+            (isSubmitted && categoriesDropdown && categoriesDropdown.errors) ||
+            (categoriesDropdown &&
+              categoriesDropdown.invalid &&
+              (categoriesDropdown.dirty || categoriesDropdown.touched))
+        }"
+      ></p-dropdown>
+      <ng-container
+        *ngIf="
+          (isSubmitted && categoriesDropdown && categoriesDropdown.errors) ||
+          (categoriesDropdown &&
+            categoriesDropdown.invalid &&
+            (categoriesDropdown.dirty || categoriesDropdown.touched))
+        "
+      >
+        <app-form-validation-error
+          error="لطفا یک دسته بندی انتخاب کنید"
+        ></app-form-validation-error>
+      </ng-container>
+      <h5>فعال</h5>
+      <p-inputSwitch formControlName="status"></p-inputSwitch>
+      <h5>دسترسی کاربران</h5>
+      <p-multiSelect
+        [options]="(users$ | async)!"
+        defaultLabel="۰ کاربر انتخاب شده"
+        optionLabel="name"
+        display="chip"
+        formControlName="usersDropdown"
+        [ngClass]="{
+          'ng-invalid ng-dirty':
+            (isSubmitted && usersDropdown && usersDropdown.errors) ||
+            (usersDropdown &&
+              usersDropdown.invalid &&
+              (usersDropdown.dirty || usersDropdown.touched))
+        }"
+      ></p-multiSelect>
+      <ng-container
+        *ngIf="
+          (isSubmitted && usersDropdown && usersDropdown.errors) ||
+          (usersDropdown &&
+            usersDropdown.invalid &&
+            (usersDropdown.dirty || usersDropdown.touched))
+        "
+      >
+        <app-form-validation-error
+          error="حداقل یک کاربر انتخاب کنید"
+        ></app-form-validation-error>
+      </ng-container>
+      <p-button label="ایجاد انبار" [loading]="false" type="submit"></p-button>
+    </form>
   </div>
   <app-grid-style01
     [rowInputData$]="rowData$"
