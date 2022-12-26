@@ -67,7 +67,10 @@
         ></app-form-validation-error>
       </ng-container>
       <h5>فعال</h5>
-      <p-inputSwitch formControlName="status"></p-inputSwitch>
+      <p-inputSwitch
+        formControlName="status"
+        (ngModelChange)="onChange('status', $event)"
+      ></p-inputSwitch>
       <h5>دسترسی کاربران</h5>
       <p-multiSelect
         [options]="(users$ | async)!"
@@ -75,6 +78,7 @@
         optionLabel="name"
         display="chip"
         formControlName="usersDropdown"
+        (ngModelChange)="onChange('usersDropdown', $event)"
         [ngClass]="{
           'ng-invalid ng-dirty':
             (isSubmitted && usersDropdown && usersDropdown.errors) ||

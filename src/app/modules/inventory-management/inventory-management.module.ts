@@ -23,7 +23,6 @@ import { FormsModule } from '@angular/forms';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ActionsCellComponent } from '../ag-grid/actions-cell/actions-cell.component';
-import { MoodComponent } from '../ag-grid/grid/grid-style01/mood.component';
 import { CustomTooltipComponent } from '../ag-grid/tooltip/custom-tooltip.component';
 import { FormValidationErrorComponent } from '../partials/form-validation-error/form-validation-error.component';
 
@@ -35,7 +34,6 @@ import { FormValidationErrorComponent } from '../partials/form-validation-error/
     StatusCellComponent,
     GridStyle01Component,
     ActionsCellComponent,
-    MoodComponent,
     CustomTooltipComponent,
     FormValidationErrorComponent,
   ],
