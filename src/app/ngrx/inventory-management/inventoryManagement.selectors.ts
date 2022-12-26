@@ -18,3 +18,8 @@ export const inventoryCategoriesSelector = createSelector(
   selectInventoryPageFeature,
   (state) => state.inventoryCategories
 );
+
+export const inventoryUsersSelector = createSelector(
+  selectInventoryPageFeature,
+  (state) => state.inventoryUsers
+);

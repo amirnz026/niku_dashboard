@@ -13,6 +13,9 @@ export const initialState: InventoryManagementInterface = {
     inventoryCategories: [],
     isInventoriesCategoriesLoading: false,
     errorInventoriesCategories: '',
+    inventoryUsers: [],
+    inInventoryUsersLoading: false,
+    errorInventoryUsers: '',
   },
 };
 export const inventoryManagementReducers = createReducer(
@@ -44,5 +47,16 @@ export const inventoryManagementReducers = createReducer(
   immerOn(imActions.getInventoryCategoriesFailure, (state, action) => {
     state.inventoryPage.errorInventoriesCategories = action.error;
     state.inventoryPage.isInventoriesCategoriesLoading = false;
+  }),
+  immerOn(imActions.getInventoryUsers, (state, action) => {
+    state.inventoryPage.inInventoryUsersLoading = true;
+  }),
+  immerOn(imActions.getInventoryUsersSuccess, (state, action) => {
+    state.inventoryPage.inventoryUsers = action.inventoryUsers;
+    state.inventoryPage.inInventoryUsersLoading = false;
+  }),
+  immerOn(imActions.getInventoryUsersFailure, (state, action) => {
+    state.inventoryPage.errorInventoryUsers = action.error;
+    state.inventoryPage.inInventoryUsersLoading = false;
   })
 );

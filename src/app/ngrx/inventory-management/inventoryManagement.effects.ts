@@ -38,6 +38,21 @@ export class InventoryManagementEffects {
       })
     )
   );
+  getInventoryUsers$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(imActions.getInventoryUsers),
+      mergeMap(() => {
+        return this.inventoryManagementService.getInventoryUsers().pipe(
+          map((inventoryUsers) =>
+            imActions.getInventoryUsersSuccess({ inventoryUsers })
+          ),
+          catchError((error) =>
+            of(imActions.getInventoryUsersFailure({ error: error.message }))
+          )
+        );
+      })
+    )
+  );
 
   constructor(
     private actions$: Actions,

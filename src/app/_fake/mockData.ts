@@ -1,5 +1,6 @@
 import { InventoryInterface } from 'src/app/types/inventory-management/inventory/inventory.interface';
 import { InventoryCategoryInterface } from '../types/inventory-management/inventory/inventoryCategory.interface';
+import { InventoryUserInterface } from '../types/inventory-management/inventory/inventoryUser.interface';
 
 export const inventories: InventoryInterface[] = [
   {
@@ -602,4 +603,19 @@ export const inventoryCategories: InventoryCategoryInterface[] = [
   { name: 'اولیه' },
   { name: 'تولید شده' },
   { name: 'ثانویه' },
+];
+
+export const inventoryUsers: InventoryUserInterface[] = [
+  { name: 'امیر الموتی' },
+  { name: 'امیر نظری' },
+  { name: 'علی نادری' },
+  { name: 'محمد وفایی کیا' },
+  { name: 'امین امینی' },
+  { name: 'علی رضا رضایی' },
+  { name: 'احمد قاسمی' },
+  { name: 'حسین سعادت' },
+  { name: 'محمد قدوسی' },
+  { name: 'مهدی هاشم پور' },
+  { name: 'حسین زیبا سرشت' },
+  { name: 'پوریا تیموری' },
 ];

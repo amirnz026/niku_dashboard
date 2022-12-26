@@ -20,7 +20,7 @@
     <p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>
     <h5>دسترسی کاربران</h5>
     <p-multiSelect
-      [options]="users"
+      [options]="(users$ | async)!"
       [(ngModel)]="selectedUsers"
       defaultLabel="۰ کاربر انتخاب شده"
       optionLabel="name"

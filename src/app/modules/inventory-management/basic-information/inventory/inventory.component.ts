@@ -7,6 +7,7 @@ import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagemen
 import {
   inventoriesSelector,
   inventoryCategoriesSelector,
+  inventoryUsersSelector,
 } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
 import { UsersCellComponent } from 'src/app/modules/ag-grid/users-cell/users-cell.component';
 import { StatusCellComponent } from 'src/app/modules/ag-grid/status-cell/status-cell.component';
@@ -15,6 +16,7 @@ import { ActionsCellComponent } from 'src/app/modules/ag-grid/actions-cell/actio
 import { ColDef } from 'ag-grid-community';
 import { left } from '@popperjs/core';
 import { InventoryCategoryInterface } from 'src/app/types/inventory-management/inventory/inventoryCategory.interface';
+import { InventoryUserInterface } from 'src/app/types/inventory-management/inventory/inventoryUser.interface';
 
 @Component({
   selector: 'app-inventory',
@@ -24,7 +26,6 @@ import { InventoryCategoryInterface } from 'src/app/types/inventory-management/i
 export class InventoryComponent implements OnInit {
   tabName = 'انبار';
   tabRoute = '/inventory-management/inventory';
-  categories$: Observable<InventoryCategoryInterface[]>;
   users: any[];
   selectedUsers: any[];
   checked = true;
@@ -32,6 +33,9 @@ export class InventoryComponent implements OnInit {
 
   rowData$: Observable<any[]>;
   isForm$: Observable<boolean>;
+
+  categories$: Observable<InventoryCategoryInterface[]>;
+  users$: Observable<InventoryUserInterface[]>;
 
   colDefs: ColDef[] = [
     {
@@ -83,7 +87,10 @@ export class InventoryComponent implements OnInit {
     );
     this.rowData$ = this.store.pipe(select(inventoriesSelector));
     this.isForm$ = this.store.pipe(select(inventoryFormStateSelector));
+    this.store.dispatch(imActions.getInventoryCategories());
+    this.store.dispatch(imActions.getInventoryUsers());
     this.categories$ = this.store.pipe(select(inventoryCategoriesSelector));
+    this.users$ = this.store.pipe(select(inventoryUsersSelector));
   }
   closeForm(): void {
     this.store.dispatch(imActions.closeInventoryForm());
