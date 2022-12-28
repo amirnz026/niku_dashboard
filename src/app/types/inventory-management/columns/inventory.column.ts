@@ -31,7 +31,6 @@ export const inventoryColDef: ColDef[] = [
     resizable: false,
     width: 140,
     autoHeight: false,
-    cellStyle: { 'background-color': 'white' },
     lockPosition: 'right',
     pinned: left,
   },
