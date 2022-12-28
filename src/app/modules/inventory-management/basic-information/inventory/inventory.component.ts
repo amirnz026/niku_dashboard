@@ -12,6 +12,7 @@ import {
   inventoryStatusFormSelector,
   inventoryUsersFormSelector,
   inventoryUsersSelector,
+  isInventoriesLoadingSelector,
   isInventoryCategoriesLoadingSelector,
   isInventoryUsersLoadingSelector,
 } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
@@ -21,6 +22,13 @@ import { InventoryUserInterface } from 'src/app/types/inventory-management/inven
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { InventoryCategoryInterface } from 'src/app/types/inventory-management/inventory/inventoryCategory.interface';
 import { inventoryColDef } from 'src/app/types/inventory-management/columns/inventory.column';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-inventory',
@@ -34,8 +42,15 @@ export class InventoryComponent implements OnInit {
 
   // Table
   rowData$: Observable<any[]>;
+  isInventoriesLoading$: Observable<boolean>;
   isForm$: Observable<boolean>;
   colDefs: ColDef[] = inventoryColDef;
+
+  isOpen = true;
+
+  toggle() {
+    this.isOpen = !this.isOpen;
+  }
 
   // Form
   inventoryCategories$: Observable<InventoryCategoryInterface[]>;
@@ -73,6 +88,9 @@ export class InventoryComponent implements OnInit {
 
     // Table data
     this.rowData$ = this.store.pipe(select(inventoriesSelector));
+    this.isInventoriesLoading$ = this.store.pipe(
+      select(isInventoriesLoadingSelector)
+    );
     this.rowData$.subscribe((val) => {
       if (val === undefined || val.length == 0)
         this.store.dispatch(imActions.getInventories());

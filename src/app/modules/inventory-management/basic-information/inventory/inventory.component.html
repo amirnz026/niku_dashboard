@@ -2,8 +2,9 @@
   <div *ngIf="isForm$ | async" class="card">
     <div class="header">
       <h3>انبار جدید</h3>
+
       <img
-        alt="Logo"
+        alt="X"
         src="./assets/media/icons/duotune/general/gen040.svg"
         (click)="closeForm()"
       />
@@ -116,8 +117,13 @@
     </form>
   </div>
   <app-grid-style01
-    [rowInputData$]="rowData$"
+    [rowInputData]="rowData$ | async"
     [colInputDefs]="colDefs"
-    [tableName]="'inventory'"
+    [pageName]="'inventory'"
+    [isInventoryCategoryLoading]="isInventoryCategoriesLoading$ | async"
+    [isInventoryUsersLoading]="isInventoryUsersLoading$ | async"
   ></app-grid-style01>
 </div>
+<!-- @Input() isInventoriesLoading$: Observable<boolean>;
+  @Input() isInventoryUsersLoading$: Observable<boolean>;
+  @Input() isInventoryCategoryLoading$: Observable<boolean>; -->

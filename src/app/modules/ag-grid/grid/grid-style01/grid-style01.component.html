@@ -11,6 +11,21 @@
       class="table-search-input"
     />
   </span>
+  <button
+    pButton
+    type="button"
+    label="بازنشانی صفحه"
+    class="p-button-outlined"
+    icon="pi pi-refresh"
+    iconPos="right"
+    (click)="refreshPage()"
+    [loading]="
+      (isInventoriesLoading$ | async)! ||
+      isInventoryUsersLoading! ||
+      isInventoryCategoryLoading!
+    "
+  ></button>
+
   <p-button
     label="انبار جدید"
     icon="pi pi-plus-circle"
@@ -26,7 +41,7 @@
     width: 100%;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   "
-  [rowData]="rowInputData$ | async"
+  [rowData]="rowInputData"
   [columnDefs]="colInputDefs"
   [defaultColDef]="defaultColDef"
   [rowSelection]="'multiple'"

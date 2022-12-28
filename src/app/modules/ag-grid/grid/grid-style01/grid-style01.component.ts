@@ -29,9 +29,11 @@ export class GridStyle01Component implements OnInit {
 
   colResizeDefault: any;
   langFa = AG_GRID_LOCALE_FA;
-  @Input() rowInputData$: Observable<any[]>;
+  @Input() rowInputData: any[] | null;
   @Input() colInputDefs: ColDef[];
-  @Input() tableName: string;
+  @Input() pageName: string;
+  @Input() isInventoryUsersLoading: boolean | null;
+  @Input() isInventoryCategoryLoading: boolean | null;
   isInventoriesLoading$: Observable<boolean>;
   defaultColDef: ColDef = {
     flex: 1,
@@ -106,6 +108,7 @@ export class GridStyle01Component implements OnInit {
     this.gridColumnApi = params.columnApi;
     this.isInventoriesLoading$.subscribe((val) => {
       if (val) this.gridApi.showLoadingOverlay();
+      else this.gridApi.hideOverlay();
     });
   }
   onFirstDataRendered(params: any) {
@@ -118,8 +121,15 @@ export class GridStyle01Component implements OnInit {
     );
   }
   openForm(): void {
-    if (this.tableName === 'inventory') {
+    if (this.pageName === 'inventory') {
       this.store.dispatch(imActions.openInventoryForm());
+    }
+  }
+  refreshPage(): void {
+    if (this.pageName === 'inventory') {
+      this.store.dispatch(imActions.getInventories());
+      this.store.dispatch(imActions.getInventoryCategories());
+      this.store.dispatch(imActions.getInventoryUsers());
     }
   }
 }
