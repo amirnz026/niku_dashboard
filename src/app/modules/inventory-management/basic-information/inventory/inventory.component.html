@@ -39,12 +39,16 @@
         ></app-form-validation-error>
       </ng-container>
       <h5>دسته بندی</h5>
-
       <p-dropdown
-        [options]="(categories$ | async)!"
+        [options]="(inventoryCategories$ | async)!"
         optionLabel="name"
         formControlName="categoriesDropdown"
-        placeholder="یک دسته بندی انتخاب کنید"
+        [placeholder]="
+          (isInventoryCategoriesLoading$ | async)
+            ? 'در حال دریافت اطلاعات...'
+            : 'یک دسته بندی انتخاب کنید'
+        "
+        [disabled]="(isInventoryCategoriesLoading$ | async) === true"
         (ngModelChange)="onChange('categoriesDropdown', $event)"
         [ngClass]="{
           'ng-invalid ng-dirty':
@@ -53,7 +57,9 @@
               categoriesDropdown.invalid &&
               (categoriesDropdown.dirty || categoriesDropdown.touched))
         }"
+        emptyMessage="هیچ دسته بندی یافت نشد"
       ></p-dropdown>
+
       <ng-container
         *ngIf="
           (isSubmitted && categoriesDropdown && categoriesDropdown.errors) ||
@@ -73,10 +79,15 @@
       ></p-inputSwitch>
       <h5>دسترسی کاربران</h5>
       <p-multiSelect
-        [options]="(users$ | async)!"
-        defaultLabel="۰ کاربر انتخاب شده"
+        [options]="(inventoryUsers$ | async)!"
+        [defaultLabel]="
+          (isInventoryUsersLoading$ | async)
+            ? 'در حال دریافت اطلاعات...'
+            : '۰ کاربر انتخاب شده'
+        "
         optionLabel="name"
         display="chip"
+        [disabled]="(isInventoryUsersLoading$ | async) === true"
         formControlName="usersDropdown"
         (ngModelChange)="onChange('usersDropdown', $event)"
         [ngClass]="{
@@ -86,6 +97,8 @@
               usersDropdown.invalid &&
               (usersDropdown.dirty || usersDropdown.touched))
         }"
+        emptyMessage="هیچ کاربری یافت نشد"
+        emptyFilterMessage="هیچ کاربری یافت نشد"
       ></p-multiSelect>
       <ng-container
         *ngIf="

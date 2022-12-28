@@ -18,10 +18,18 @@ export const inventoryCategoriesSelector = createSelector(
   selectInventoryPageFeature,
   (state) => state.inventoryCategories
 );
+export const isInventoryCategoriesLoadingSelector = createSelector(
+  selectInventoryPageFeature,
+  (state) => state.isInventoriesCategoriesLoading
+);
 
 export const inventoryUsersSelector = createSelector(
   selectInventoryPageFeature,
   (state) => state.inventoryUsers
+);
+export const isInventoryUsersLoadingSelector = createSelector(
+  selectInventoryPageFeature,
+  (state) => state.isInventoryUsersLoading
 );
 export const inventoryNameFormSelector = createSelector(
   selectInventoryPageFeature,

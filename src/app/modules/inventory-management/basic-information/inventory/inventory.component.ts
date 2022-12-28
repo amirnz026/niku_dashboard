@@ -12,6 +12,8 @@ import {
   inventoryStatusFormSelector,
   inventoryUsersFormSelector,
   inventoryUsersSelector,
+  isInventoryCategoriesLoadingSelector,
+  isInventoryUsersLoadingSelector,
 } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
 import { inventoryFormStateSelector } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
 import { ColDef } from 'ag-grid-community';
@@ -36,8 +38,10 @@ export class InventoryComponent implements OnInit {
   colDefs: ColDef[] = inventoryColDef;
 
   // Form
-  categories$: Observable<InventoryCategoryInterface[]>;
-  users$: Observable<InventoryUserInterface[]>;
+  inventoryCategories$: Observable<InventoryCategoryInterface[]>;
+  isInventoryCategoriesLoading$: Observable<boolean>;
+  inventoryUsers$: Observable<InventoryUserInterface[]>;
+  isInventoryUsersLoading$: Observable<boolean>;
   inventoryCreationForm: FormGroup;
   inventoryNameForm$: Observable<string | null>;
   inventoryCategoryForm$: Observable<InventoryCategoryInterface[] | null>;
@@ -68,15 +72,32 @@ export class InventoryComponent implements OnInit {
     });
 
     // Table data
-    this.store.dispatch(imActions.getInventories());
     this.rowData$ = this.store.pipe(select(inventoriesSelector));
+    this.rowData$.subscribe((val) => {
+      if (val === undefined || val.length == 0)
+        this.store.dispatch(imActions.getInventories());
+    });
 
     // Form data
     this.isForm$ = this.store.pipe(select(inventoryFormStateSelector));
-    this.store.dispatch(imActions.getInventoryCategories());
-    this.store.dispatch(imActions.getInventoryUsers());
-    this.users$ = this.store.pipe(select(inventoryUsersSelector));
-    this.categories$ = this.store.pipe(select(inventoryCategoriesSelector));
+    this.inventoryUsers$ = this.store.pipe(select(inventoryUsersSelector));
+    this.inventoryUsers$.subscribe((val) => {
+      if (val === undefined || val.length == 0)
+        this.store.dispatch(imActions.getInventoryUsers());
+    });
+    this.inventoryCategories$ = this.store.pipe(
+      select(inventoryCategoriesSelector)
+    );
+    this.inventoryCategories$.subscribe((val) => {
+      if (val === undefined || val.length == 0)
+        this.store.dispatch(imActions.getInventoryCategories());
+    });
+    this.isInventoryCategoriesLoading$ = this.store.pipe(
+      select(isInventoryCategoriesLoadingSelector)
+    );
+    this.isInventoryUsersLoading$ = this.store.pipe(
+      select(isInventoryUsersLoadingSelector)
+    );
     // Reactive form selectors
     this.inventoryNameForm$ = this.store.pipe(
       select(inventoryNameFormSelector)

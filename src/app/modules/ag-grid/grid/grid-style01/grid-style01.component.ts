@@ -107,7 +107,6 @@ export class GridStyle01Component implements OnInit {
   openForm(): void {
     if (this.tableName === 'inventory') {
       this.store.dispatch(imActions.openInventoryForm());
-      this.store.dispatch(imActions.getInventoryCategories());
     }
   }
 }

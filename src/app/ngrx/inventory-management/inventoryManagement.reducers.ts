@@ -14,7 +14,7 @@ export const initialState: InventoryManagementInterface = {
     isInventoriesCategoriesLoading: false,
     errorInventoriesCategories: '',
     inventoryUsers: [],
-    inInventoryUsersLoading: false,
+    isInventoryUsersLoading: false,
     errorInventoryUsers: '',
     // Form Elements
     inventoryNameForm: null,
@@ -54,15 +54,15 @@ export const inventoryManagementReducers = createReducer(
     state.inventoryPage.isInventoriesCategoriesLoading = false;
   }),
   immerOn(imActions.getInventoryUsers, (state, action) => {
-    state.inventoryPage.inInventoryUsersLoading = true;
+    state.inventoryPage.isInventoryUsersLoading = true;
   }),
   immerOn(imActions.getInventoryUsersSuccess, (state, action) => {
     state.inventoryPage.inventoryUsers = action.inventoryUsers;
-    state.inventoryPage.inInventoryUsersLoading = false;
+    state.inventoryPage.isInventoryUsersLoading = false;
   }),
   immerOn(imActions.getInventoryUsersFailure, (state, action) => {
     state.inventoryPage.errorInventoryUsers = action.error;
-    state.inventoryPage.inInventoryUsersLoading = false;
+    state.inventoryPage.isInventoryUsersLoading = false;
   }),
   immerOn(imActions.inventoryNameFormUpdate, (state, action) => {
     state.inventoryPage.inventoryNameForm = action.inventoryName;
