@@ -11,9 +11,11 @@ import { CellClickedEvent } from 'ag-grid-community/dist/lib/events';
 import { AgGridAngular } from 'ag-grid-angular';
 import { AG_GRID_LOCALE_FA } from 'src/app/language/persian/ag-grid/AG_GRID_LOCALE_FA';
 import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import { CustomTooltipComponent } from 'src/app/modules/ag-grid/tooltip/custom-tooltip.component';
+import { LoadingOverlayComponent } from '../../loading-overlay/loading-overlay.compoment';
+import { isInventoriesLoadingSelector } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
 
 @Component({
   selector: 'app-grid-style01',
@@ -24,11 +26,13 @@ export class GridStyle01Component implements OnInit {
   private gridApi: GridApi;
   private gridColumnApi: ColumnApi;
   public tooltipShowDelay = 1000;
+
   colResizeDefault: any;
   langFa = AG_GRID_LOCALE_FA;
   @Input() rowInputData$: Observable<any[]>;
   @Input() colInputDefs: ColDef[];
   @Input() tableName: string;
+  isInventoriesLoading$: Observable<boolean>;
   defaultColDef: ColDef = {
     flex: 1,
     resizable: true,
@@ -56,7 +60,9 @@ export class GridStyle01Component implements OnInit {
         }
       }
     },
-    suppressNoRowsOverlay: true,
+    // suppressNoRowsOverlay: true,
+    loadingOverlayComponent: LoadingOverlayComponent,
+    loadingOverlayComponentParams: {},
   };
 
   public sideBar: SideBarDef | string | string[] | boolean | null = {
@@ -84,7 +90,11 @@ export class GridStyle01Component implements OnInit {
     ],
   };
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.isInventoriesLoading$ = this.store.pipe(
+      select(isInventoriesLoadingSelector)
+    );
+  }
   onCellClicked(event: CellClickedEvent) {
     console.log(event);
   }
@@ -94,6 +104,9 @@ export class GridStyle01Component implements OnInit {
   onGridReady(params: any) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
+    this.isInventoriesLoading$.subscribe((val) => {
+      if (val) this.gridApi.showLoadingOverlay();
+    });
   }
   onFirstDataRendered(params: any) {
     // this.gridApi.sizeColumnsToFit();
