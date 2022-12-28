@@ -16,12 +16,12 @@ export class InventoryManagementService {
   constructor() {}
 
   getInventories(): Observable<InventoryInterface[]> {
-    return of(inventories).pipe(delay(5000));
+    return of(inventories);
   }
   getInventoryCategories(): Observable<InventoryCategoryInterface[]> {
-    return of(inventoryCategories).pipe(delay(5000));
+    return of(inventoryCategories);
   }
   getInventoryUsers(): Observable<InventoryUserInterface[]> {
-    return of(inventoryUsers).pipe(delay(3000));
+    return of(inventoryUsers);
   }
 }

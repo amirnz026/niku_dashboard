@@ -41,6 +41,11 @@ export class GridStyle01Component implements OnInit {
     sortable: true,
     filter: true,
     tooltipComponent: CustomTooltipComponent,
+    autoHeight: true,
+    cellStyle: {
+      overflow: 'hidden',
+    },
+    lockPinned: true,
   };
 
   @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
@@ -65,6 +70,7 @@ export class GridStyle01Component implements OnInit {
     // suppressNoRowsOverlay: true,
     loadingOverlayComponent: LoadingOverlayComponent,
     loadingOverlayComponentParams: {},
+    suppressDragLeaveHidesColumns: true,
   };
 
   public sideBar: SideBarDef | string | string[] | boolean | null = {

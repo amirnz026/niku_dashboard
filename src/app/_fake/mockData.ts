@@ -598,7 +598,6 @@ export const inventories: InventoryInterface[] = [
     users: ['علی رضا رضایی', 'امین امینی', 'محمد وفایی کیا', 'عرفان دولتی'],
   },
 ];
-
 export const inventoryCategories: InventoryCategoryInterface[] = [
   { name: 'اولیه' },
   { name: 'تولید شده' },
