@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import * as tabsActions from 'src/app/ngrx/tabs/tabs.actions';
@@ -6,6 +6,7 @@ import * as tabsActions from 'src/app/ngrx/tabs/tabs.actions';
 @Component({
   selector: 'app-group',
   templateUrl: './group.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GroupComponent implements OnInit {
   constructor(private store: Store<AppStateInterface>) {}

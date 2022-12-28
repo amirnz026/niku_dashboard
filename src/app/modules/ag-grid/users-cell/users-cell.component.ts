@@ -1,4 +1,4 @@
-import { OnInit, Component } from '@angular/core';
+import { OnInit, Component, ChangeDetectionStrategy } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { ICellRendererParams } from 'ag-grid-community';
 
@@ -6,6 +6,7 @@ import { ICellRendererParams } from 'ag-grid-community';
   selector: 'app-users-cell',
   templateUrl: './users-cell.component.html',
   styleUrls: ['./users-cell.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsersCellComponent implements OnInit, ICellRendererAngularComp {
   value: any;

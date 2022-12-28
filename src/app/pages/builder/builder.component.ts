@@ -1,4 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { LayoutService } from '../../_metronic/layout';
 
@@ -7,6 +12,7 @@ type Tabs = 'Sidebar' | 'Header' | 'Toolbar';
 @Component({
   selector: 'app-builder',
   templateUrl: './builder.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BuilderComponent implements OnInit {
   activeTab: Tabs = 'Sidebar';

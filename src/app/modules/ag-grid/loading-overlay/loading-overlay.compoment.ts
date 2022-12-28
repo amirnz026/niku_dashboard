@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ILoadingOverlayAngularComp } from 'ag-grid-angular';
 import { ILoadingOverlayParams } from 'ag-grid-community';
 
@@ -14,6 +14,7 @@ import { ILoadingOverlayParams } from 'ag-grid-community';
     <div class="ag-overlay-loading-center">در حال دریافت اطلاعات...</div>
   `,
   styleUrls: ['./loading-overlay.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoadingOverlayComponent implements ILoadingOverlayAngularComp {
   public params!: ILoadingOverlayParams & { loadingMessage: string };

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { ICellRendererParams } from 'ag-grid-community';
 
@@ -6,6 +6,7 @@ import { ICellRendererParams } from 'ag-grid-community';
   selector: 'app-actions-cell',
   templateUrl: './actions-cell.component.html',
   styleUrls: ['./actions-cell.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ActionsCellComponent implements OnInit, ICellRendererAngularComp {
   value: any;

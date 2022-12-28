@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  Input,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   ColDef,
   ColumnApi,
@@ -21,6 +27,7 @@ import { isInventoriesLoadingSelector } from 'src/app/ngrx/inventory-management/
   selector: 'app-grid-style01',
   templateUrl: './grid-style01.component.html',
   styleUrls: ['./grid-style01.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GridStyle01Component implements OnInit {
   private gridApi: GridApi;
