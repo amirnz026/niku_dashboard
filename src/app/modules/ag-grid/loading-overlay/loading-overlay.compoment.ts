@@ -5,10 +5,15 @@ import { ILoadingOverlayParams } from 'ag-grid-community';
 @Component({
   selector: 'app-loading-overlay',
   template: `
-    <div class="ag-overlay-loading-center">
-      <i class="fas fa-hourglass-half">{{ params.loadingMessage }} </i>
+    <div class="lds-ellipsis">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
+    <div class="ag-overlay-loading-center">در حال دریافت اطلاعات...</div>
   `,
+  styleUrls: ['./loading-overlay.component.scss'],
 })
 export class LoadingOverlayComponent implements ILoadingOverlayAngularComp {
   public params!: ILoadingOverlayParams & { loadingMessage: string };
