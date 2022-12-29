@@ -25,6 +25,9 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { ActionsCellComponent } from '../ag-grid/actions-cell/actions-cell.component';
 import { CustomTooltipComponent } from '../ag-grid/tooltip/custom-tooltip.component';
 import { FormValidationErrorComponent } from '../partials/form-validation-error/form-validation-error.component';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -56,7 +59,9 @@ import { FormValidationErrorComponent } from '../partials/form-validation-error/
     InputSwitchModule,
     MultiSelectModule,
     ButtonModule,
+    ConfirmPopupModule,
+    ToastModule,
   ],
-  providers: [InventoryManagementService],
+  providers: [InventoryManagementService, ConfirmationService, MessageService],
 })
 export class InventoryManagementModule {}

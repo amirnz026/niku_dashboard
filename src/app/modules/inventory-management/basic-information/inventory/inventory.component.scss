@@ -54,3 +54,15 @@ app-grid-style01 {
 .input {
   width: 100%;
 }
+
+button {
+  min-width: 10rem;
+  margin-right: 0.5rem;
+}
+
+@media screen and (max-width: 960px) {
+  button {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+}

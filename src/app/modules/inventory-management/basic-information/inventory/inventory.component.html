@@ -115,6 +115,7 @@
         ></app-form-validation-error>
       </ng-container>
       <p-button label="ایجاد انبار" [loading]="false" type="submit"></p-button>
+      <p-confirmPopup st></p-confirmPopup>
     </form>
   </div>
   <app-grid-style01
@@ -128,3 +129,13 @@
 <!-- @Input() isInventoriesLoading$: Observable<boolean>;
   @Input() isInventoryUsersLoading$: Observable<boolean>;
   @Input() isInventoryCategoryLoading$: Observable<boolean>; -->
+<button
+  type="button"
+  pButton
+  pRipple
+  (click)="addSingle()"
+  label="Success"
+  class="p-button-success mb-2"
+></button>
+
+<p-toast position="top-left"></p-toast>

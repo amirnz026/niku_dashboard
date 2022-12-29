@@ -24,11 +24,13 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { InventoryCategoryInterface } from 'src/app/types/inventory-management/inventory/inventoryCategory.interface';
 import { inventoryColDef } from 'src/app/types/inventory-management/columns/inventory.column';
 import { InventoryManagementService } from 'src/app/services/inventory-management/inventory-management.service';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-inventory',
   templateUrl: './inventory.component.html',
   styleUrls: ['./inventory.component.scss'],
+  providers: [MessageService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InventoryComponent implements OnInit {
@@ -64,7 +66,9 @@ export class InventoryComponent implements OnInit {
     private store: Store<AppStateInterface>,
     private fb: FormBuilder,
     private http: HttpClient,
-    private imService: InventoryManagementService
+    private imService: InventoryManagementService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -157,9 +161,20 @@ export class InventoryComponent implements OnInit {
     this.isSubmitted = true;
 
     if (this.inventoryCreationForm.valid) {
-      this.imService
-        .postSubmitInventoryCreationForm()
-        .subscribe((val) => console.log(val));
+      this.confirmationService.confirm({
+        target: event?.target,
+        message: 'آیا از ساخت انبار مطمئن هستید؟',
+        icon: 'pi pi-exclamation-triangle',
+        acceptLabel: 'بله',
+        rejectLabel: 'خیر',
+
+        accept: () => {
+          this.imService
+            .postSubmitInventoryCreationForm()
+            .subscribe((val) => console.log(val));
+        },
+        reject: () => {},
+      });
     }
   }
 
@@ -206,5 +221,12 @@ export class InventoryComponent implements OnInit {
         })
       );
     }
+  }
+  addSingle() {
+    this.messageService.add({
+      severity: 'warn',
+      summary: 'Success',
+      detail: 'Message Content',
+    });
   }
 }
