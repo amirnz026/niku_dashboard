@@ -65,3 +65,13 @@ export const inventoryStatusFormUpdate = createAction(
   '[Inventory Management] Change Inventory Status Form Element',
   props<{ status: boolean }>()
 );
+export const submitInventoryCreationForm = createAction(
+  '[Inventory Management] Submit Inventory Creation Form'
+);
+export const submitInventoryCreationFormSuccess = createAction(
+  '[Inventory Management] Submit Inventory Creation Form Success'
+);
+export const submitInventoryCreationFormFailure = createAction(
+  '[Inventory Management] Submit Inventory Creation Form Failure',
+  props<{ error: 'An error occurred while submitting the form' }>()
+);

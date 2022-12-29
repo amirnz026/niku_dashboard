@@ -9,7 +9,7 @@
         (click)="closeForm()"
       />
     </div>
-    <form [formGroup]="inventoryCreationForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="inventoryCreationForm" (ngSubmit)="onSubmit()" #form>
       <h5>نام انبار</h5>
 
       <input
@@ -77,6 +77,7 @@
       <p-inputSwitch
         formControlName="status"
         (ngModelChange)="onChange('status', $event)"
+        [ngModel]="true"
       ></p-inputSwitch>
       <h5>دسترسی کاربران</h5>
       <p-multiSelect

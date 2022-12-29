@@ -53,6 +53,25 @@ export class InventoryManagementEffects {
       })
     )
   );
+  submitInventoryCreationForm$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(imActions.submitInventoryCreationForm),
+      mergeMap(() => {
+        return this.inventoryManagementService
+          .postSubmitInventoryCreationForm()
+          .pipe(
+            map(() => imActions.submitInventoryCreationFormSuccess()),
+            catchError((error) =>
+              of(
+                imActions.submitInventoryCreationFormFailure({
+                  error: error.message,
+                })
+              )
+            )
+          );
+      })
+    )
+  );
 
   constructor(
     private actions$: Actions,

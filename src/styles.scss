@@ -8,6 +8,43 @@
 
 @import "ag-grid-community/dist/styles/ag-grid.css";
 @import "ag-grid-community/dist/styles/ag-theme-alpine.css";
+
+@font-face {
+  font-family: "Shabnam";
+  src: url("./assets/media/plugins/fonts/Shabnam/Shabnam-100.woff2")
+    format("woff2");
+  font-weight: 100;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Shabnam";
+  src: url("./assets/media/plugins/fonts/Shabnam/Shabnam-300.woff2")
+    format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Shabnam";
+  src: url("./assets/media/plugins/fonts/Shabnam/Shabnam-400.woff2")
+    format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Shabnam";
+  src: url("./assets/media/plugins/fonts/Shabnam/Shabnam-500.woff2")
+    format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Shabnam";
+  src: url("./assets/media/plugins/fonts/Shabnam/Shabnam-700.woff2")
+    format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+
 .ag-theme-alpine {
   font-family: Shabnam, "Open Sans", sans-serif;
   --ag-foreground-color: #000000;

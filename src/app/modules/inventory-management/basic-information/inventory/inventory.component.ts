@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppStateInterface } from 'src/app/types/appState.interface';
@@ -22,6 +23,7 @@ import { InventoryUserInterface } from 'src/app/types/inventory-management/inven
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { InventoryCategoryInterface } from 'src/app/types/inventory-management/inventory/inventoryCategory.interface';
 import { inventoryColDef } from 'src/app/types/inventory-management/columns/inventory.column';
+import { InventoryManagementService } from 'src/app/services/inventory-management/inventory-management.service';
 
 @Component({
   selector: 'app-inventory',
@@ -60,7 +62,9 @@ export class InventoryComponent implements OnInit {
 
   constructor(
     private store: Store<AppStateInterface>,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private imService: InventoryManagementService
   ) {}
 
   ngOnInit(): void {
@@ -77,7 +81,7 @@ export class InventoryComponent implements OnInit {
       inventoryName: ['', Validators.required],
       categoriesDropdown: ['', Validators.required],
       usersDropdown: ['', Validators.required],
-      status: [true, Validators.required],
+      status: [true],
     });
 
     // Table data
@@ -151,6 +155,12 @@ export class InventoryComponent implements OnInit {
   }
   onSubmit(): void {
     this.isSubmitted = true;
+
+    if (this.inventoryCreationForm.valid) {
+      this.imService
+        .postSubmitInventoryCreationForm()
+        .subscribe((val) => console.log(val));
+    }
   }
 
   get inventoryName() {
@@ -173,7 +183,6 @@ export class InventoryComponent implements OnInit {
       | 'status',
     val: any
   ): void {
-    console.log(val);
     if (elementType === 'inventoryName') {
       this.store.dispatch(
         imActions.inventoryNameFormUpdate({ inventoryName: val })
