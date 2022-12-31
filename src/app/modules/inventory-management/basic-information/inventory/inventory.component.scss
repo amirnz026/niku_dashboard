@@ -66,3 +66,7 @@ button {
     margin-bottom: 0.5rem;
   }
 }
+:host ::ng-deep .p-toast-summary {
+  margin-inline-start: 0.5rem;
+  margin-top: 0.2rem;
+}

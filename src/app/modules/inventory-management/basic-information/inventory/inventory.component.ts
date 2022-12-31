@@ -163,15 +163,29 @@ export class InventoryComponent implements OnInit {
     if (this.inventoryCreationForm.valid) {
       this.confirmationService.confirm({
         target: event?.target,
-        message: 'آیا از ساخت انبار مطمئن هستید؟',
+        message: `آیا از ساخت انبار "${
+          this.inventoryCreationForm.get('inventoryName')?.value
+        }" مطمئن هستید؟`,
         icon: 'pi pi-exclamation-triangle',
         acceptLabel: 'بله',
         rejectLabel: 'خیر',
-
         accept: () => {
-          this.imService
-            .postSubmitInventoryCreationForm()
-            .subscribe((val) => console.log(val));
+          this.messageService.add({
+            severity: 'info',
+            summary: 'انبار جدید',
+            detail: `درخواست ایجاد انبار "${
+              this.inventoryCreationForm.get('inventoryName')?.value
+            }" ارسال شد.`,
+          });
+          this.imService.postSubmitInventoryCreationForm().subscribe((val) => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'انبار جدید',
+              detail: `انبار "${
+                this.inventoryCreationForm.get('inventoryName')?.value
+              }" با موفقیت ایجاد شد`,
+            });
+          });
         },
         reject: () => {},
       });
@@ -227,6 +241,20 @@ export class InventoryComponent implements OnInit {
       severity: 'warn',
       summary: 'Success',
       detail: 'Message Content',
+    });
+  }
+  onSuccess() {
+    this.messageService.add({
+      severity: 'warn',
+      summary: 'Success',
+      detail: 'on success',
+    });
+  }
+  onFailure() {
+    this.messageService.add({
+      severity: 'warn',
+      summary: 'Success',
+      detail: 'on failure',
     });
   }
 }

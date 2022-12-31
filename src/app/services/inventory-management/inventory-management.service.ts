@@ -26,7 +26,7 @@ export class InventoryManagementService {
     return of(inventoryUsers);
   }
   postSubmitInventoryCreationForm(): Observable<boolean> {
-    return of(true);
+    return of(true).pipe(delay(3000));
   }
   // onInventoryCreationFormSubmit(): Observable<boolean> {
   //   this.http.post('');
