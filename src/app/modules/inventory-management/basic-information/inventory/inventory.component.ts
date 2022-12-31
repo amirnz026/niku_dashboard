@@ -41,7 +41,7 @@ export class InventoryComponent implements OnInit {
   // Table
   rowData$: Observable<any[]>;
   isInventoriesLoading$: Observable<boolean>;
-  isForm$: Observable<boolean>;
+  isForm$: Observable<'edit' | 'create' | null>;
   colDefs: ColDef[] = inventoryColDef;
 
   isOpen = true;

@@ -15,7 +15,7 @@ export const isInventoriesLoadingSelector = createSelector(
 
 export const inventoryFormStateSelector = createSelector(
   selectInventoryPageFeature,
-  (state) => state.isInventoryForm
+  (state) => state.inventoryFormState
 );
 
 export const inventoryCategoriesSelector = createSelector(

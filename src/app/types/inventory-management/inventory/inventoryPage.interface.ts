@@ -8,8 +8,9 @@ export interface InventoryPageInterface {
   isInventoriesLoading: boolean;
   errorInventories: string;
   inventorySelectedRows: InventoryInterface[];
+  inventoryFormState: 'edit' | 'create' | null;
   // Form
-  isInventoryForm: boolean;
+  // isInventoryForm: boolean;
   // Inventory Categories
   inventoryCategories: InventoryCategoryInterface[];
   isInventoriesCategoriesLoading: boolean;

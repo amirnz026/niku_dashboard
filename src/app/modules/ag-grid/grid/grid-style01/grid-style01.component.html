@@ -28,9 +28,16 @@
   <button
     pButton
     type="button"
-    label="ویرایش گروهی"
+    [label]="
+      (inventorySelectedRows$ | async)!.length === 1
+        ? 'ویرایش ردیف'
+        : 'ویرایش گروهی'
+    "
     class="p-button-outlined"
-    (click)="refreshPage()"
+    (click)="onEdit()"
+    icon="pi pi-file-edit"
+    iconPos="right"
+    *ngIf="(inventorySelectedRows$ | async)?.length"
     [loading]="
       (isInventoriesLoading$ | async)! ||
       isInventoryUsersLoading! ||

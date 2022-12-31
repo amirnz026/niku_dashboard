@@ -18,12 +18,16 @@ export const getInventoriesFailure = createAction(
   props<{ error: 'error while fetching inventories' }>()
 );
 
-export const openInventoryForm = createAction(
-  '[Inventory Management] Open Inventory Form'
+export const inventoryFormStateToEdit = createAction(
+  '[Inventory Management] Change Inventory Form State To Edit'
+);
+
+export const inventoryFormStateToCreate = createAction(
+  '[Inventory Management] Change Inventory Form State To Create'
 );
 
 export const closeInventoryForm = createAction(
-  '[Inventory Management] Close Inventory Form'
+  '[Inventory Management] Change Inventory Form State To Null'
 );
 
 export const getInventoryCategories = createAction(
@@ -69,6 +73,7 @@ export const inventoryStatusFormUpdate = createAction(
 export const submitInventoryCreationForm = createAction(
   '[Inventory Management] Submit Inventory Creation Form'
 );
+
 export const submitInventoryCreationFormSuccess = createAction(
   '[Inventory Management] Submit Inventory Creation Form Success'
 );

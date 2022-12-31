@@ -150,7 +150,7 @@ export class GridStyle01Component implements OnInit {
   }
   openForm(): void {
     if (this.pageName === 'inventory') {
-      this.store.dispatch(imActions.openInventoryForm());
+      this.store.dispatch(imActions.inventoryFormStateToCreate());
     }
   }
   refreshPage(): void {
@@ -161,7 +161,6 @@ export class GridStyle01Component implements OnInit {
     }
   }
   onSelectionChanged(val: SelectionChangedEvent): void {
-    // console.log(val.api.getSelectedRows());
     console.log(val.api.getSelectedRows());
     this.store.dispatch(
       imActions.setInventorySelectedRows({
@@ -170,22 +169,6 @@ export class GridStyle01Component implements OnInit {
     );
   }
   selectAllAmerican() {
-    // this.inventorySelectedRows$.pipe(take(1)).subscribe((selectedRows) => {
-    //   selectedRows.map((row) => {
-    //     this.gridApi.forEachNode((node) => {
-    //       console.log(node.data.name);
-    //       console.log(row.name);
-    //       node.setSelected(node.data.name === row.name);
-    //     });
-    //   });
-    // });
-    // this.gridApi.forEachNode((node) => {
-    //   this.yoyo.map((row) => {
-    //     if (node.data.name === row.name) {
-    //       node.setSelected(node.data.name === row.name);
-    //     }
-    //   });
-    // });
     this.gridApi.forEachNode((node) => {
       this.inventorySelectedRows$.subscribe((selectedRows) => {
         selectedRows.map((row) => {
@@ -196,4 +179,5 @@ export class GridStyle01Component implements OnInit {
       });
     });
   }
+  onEdit() {}
 }
