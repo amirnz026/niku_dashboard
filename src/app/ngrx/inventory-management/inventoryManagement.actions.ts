@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { CellClickedEvent } from 'ag-grid-community';
 import { InventoryInterface } from 'src/app/types/inventory-management/inventory/inventory.interface';
 import { InventoryCategoryInterface } from 'src/app/types/inventory-management/inventory/inventoryCategory.interface';
 import { InventoryUserInterface } from 'src/app/types/inventory-management/inventory/inventoryUser.interface';
@@ -74,4 +75,9 @@ export const submitInventoryCreationFormSuccess = createAction(
 export const submitInventoryCreationFormFailure = createAction(
   '[Inventory Management] Submit Inventory Creation Form Failure',
   props<{ error: 'An error occurred while submitting the form' }>()
+);
+
+export const setInventorySelectedRows = createAction(
+  '[Inventory Management] Set Inventory Selected Rows',
+  props<{ inventories: InventoryInterface[] }>()
 );

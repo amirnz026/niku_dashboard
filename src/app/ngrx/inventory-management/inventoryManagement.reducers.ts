@@ -8,6 +8,7 @@ export const initialState: InventoryManagementInterface = {
     inventories: [],
     isInventoriesLoading: false,
     errorInventories: '',
+    inventorySelectedRows: [],
     // Form
     isInventoryForm: true,
     inventoryCategories: [],
@@ -75,5 +76,8 @@ export const inventoryManagementReducers = createReducer(
   }),
   immerOn(imActions.inventoryStatusFormUpdate, (state, action) => {
     state.inventoryPage.inventoryStatusForm = action.status;
+  }),
+  immerOn(imActions.setInventorySelectedRows, (state, action) => {
+    state.inventoryPage.inventorySelectedRows = action.inventories;
   })
 );

@@ -51,3 +51,7 @@ export const inventoryStatusFormSelector = createSelector(
   selectInventoryPageFeature,
   (state) => state.inventoryStatusForm
 );
+export const inventorySelectedRowsSelector = createSelector(
+  selectInventoryPageFeature,
+  (state) => state.inventorySelectedRows
+);

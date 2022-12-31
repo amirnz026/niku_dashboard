@@ -25,7 +25,18 @@
       isInventoryCategoryLoading!
     "
   ></button>
-
+  <button
+    pButton
+    type="button"
+    label="ویرایش گروهی"
+    class="p-button-outlined"
+    (click)="refreshPage()"
+    [loading]="
+      (isInventoriesLoading$ | async)! ||
+      isInventoryUsersLoading! ||
+      isInventoryCategoryLoading!
+    "
+  ></button>
   <p-button
     label="انبار جدید"
     icon="pi pi-plus-circle"
@@ -57,4 +68,5 @@
   [tooltipShowDelay]="tooltipShowDelay"
   [tooltipMouseTrack]="true"
   [sideBar]="sideBar"
+  (selectionChanged)="onSelectionChanged($event)"
 ></ag-grid-angular>

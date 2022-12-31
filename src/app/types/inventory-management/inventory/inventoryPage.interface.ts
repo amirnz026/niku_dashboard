@@ -7,6 +7,7 @@ export interface InventoryPageInterface {
   inventories: InventoryInterface[];
   isInventoriesLoading: boolean;
   errorInventories: string;
+  inventorySelectedRows: InventoryInterface[];
   // Form
   isInventoryForm: boolean;
   // Inventory Categories
