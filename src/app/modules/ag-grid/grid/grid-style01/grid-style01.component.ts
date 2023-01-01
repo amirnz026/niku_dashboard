@@ -172,11 +172,16 @@ export class GridStyle01Component implements OnInit {
     }
   }
   onSelectionChanged(val: SelectionChangedEvent): void {
-    this.store.dispatch(
-      imActions.setInventorySelectedRows({
-        inventories: val.api.getSelectedRows(),
-      })
-    );
+    this.inventoryFormState$.subscribe((formState) => {
+      if (formState === 'edit') {
+        this.store.dispatch(
+          imActions.setInventorySelectedRows({
+            inventories: val.api.getSelectedRows(),
+          })
+        );
+      }
+    });
+
     console.log('on selection changed');
   }
   selectAllAmerican() {
@@ -192,8 +197,9 @@ export class GridStyle01Component implements OnInit {
   }
   onEdit() {
     this.store.dispatch(imActions.inventoryFormStateToEdit());
+
     this.inventorySelectedRows$.subscribe((selectedRows) => {
-      if (selectedRows.length) {
+      if (selectedRows?.length) {
         if (selectedRows.length > 1) {
           this.store.dispatch(
             imActions.inventoryNameFormUpdate({
@@ -225,5 +231,8 @@ export class GridStyle01Component implements OnInit {
         );
       }
     });
+  }
+  get rowsCount() {
+    return this.gridApi?.getSelectedRows().length;
   }
 }

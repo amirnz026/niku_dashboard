@@ -33,7 +33,7 @@
     (click)="onEdit()"
     icon="pi pi-file-edit"
     iconPos="right"
-    *ngIf="(inventorySelectedRows$ | async)?.length"
+    *ngIf="rowsCount"
     [loading]="
       (isInventoriesLoading$ | async)! ||
       isInventoryUsersLoading! ||
