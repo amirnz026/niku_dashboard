@@ -12,7 +12,11 @@ export const inventoryColDef: ColDef[] = [
     checkboxSelection: true,
     flex: 2,
   },
-  { headerName: 'دسته بندی', field: 'category' },
+  {
+    headerName: 'دسته بندی',
+    field: 'category',
+    valueGetter: 'data.category.name',
+  },
   {
     headerName: 'وضعیت',
     field: 'status',
@@ -23,6 +27,7 @@ export const inventoryColDef: ColDef[] = [
     field: 'users',
     cellRenderer: UsersCellComponent,
     tooltipField: 'users',
+    valueGetter: 'data.users',
   },
   {
     headerName: 'عملیات',

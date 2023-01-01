@@ -19,8 +19,8 @@ export const initialState: InventoryManagementInterface = {
     errorInventoryUsers: '',
     // Form Elements
     inventoryNameForm: null,
-    inventoryCategoryForm: [],
-    inventoryUsersForm: null,
+    inventoryCategoryForm: { name: '' },
+    inventoryUsersForm: [],
     inventoryStatusForm: null,
   },
 };

@@ -14,7 +14,7 @@ export class StatusCellComponent implements OnInit, ICellRendererAngularComp {
 
   agInit(params: ICellRendererParams): void {
     this.value = params.value;
-    if (this.value == 'فعال') this.status = true;
+    if (this.value) this.status = true;
     else this.status = false;
   }
   refresh(params: ICellRendererParams): boolean {

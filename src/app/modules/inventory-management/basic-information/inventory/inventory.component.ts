@@ -57,8 +57,8 @@ export class InventoryComponent implements OnInit {
   isInventoryUsersLoading$: Observable<boolean>;
   inventoryCreationForm: FormGroup;
   inventoryNameForm$: Observable<string | null>;
-  inventoryCategoryForm$: Observable<InventoryCategoryInterface[] | null>;
-  inventoryUsersForm$: Observable<InventoryUserInterface | null>;
+  inventoryCategoryForm$: Observable<InventoryCategoryInterface | null>;
+  inventoryUsersForm$: Observable<InventoryUserInterface[]>;
   inventoryStatusForm$: Observable<boolean | null>;
   isSubmitted = false;
 

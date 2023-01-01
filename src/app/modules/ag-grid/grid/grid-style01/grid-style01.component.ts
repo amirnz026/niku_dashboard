@@ -193,6 +193,16 @@ export class GridStyle01Component implements OnInit {
             inventoryCategoryName: selectedRows[0].category,
           })
         );
+        this.store.dispatch(
+          imActions.inventoryStatusFormUpdate({
+            status: selectedRows[0].status,
+          })
+        );
+        this.store.dispatch(
+          imActions.inventoryUsersFormUpdate({
+            inventoryUsers: selectedRows[0].users,
+          })
+        );
       }
     });
   }
