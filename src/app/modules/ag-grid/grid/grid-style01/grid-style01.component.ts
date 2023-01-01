@@ -31,7 +31,7 @@ import {
   isInventoriesLoadingSelector,
 } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
 import { InventoryInterface } from 'src/app/types/inventory-management/inventory/inventory.interface';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { InventoryFormStateType } from 'src/app/types/inventory-management/inventory/inventoryPage.interface';
 
 @Component({
@@ -68,7 +68,11 @@ export class GridStyle01Component implements OnInit {
   inventorySelectedRows$: Observable<InventoryInterface[]>;
   inventoryFormState$: Observable<InventoryFormStateType>;
   @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
-  constructor(private store: Store<AppStateInterface>) {}
+  constructor(
+    private store: Store<AppStateInterface>,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+  ) {}
   gridOptions: GridOptions = {
     // EVENTS
     // Add event handlers
@@ -234,5 +238,28 @@ export class GridStyle01Component implements OnInit {
   }
   get rowsCount() {
     return this.gridApi?.getSelectedRows().length;
+  }
+  onDelete() {
+    let inventoryNames = '';
+    this.store.dispatch(imActions.inventoryFormStateToEdit());
+    this.inventorySelectedRows$.subscribe((selectedRows) => {
+      selectedRows.map((row, index) => {
+        if (index !== selectedRows.length - 1)
+          inventoryNames += row.name + '، ';
+        else if (index === selectedRows.length - 1)
+      wrongggggbgg
+          inventoryNames += row.name + ' و';
+        else inventoryNames += row.name;
+      });
+    });
+    console.log(inventoryNames);
+    this.confirmationService.confirm({
+      message: `آیا از حذف  ${inventoryNames} مطمئن هستید؟`,
+      accept: () => {
+        //Actual logic to perform a confirmation
+      },
+      acceptLabel: 'بله',
+      rejectLabel: 'خیر',
+    });
   }
 }

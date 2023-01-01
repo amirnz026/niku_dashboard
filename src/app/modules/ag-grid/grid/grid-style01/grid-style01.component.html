@@ -20,7 +20,16 @@
       isInventoryCategoryLoading!
     "
   ></p-button>
-
+  <button
+    pButton
+    type="button"
+    [label]="rowsCount === 1 ? 'حذف ردیف' : 'حذف گروهی'"
+    class="p-button-danger"
+    (click)="onDelete()"
+    icon="pi pi-trash"
+    iconPos="right"
+    *ngIf="rowsCount"
+  ></button>
   <button
     pButton
     type="button"
@@ -30,11 +39,6 @@
     icon="pi pi-file-edit"
     iconPos="right"
     *ngIf="rowsCount"
-    [loading]="
-      (isInventoriesLoading$ | async)! ||
-      isInventoryUsersLoading! ||
-      isInventoryCategoryLoading!
-    "
   ></button>
   <button
     pButton
@@ -72,3 +76,7 @@
   (selectionChanged)="onSelectionChanged($event)"
   (rowSelected)="onRowSelected()"
 ></ag-grid-angular>
+<p-confirmDialog
+  header="حذف انبار"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>
