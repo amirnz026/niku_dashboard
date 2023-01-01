@@ -26,10 +26,13 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
 import { CustomTooltipComponent } from 'src/app/modules/ag-grid/tooltip/custom-tooltip.component';
 import { LoadingOverlayComponent } from '../../loading-overlay/loading-overlay.compoment';
 import {
+  inventoryFormStateSelector,
   inventorySelectedRowsSelector,
   isInventoriesLoadingSelector,
 } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
 import { InventoryInterface } from 'src/app/types/inventory-management/inventory/inventory.interface';
+import { ConfirmationService } from 'primeng/api';
+import { InventoryFormStateType } from 'src/app/types/inventory-management/inventory/inventoryPage.interface';
 
 @Component({
   selector: 'app-grid-style01',
@@ -63,6 +66,7 @@ export class GridStyle01Component implements OnInit {
     lockPinned: true,
   };
   inventorySelectedRows$: Observable<InventoryInterface[]>;
+  inventoryFormState$: Observable<InventoryFormStateType>;
   @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
   constructor(private store: Store<AppStateInterface>) {}
   gridOptions: GridOptions = {
@@ -120,12 +124,16 @@ export class GridStyle01Component implements OnInit {
     this.inventorySelectedRows$ = this.store.pipe(
       select(inventorySelectedRowsSelector)
     );
+    this.inventoryFormState$ = this.store.pipe(
+      select(inventoryFormStateSelector)
+    );
   }
-  onCellClicked(event: CellClickedEvent) {
-    console.log(event.data);
-    // this.store.dispatch(
-    //   imActions.setInventorySelectedRows({ inventories: event.data })
-    // );
+  onCellClicked(event: CellClickedEvent) {}
+  onRowSelected() {
+    if (this.gridApi.getSelectedRows().length === 0) {
+      this.store.dispatch(imActions.inventoryFormStateToCreate());
+    }
+    console.log('on row selected');
   }
   clearSelection() {
     this.agGrid.api.deselectAll();
@@ -151,6 +159,9 @@ export class GridStyle01Component implements OnInit {
   openCreationForm(): void {
     if (this.pageName === 'inventory') {
       this.store.dispatch(imActions.inventoryFormStateToCreate());
+      this.store.dispatch(
+        imActions.inventoryNameFormUpdate({ inventoryName: '' })
+      );
     }
   }
   refreshPage(): void {
@@ -161,12 +172,12 @@ export class GridStyle01Component implements OnInit {
     }
   }
   onSelectionChanged(val: SelectionChangedEvent): void {
-    console.log(val.api.getSelectedRows());
     this.store.dispatch(
       imActions.setInventorySelectedRows({
         inventories: val.api.getSelectedRows(),
       })
     );
+    console.log('on selection changed');
   }
   selectAllAmerican() {
     this.gridApi.forEachNode((node) => {
@@ -182,12 +193,21 @@ export class GridStyle01Component implements OnInit {
   onEdit() {
     this.store.dispatch(imActions.inventoryFormStateToEdit());
     this.inventorySelectedRows$.subscribe((selectedRows) => {
-      if (selectedRows.length === 1) {
-        this.store.dispatch(
-          imActions.inventoryNameFormUpdate({
-            inventoryName: selectedRows[0].name,
-          })
-        );
+      if (selectedRows.length) {
+        if (selectedRows.length > 1) {
+          this.store.dispatch(
+            imActions.inventoryNameFormUpdate({
+              inventoryName: '...',
+            })
+          );
+        } else if (selectedRows.length === 1) {
+          this.store.dispatch(
+            imActions.inventoryNameFormUpdate({
+              inventoryName: selectedRows[0].name,
+            })
+          );
+        }
+
         this.store.dispatch(
           imActions.inventoryCategoryFormUpdate({
             inventoryCategoryName: selectedRows[0].category,

@@ -10,3 +10,7 @@
   margin-bottom: 0.5rem;
   margin-top: -3.7rem;
 }
+
+:host ::ng-deep .p-button-icon {
+  margin-left: 0.5rem;
+}

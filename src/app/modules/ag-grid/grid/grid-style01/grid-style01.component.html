@@ -11,20 +11,16 @@
       class="table-search-input"
     />
   </span>
-  <button
-    pButton
-    type="button"
-    label="به روزرسانی"
-    class="p-button-outlined"
+  <p-button
     icon="pi pi-refresh"
-    iconPos="right"
     (click)="refreshPage()"
     [loading]="
       (isInventoriesLoading$ | async)! ||
       isInventoryUsersLoading! ||
       isInventoryCategoryLoading!
     "
-  ></button>
+  ></p-button>
+
   <button
     pButton
     type="button"
@@ -33,7 +29,7 @@
         ? 'ویرایش ردیف'
         : 'ویرایش گروهی'
     "
-    class="p-button-outlined"
+    class="p-button-warning"
     (click)="onEdit()"
     icon="pi pi-file-edit"
     iconPos="right"
@@ -44,12 +40,14 @@
       isInventoryCategoryLoading!
     "
   ></button>
-  <p-button
-    label="انبار جدید"
+  <button
+    pButton
+    label="جدید"
     icon="pi pi-plus-circle"
     iconPos="right"
-    (onClick)="openCreationForm()"
-  ></p-button>
+    (click)="openCreationForm()"
+    class="p-button-success"
+  ></button>
 </div>
 
 <ag-grid-angular
@@ -76,4 +74,5 @@
   [tooltipMouseTrack]="true"
   [sideBar]="sideBar"
   (selectionChanged)="onSelectionChanged($event)"
+  (rowSelected)="onRowSelected()"
 ></ag-grid-angular>

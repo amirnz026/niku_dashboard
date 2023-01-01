@@ -28,7 +28,7 @@ import { FormValidationErrorComponent } from '../partials/form-validation-error/
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 @NgModule({
   declarations: [
     InventoryManagementComponent,
@@ -61,6 +61,7 @@ import { ToastModule } from 'primeng/toast';
     ButtonModule,
     ConfirmPopupModule,
     ToastModule,
+    ConfirmDialogModule,
   ],
   providers: [InventoryManagementService, ConfirmationService, MessageService],
 })

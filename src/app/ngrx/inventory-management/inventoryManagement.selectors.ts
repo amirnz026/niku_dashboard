@@ -55,3 +55,7 @@ export const inventorySelectedRowsSelector = createSelector(
   selectInventoryPageFeature,
   (state) => state.inventorySelectedRows
 );
+export const inventorySelectedRowsCountSelector = createSelector(
+  selectInventoryPageFeature,
+  (state) => state.inventorySelectedRows.length
+);

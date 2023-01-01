@@ -5,7 +5,17 @@
         <h3>انبار جدید</h3>
       </ng-container>
       <ng-container *ngIf="(inventoryFormState$ | async) === 'edit'">
-        <h3>ویرایش انبار</h3>
+        <div
+          *ngIf="
+            (inventorySelectedRowsCount$ | async) === 1;
+            then thenTemplateName;
+            else elseTemplateName
+          "
+        ></div>
+
+        <ng-template #thenTemplateName> <h3>ویرایش انبار</h3></ng-template>
+
+        <ng-template #elseTemplateName> <h3>ویرایش انبار ها</h3></ng-template>
       </ng-container>
       <img
         alt="X"
@@ -22,6 +32,10 @@
         placeholder="نام انبار"
         formControlName="inventoryName"
         class="input"
+        [readOnly]="
+          (inventorySelectedRowsCount$ | async)! > 1 &&
+          (inventoryFormState$ | async) === 'edit'
+        "
         (ngModelChange)="onChange('inventoryName', $event)"
         [ngClass]="{
           'ng-invalid ng-dirty':
@@ -118,7 +132,13 @@
           error="حداقل یک کاربر انتخاب کنید"
         ></app-form-validation-error>
       </ng-container>
-      <p-button label="ایجاد انبار" [loading]="false" type="submit"></p-button>
+      <p-button
+        [label]="
+          (inventoryFormState$ | async)! === 'create' ? 'ایجاد انبار' : 'ویرایش'
+        "
+        [loading]="false"
+        type="submit"
+      ></p-button>
       <p-confirmPopup st></p-confirmPopup>
     </form>
   </div>

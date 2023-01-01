@@ -10,6 +10,7 @@ import {
   inventoryCategoriesSelector,
   inventoryCategoryFormSelector,
   inventoryNameFormSelector,
+  inventorySelectedRowsCountSelector,
   inventoryStatusFormSelector,
   inventoryUsersFormSelector,
   inventoryUsersSelector,
@@ -25,7 +26,6 @@ import { InventoryCategoryInterface } from 'src/app/types/inventory-management/i
 import { inventoryColDef } from 'src/app/types/inventory-management/columns/inventory.column';
 import { InventoryManagementService } from 'src/app/services/inventory-management/inventory-management.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
-
 @Component({
   selector: 'app-inventory',
   templateUrl: './inventory.component.html',
@@ -60,6 +60,7 @@ export class InventoryComponent implements OnInit {
   inventoryCategoryForm$: Observable<InventoryCategoryInterface | null>;
   inventoryUsersForm$: Observable<InventoryUserInterface[]>;
   inventoryStatusForm$: Observable<boolean | null>;
+  inventorySelectedRowsCount$: Observable<number>;
   isSubmitted = false;
 
   constructor(
@@ -97,7 +98,9 @@ export class InventoryComponent implements OnInit {
       if (val === undefined || val.length == 0)
         this.store.dispatch(imActions.getInventories());
     });
-
+    this.inventorySelectedRowsCount$ = this.store.pipe(
+      select(inventorySelectedRowsCountSelector)
+    );
     // Form data
     this.inventoryFormState$ = this.store.pipe(
       select(inventoryFormStateSelector)
@@ -237,26 +240,5 @@ export class InventoryComponent implements OnInit {
         })
       );
     }
-  }
-  addSingle() {
-    this.messageService.add({
-      severity: 'warn',
-      summary: 'Success',
-      detail: 'Message Content',
-    });
-  }
-  onSuccess() {
-    this.messageService.add({
-      severity: 'warn',
-      summary: 'Success',
-      detail: 'on success',
-    });
-  }
-  onFailure() {
-    this.messageService.add({
-      severity: 'warn',
-      summary: 'Success',
-      detail: 'on failure',
-    });
   }
 }
