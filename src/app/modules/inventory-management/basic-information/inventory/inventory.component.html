@@ -32,6 +32,13 @@
         placeholder="نام انبار"
         formControlName="inventoryName"
         class="input"
+        [pTooltip]="
+          (inventorySelectedRowsCount$ | async)! > 1 &&
+          (inventoryFormState$ | async) === 'edit'
+            ? 'امکان تغییر نام انبارها در ویرایش گروهی وجود ندارد.'
+            : ''
+        "
+        tooltipPosition="left"
         [readOnly]="
           (inventorySelectedRowsCount$ | async)! > 1 &&
           (inventoryFormState$ | async) === 'edit'

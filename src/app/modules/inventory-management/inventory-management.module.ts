@@ -29,6 +29,8 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { TooltipModule } from 'primeng/tooltip';
+
 @NgModule({
   declarations: [
     InventoryManagementComponent,
@@ -62,6 +64,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     ConfirmPopupModule,
     ToastModule,
     ConfirmDialogModule,
+    TooltipModule,
   ],
   providers: [InventoryManagementService, ConfirmationService, MessageService],
 })

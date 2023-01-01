@@ -9,7 +9,7 @@ export const initialState: InventoryManagementInterface = {
     isInventoriesLoading: false,
     errorInventories: '',
     inventorySelectedRows: [],
-    inventoryFormState: null,
+    inventoryFormState: 'create',
     // Form
     inventoryCategories: [],
     isInventoriesCategoriesLoading: false,

@@ -24,11 +24,7 @@
   <button
     pButton
     type="button"
-    [label]="
-      (inventorySelectedRows$ | async)!.length === 1
-        ? 'ویرایش ردیف'
-        : 'ویرایش گروهی'
-    "
+    [label]="rowsCount === 1 ? 'ویرایش ردیف' : 'ویرایش گروهی'"
     class="p-button-warning"
     (click)="onEdit()"
     icon="pi pi-file-edit"
