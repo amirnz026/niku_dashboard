@@ -41,7 +41,7 @@ export class InventoryComponent implements OnInit {
   // Table
   rowData$: Observable<any[]>;
   isInventoriesLoading$: Observable<boolean>;
-  isForm$: Observable<'edit' | 'create' | null>;
+  inventoryFormState$: Observable<'edit' | 'create' | null>;
   colDefs: ColDef[] = inventoryColDef;
 
   isOpen = true;
@@ -99,7 +99,9 @@ export class InventoryComponent implements OnInit {
     });
 
     // Form data
-    this.isForm$ = this.store.pipe(select(inventoryFormStateSelector));
+    this.inventoryFormState$ = this.store.pipe(
+      select(inventoryFormStateSelector)
+    );
     this.inventoryUsers$ = this.store.pipe(select(inventoryUsersSelector));
     this.inventoryUsers$.subscribe((val) => {
       if (val === undefined || val.length == 0)

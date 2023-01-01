@@ -148,7 +148,7 @@ export class GridStyle01Component implements OnInit {
       (document.getElementById('filter-text-box') as HTMLInputElement).value
     );
   }
-  openForm(): void {
+  openCreationForm(): void {
     if (this.pageName === 'inventory') {
       this.store.dispatch(imActions.inventoryFormStateToCreate());
     }
@@ -179,5 +179,21 @@ export class GridStyle01Component implements OnInit {
       });
     });
   }
-  onEdit() {}
+  onEdit() {
+    this.store.dispatch(imActions.inventoryFormStateToEdit());
+    this.inventorySelectedRows$.subscribe((selectedRows) => {
+      if (selectedRows.length === 1) {
+        this.store.dispatch(
+          imActions.inventoryNameFormUpdate({
+            inventoryName: selectedRows[0].name,
+          })
+        );
+        this.store.dispatch(
+          imActions.inventoryCategoryFormUpdate({
+            inventoryCategoryName: selectedRows[0].category,
+          })
+        );
+      }
+    });
+  }
 }

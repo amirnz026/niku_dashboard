@@ -1,8 +1,12 @@
 <div class="row-flex">
-  <div *ngIf="(isForm$ | async) === 'create'" class="card">
+  <div *ngIf="inventoryFormState$ | async" class="card">
     <div class="header">
-      <h3>انبار جدید</h3>
-
+      <ng-container *ngIf="(inventoryFormState$ | async) === 'create'">
+        <h3>انبار جدید</h3>
+      </ng-container>
+      <ng-container *ngIf="(inventoryFormState$ | async) === 'edit'">
+        <h3>ویرایش انبار</h3>
+      </ng-container>
       <img
         alt="X"
         src="./assets/media/icons/duotune/general/gen040.svg"
@@ -118,6 +122,7 @@
       <p-confirmPopup st></p-confirmPopup>
     </form>
   </div>
+
   <app-grid-style01
     [rowInputData]="rowData$ | async"
     [colInputDefs]="colDefs"
