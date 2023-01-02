@@ -20,6 +20,9 @@
   background: red;
 }
 
+:host ::ng-deep .wrong-row {
+  color: red;
+}
 :host ::ng-deep .disabled-row {
-  color: blue;
+  color: red;
 }

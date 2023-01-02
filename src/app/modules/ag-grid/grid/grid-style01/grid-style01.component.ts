@@ -81,24 +81,36 @@ export class GridStyle01Component implements OnInit {
     // onGridReady: (event) => console.log('The grid is now ready'),
     // CALLBACKS
     getRowHeight: (params) => 65,
-    getRowStyle: (params) => {
-      if (params.node.rowIndex !== null) {
-        if (params.node.rowIndex % 2 === 0) {
-          return { background: '#f9f9f9' };
-        } else {
-          return { background: '#f6f6f6' };
-        }
-      }
-    },
+    // getRowStyle: (params) => {
+    //   if (params.node.rowIndex !== null) {
+    //     if (params.node.rowIndex % 2 === 0) {
+    //       return { background: '#f9f9f9' };
+    //     } else {
+    //       return { background: '#f6f6f6' };
+    //     }
+    //   }
+    // },
 
-    getRowClass: (params) => {
-      if (params.node.rowIndex! % 2 === 0) {
-        params.node.selectable = false;
-        return 'disabled-row';
-      } else {
-        return 'my-shaded-effect';
-      }
-    },
+    // getRowClass: (params) => {
+    //   let returnClass = '';
+    //   this.inventorySelectedRows$.subscribe((selectedRows) => {
+    //     console.log('selectedRows', selectedRows);
+    //     console.log('params.node.data', params.node.data);
+    //     console.log(
+    //       'does selected rows include data',
+    //       selectedRows.includes(params.node.data)
+    //     );
+    //     if (selectedRows.includes(params.node.data)) {
+    //       // params.node.selectable = false;
+    //       returnClass = 'disabled-row';
+    //     } else {
+    //       returnClass = 'wrong-row';
+    //     }
+    //   });
+    //   console.log('returnClass', returnClass);
+    //   return returnClass;
+    // },
+
     // suppressNoRowsOverlay: true,
     loadingOverlayComponent: LoadingOverlayComponent,
     loadingOverlayComponentParams: {},
@@ -176,6 +188,8 @@ export class GridStyle01Component implements OnInit {
         imActions.inventoryNameFormUpdate({ inventoryName: '' })
       );
     }
+    this.gridOptions.rowClassRules = {};
+    this.gridApi.redrawRows();
   }
   refreshPage(): void {
     if (this.pageName === 'inventory') {
@@ -185,17 +199,12 @@ export class GridStyle01Component implements OnInit {
     }
   }
   onSelectionChanged(val: SelectionChangedEvent): void {
-    this.inventoryFormState$.subscribe((formState) => {
-      if (formState === 'edit') {
-        this.store.dispatch(
-          imActions.setInventorySelectedRows({
-            inventories: val.api.getSelectedRows(),
-          })
-        );
-      }
-    });
-
-    console.log('on selection changed');
+    this.store.dispatch(
+      imActions.setInventorySelectedRows({
+        inventories: val.api.getSelectedRows(),
+      })
+    );
+    this.gridApi.redrawRows();
   }
   selectAllAmerican() {
     this.gridApi.forEachNode((node) => {
@@ -210,6 +219,18 @@ export class GridStyle01Component implements OnInit {
   }
   onEdit() {
     this.store.dispatch(imActions.inventoryFormStateToEdit());
+
+    this.inventoryFormState$.subscribe((formState) => {
+      if (formState === 'edit') {
+        this.gridOptions.rowClassRules = {
+          'disabled-row': function (params) {
+            if (!params.node.isSelected()) return true;
+            else return false;
+          },
+        };
+      } else this.gridOptions.rowClassRules;
+    });
+    this.gridApi.redrawRows();
 
     this.inventorySelectedRows$.subscribe((selectedRows) => {
       if (selectedRows?.length) {
