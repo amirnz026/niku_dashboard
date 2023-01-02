@@ -22,29 +22,46 @@
       isInventoryCategoryLoading!
     "
   ></p-button>
-  <button
-    pButton
-    type="button"
-    class="p-button-danger"
-    (click)="onDelete()"
-    icon="pi pi-trash"
-    [pTooltip]="'حذف گروهی'"
-    iconPos="right"
-    [disabled]="!(selectedRowsCount > 1)"
-  ></button>
-  <button
-    pButton
-    type="button"
-    class="p-button-warning"
-    (click)="onEdit()"
-    [pTooltip]="'ویرایش گروهی'"
-    icon="pi pi-file-edit"
-    iconPos="right"
-    [disabled]="
-      !(selectedRowsCount > 1) ||
-      (selectedRowsCount === 1 && (inventoryFormState$ | async) === 'edit')
+
+  <div
+    [pTooltip]="
+      selectedRowsCount < 2
+        ? 'برای حذف گروهی آیتم ها، حداقل دو آیتم را از جدول پایین انتخاب کنید.'
+        : ''
     "
-  ></button>
+  >
+    <button
+      pButton
+      type="button"
+      class="p-button-danger"
+      (click)="onDelete()"
+      icon="pi pi-trash"
+      [pTooltip]="'حذف گروهی'"
+      iconPos="right"
+      [disabled]="!(selectedRowsCount > 1)"
+    ></button>
+  </div>
+  <div
+    [pTooltip]="
+      selectedRowsCount < 2
+        ? 'برای ویرایش گروهی آیتم ها، حداقل دو آیتم را از جدول پایین انتخاب کنید.'
+        : ''
+    "
+  >
+    <button
+      pButton
+      type="button"
+      class="p-button-warning"
+      (click)="onEdit()"
+      pTooltip="ویرایش گروهی"
+      icon="pi pi-file-edit"
+      iconPos="right"
+      [disabled]="
+        !(selectedRowsCount > 1) ||
+        (selectedRowsCount === 1 && (inventoryFormState$ | async) === 'edit')
+      "
+    ></button>
+  </div>
 
   <button
     pButton

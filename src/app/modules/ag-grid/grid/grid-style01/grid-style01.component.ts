@@ -155,7 +155,7 @@ export class GridStyle01Component implements OnInit {
     );
     this.inventoryFormState$.subscribe((formState) => {
       this.gridOptions.rowClassRules = {};
-      this.gridApi.redrawRows();
+      this.gridApi?.redrawRows();
     });
   }
   onCellClicked(event: CellClickedEvent) {}
@@ -224,7 +224,6 @@ export class GridStyle01Component implements OnInit {
   }
   onEdit() {
     this.store.dispatch(imActions.inventoryFormStateToEdit());
-
     this.inventoryFormState$.pipe(take(1)).subscribe((formState) => {
       console.log(formState);
       if (formState === 'edit') {
@@ -236,9 +235,7 @@ export class GridStyle01Component implements OnInit {
         };
       } else this.gridOptions.rowClassRules = {};
     });
-
     this.gridApi.redrawRows();
-
     this.inventorySelectedRows$.subscribe((selectedRows) => {
       if (selectedRows?.length) {
         if (selectedRows.length > 1) {
