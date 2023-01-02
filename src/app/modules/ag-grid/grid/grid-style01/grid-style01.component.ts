@@ -67,6 +67,7 @@ export class GridStyle01Component implements OnInit {
   };
   inventorySelectedRows$: Observable<InventoryInterface[]>;
   inventoryFormState$: Observable<InventoryFormStateType>;
+  isTableLoaded: boolean;
   @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
   constructor(
     private store: Store<AppStateInterface>,
@@ -78,7 +79,7 @@ export class GridStyle01Component implements OnInit {
     // Add event handlers
     // onRowClicked: (event) => console.log('A row was clicked'),
     // onColumnResized: (event) => console.log('A column was resized'),
-    // onGridReady: (event) => console.log('The grid is now ready'),
+    onGridReady: (event) => (this.isTableLoaded = true),
     // CALLBACKS
     getRowHeight: (params) => 65,
     // getRowStyle: (params) => {
@@ -152,6 +153,10 @@ export class GridStyle01Component implements OnInit {
     this.inventoryFormState$ = this.store.pipe(
       select(inventoryFormStateSelector)
     );
+    this.inventoryFormState$.subscribe((formState) => {
+      this.gridOptions.rowClassRules = {};
+      this.gridApi.redrawRows();
+    });
   }
   onCellClicked(event: CellClickedEvent) {}
   onRowSelected() {
@@ -220,7 +225,8 @@ export class GridStyle01Component implements OnInit {
   onEdit() {
     this.store.dispatch(imActions.inventoryFormStateToEdit());
 
-    this.inventoryFormState$.subscribe((formState) => {
+    this.inventoryFormState$.pipe(take(1)).subscribe((formState) => {
+      console.log(formState);
       if (formState === 'edit') {
         this.gridOptions.rowClassRules = {
           'disabled-row': function (params) {
@@ -228,8 +234,9 @@ export class GridStyle01Component implements OnInit {
             else return false;
           },
         };
-      } else this.gridOptions.rowClassRules;
+      } else this.gridOptions.rowClassRules = {};
     });
+
     this.gridApi.redrawRows();
 
     this.inventorySelectedRows$.subscribe((selectedRows) => {
@@ -266,8 +273,11 @@ export class GridStyle01Component implements OnInit {
       }
     });
   }
-  get rowsCount() {
+  get selectedRowsCount() {
     return this.gridApi?.getSelectedRows().length;
+  }
+  get rowsCount() {
+    return this.gridApi?.getDisplayedRowCount();
   }
   onDelete() {
     let inventoryNames = '"';

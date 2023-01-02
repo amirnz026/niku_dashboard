@@ -43,8 +43,10 @@ export const inventoryManagementReducers = createReducer(
   immerOn(imActions.inventoryFormStateToCreate, (state) => {
     state.inventoryPage.inventoryFormState = 'create';
   }),
+
   immerOn(imActions.closeInventoryForm, (state) => {
     state.inventoryPage.inventoryFormState = null;
+    state.inventoryPage.inventorySelectedRows = [];
   }),
   immerOn(imActions.getInventoryCategories, (state) => {
     state.inventoryPage.isInventoriesCategoriesLoading = true;

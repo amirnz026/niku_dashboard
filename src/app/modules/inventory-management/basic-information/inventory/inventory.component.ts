@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import * as tabsActions from 'src/app/ngrx/tabs/tabs.actions';
 import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
@@ -20,7 +20,7 @@ import {
   isInventoryUsersLoadingSelector,
 } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
 import { inventoryFormStateSelector } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
-import { ColDef } from 'ag-grid-community';
+import { ColDef, GridApi } from 'ag-grid-community';
 import { InventoryUserInterface } from 'src/app/types/inventory-management/inventory/inventoryUser.interface';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { InventoryCategoryInterface } from 'src/app/types/inventory-management/inventory/inventoryCategory.interface';
@@ -78,6 +78,7 @@ export class InventoryComponent implements OnInit {
 
   ngOnInit(): void {
     // Get selected rows
+
     this.inventorySelectedRows$ = this.store.pipe(
       select(inventorySelectedRowsSelector)
     );

@@ -5,6 +5,7 @@
       type="text"
       pInputText
       placeholder="فیلتر..."
+      [pTooltip]="'فیلتر جدول'"
       (input)="onFilterTextBoxChanged()"
       id="filter-text-box"
       type="text"
@@ -14,6 +15,7 @@
   <p-button
     icon="pi pi-refresh"
     (click)="refreshPage()"
+    [pTooltip]="'به روزرسانی صفحه'"
     [loading]="
       (isInventoriesLoading$ | async)! ||
       isInventoryUsersLoading! ||
@@ -23,28 +25,33 @@
   <button
     pButton
     type="button"
-    label="حذف گروهی"
     class="p-button-danger"
     (click)="onDelete()"
     icon="pi pi-trash"
+    [pTooltip]="'حذف گروهی'"
     iconPos="right"
-    *ngIf="rowsCount > 1"
+    [disabled]="!(selectedRowsCount > 1)"
   ></button>
   <button
     pButton
     type="button"
-    label="ویرایش گروهی"
     class="p-button-warning"
     (click)="onEdit()"
+    [pTooltip]="'ویرایش گروهی'"
     icon="pi pi-file-edit"
     iconPos="right"
-    *ngIf="rowsCount > 1"
+    [disabled]="
+      !(selectedRowsCount > 1) ||
+      (selectedRowsCount === 1 && (inventoryFormState$ | async) === 'edit')
+    "
   ></button>
+
   <button
     pButton
     label="جدید"
     icon="pi pi-plus-circle"
     iconPos="right"
+    [pTooltip]="'انبار جدید'"
     (click)="openCreationForm()"
     class="p-button-success"
   ></button>
