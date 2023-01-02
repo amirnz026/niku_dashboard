@@ -5,14 +5,17 @@
     pButton
     pRipple
     type="button"
-    class="p-button-raised p-button-text"
-    icon="pi pi-times"
+    class="p-button-rounded p-button-danger"
+    icon="pi pi-trash"
+    (click)="onDelete()"
   ></button>
+
   <button
     pButton
     pRipple
     type="button"
-    class="p-button-raised p-button-text"
+    class="p-button-rounded p-button-warning"
     icon="pi pi-file-edit"
+    (click)="onEdit()"
   ></button>
 </div>

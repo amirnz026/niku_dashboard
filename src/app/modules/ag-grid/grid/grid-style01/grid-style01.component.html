@@ -23,22 +23,22 @@
   <button
     pButton
     type="button"
-    [label]="rowsCount === 1 ? 'حذف ردیف' : 'حذف گروهی'"
+    label="حذف گروهی"
     class="p-button-danger"
     (click)="onDelete()"
     icon="pi pi-trash"
     iconPos="right"
-    *ngIf="rowsCount"
+    *ngIf="rowsCount > 1"
   ></button>
   <button
     pButton
     type="button"
-    [label]="rowsCount === 1 ? 'ویرایش ردیف' : 'ویرایش گروهی'"
+    label="ویرایش گروهی"
     class="p-button-warning"
     (click)="onEdit()"
     icon="pi pi-file-edit"
     iconPos="right"
-    *ngIf="rowsCount"
+    *ngIf="rowsCount > 1"
   ></button>
   <button
     pButton
@@ -76,7 +76,4 @@
   (selectionChanged)="onSelectionChanged($event)"
   (rowSelected)="onRowSelected()"
 ></ag-grid-angular>
-<p-confirmDialog
-  header="حذف انبار"
-  icon="pi pi-exclamation-triangle"
-></p-confirmDialog>
+<p-confirmDialog icon="pi pi-exclamation-triangle"></p-confirmDialog>

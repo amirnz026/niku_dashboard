@@ -7,7 +7,14 @@ button {
   gap: 0.5rem;
 }
 
+// :host ::ng-deep .p-button {
+//   background-color: #f4f6fa;
+//   color: #5e6278;
+// }
+// :host ::ng-deep .p-button-icon {
+//   color: blue;
+// }
+
 :host ::ng-deep .p-button {
-  background-color: #f4f6fa;
-  color: #5e6278;
+  padding-inline-start: 0.4rem;
 }

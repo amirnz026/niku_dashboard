@@ -90,6 +90,15 @@ export class GridStyle01Component implements OnInit {
         }
       }
     },
+
+    getRowClass: (params) => {
+      if (params.node.rowIndex! % 2 === 0) {
+        params.node.selectable = false;
+        return 'disabled-row';
+      } else {
+        return 'my-shaded-effect';
+      }
+    },
     // suppressNoRowsOverlay: true,
     loadingOverlayComponent: LoadingOverlayComponent,
     loadingOverlayComponentParams: {},
@@ -240,19 +249,17 @@ export class GridStyle01Component implements OnInit {
     return this.gridApi?.getSelectedRows().length;
   }
   onDelete() {
-    let inventoryNames = '';
+    let inventoryNames = '"';
     this.store.dispatch(imActions.inventoryFormStateToEdit());
     this.inventorySelectedRows$.subscribe((selectedRows) => {
       selectedRows.map((row, index) => {
-        if (index !== selectedRows.length - 1)
-          inventoryNames += row.name + '، ';
-        else if (index === selectedRows.length - 1)
-      wrongggggbgg
-          inventoryNames += row.name + ' و';
-        else inventoryNames += row.name;
+        if (index <= selectedRows.length - 3) inventoryNames += row.name + '، ';
+        else if (index === selectedRows.length - 2)
+          inventoryNames += row.name + ' و ';
+        else if (index === selectedRows.length - 1) inventoryNames += row.name;
       });
     });
-    console.log(inventoryNames);
+    inventoryNames += '"';
     this.confirmationService.confirm({
       message: `آیا از حذف  ${inventoryNames} مطمئن هستید؟`,
       accept: () => {
@@ -260,6 +267,7 @@ export class GridStyle01Component implements OnInit {
       },
       acceptLabel: 'بله',
       rejectLabel: 'خیر',
+      header: 'حذف انبار انبارها',
     });
   }
 }

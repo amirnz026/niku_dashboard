@@ -11,6 +11,7 @@ import {
   inventoryCategoryFormSelector,
   inventoryNameFormSelector,
   inventorySelectedRowsCountSelector,
+  inventorySelectedRowsSelector,
   inventoryStatusFormSelector,
   inventoryUsersFormSelector,
   inventoryUsersSelector,
@@ -26,6 +27,8 @@ import { InventoryCategoryInterface } from 'src/app/types/inventory-management/i
 import { inventoryColDef } from 'src/app/types/inventory-management/columns/inventory.column';
 import { InventoryManagementService } from 'src/app/services/inventory-management/inventory-management.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { InventoryInterface } from 'src/app/types/inventory-management/inventory/inventory.interface';
+
 @Component({
   selector: 'app-inventory',
   templateUrl: './inventory.component.html',
@@ -42,6 +45,7 @@ export class InventoryComponent implements OnInit {
   rowData$: Observable<any[]>;
   isInventoriesLoading$: Observable<boolean>;
   inventoryFormState$: Observable<'edit' | 'create' | null>;
+  inventorySelectedRows$: Observable<InventoryInterface[]>;
   colDefs: ColDef[] = inventoryColDef;
 
   isOpen = true;
@@ -73,6 +77,10 @@ export class InventoryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Get selected rows
+    this.inventorySelectedRows$ = this.store.pipe(
+      select(inventorySelectedRowsSelector)
+    );
     // Tab Management
     this.store.dispatch(
       tabsActions.addTab({
@@ -164,37 +172,85 @@ export class InventoryComponent implements OnInit {
   }
   onSubmit(): void {
     this.isSubmitted = true;
-
-    if (this.inventoryCreationForm.valid) {
-      this.confirmationService.confirm({
-        target: event?.target,
-        message: `آیا از ساخت انبار "${
-          this.inventoryCreationForm.get('inventoryName')?.value
-        }" مطمئن هستید؟`,
-        icon: 'pi pi-exclamation-triangle',
-        acceptLabel: 'بله',
-        rejectLabel: 'خیر',
-        accept: () => {
-          this.messageService.add({
-            severity: 'info',
-            summary: 'انبار جدید',
-            detail: `درخواست ایجاد انبار "${
-              this.inventoryCreationForm.get('inventoryName')?.value
-            }" ارسال شد.`,
-          });
-          this.imService.postSubmitInventoryCreationForm().subscribe((val) => {
-            this.messageService.add({
-              severity: 'success',
-              summary: 'انبار جدید',
-              detail: `انبار "${
-                this.inventoryCreationForm.get('inventoryName')?.value
-              }" با موفقیت ایجاد شد`,
-            });
-          });
-        },
-        reject: () => {},
+    let inventoryNames = '"';
+    this.store.dispatch(imActions.inventoryFormStateToEdit());
+    this.inventorySelectedRows$.subscribe((selectedRows) => {
+      selectedRows.map((row, index) => {
+        if (index <= selectedRows.length - 3) inventoryNames += row.name + '، ';
+        else if (index === selectedRows.length - 2)
+          inventoryNames += row.name + ' و ';
+        else if (index === selectedRows.length - 1) inventoryNames += row.name;
       });
-    }
+    });
+    this.inventoryFormState$.subscribe((formState) => {
+      if (formState === 'create') {
+        if (this.inventoryCreationForm.valid) {
+          this.confirmationService.confirm({
+            target: event?.target,
+            message: `آیا از ساخت انبار "${
+              this.inventoryCreationForm.get('inventoryName')?.value
+            }" مطمئن هستید؟`,
+            icon: 'pi pi-exclamation-triangle',
+            acceptLabel: 'بله',
+            rejectLabel: 'خیر',
+            accept: () => {
+              this.messageService.add({
+                severity: 'info',
+                summary: 'ایجاد انبار',
+                detail: `درخواست ایجاد انبار "${
+                  this.inventoryCreationForm.get('inventoryName')?.value
+                }" ارسال شد.`,
+              });
+              this.imService
+                .postSubmitInventoryCreationForm()
+                .subscribe((val) => {
+                  this.messageService.add({
+                    severity: 'success',
+                    summary: 'ایجاد انبار',
+                    detail: `انبار "${
+                      this.inventoryCreationForm.get('inventoryName')?.value
+                    }" با موفقیت ایجاد شد.`,
+                  });
+                });
+            },
+            reject: () => {},
+            header: 'ایجاد انبار',
+          });
+        }
+      } else if (formState === 'edit') {
+        this.confirmationService.confirm({
+          target: event?.target,
+          message: `آیا از ویرایش انبار "${
+            this.inventoryCreationForm.get('inventoryName')?.value
+          }" مطمئن هستید؟`,
+          icon: 'pi pi-exclamation-triangle',
+          acceptLabel: 'بله',
+          rejectLabel: 'خیر',
+          accept: () => {
+            this.messageService.add({
+              severity: 'info',
+              summary: 'ویرایش انبار',
+              detail: `درخواست ویرایش انبار "${
+                this.inventoryCreationForm.get('inventoryName')?.value
+              }" ارسال شد.`,
+            });
+            this.imService
+              .postSubmitInventoryCreationForm()
+              .subscribe((val) => {
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'ویرایش انبار',
+                  detail: `انبار "${
+                    this.inventoryCreationForm.get('inventoryName')?.value
+                  }" با موفقیت ویرایش شد.`,
+                });
+              });
+          },
+          reject: () => {},
+          header: 'ویرایش انبار',
+        });
+      }
+    });
   }
 
   get inventoryName() {
