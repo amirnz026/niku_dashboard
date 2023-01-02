@@ -14,15 +14,7 @@
 :host ::ng-deep .p-button-icon {
   margin-left: 0.5rem;
 }
-.sick-days-breach {
-  background-color: red;
-  color: red;
-  background: red;
-}
 
-:host ::ng-deep .wrong-row {
-  color: red;
-}
 :host ::ng-deep .disabled-row {
-  color: red;
+  opacity: 0.4;
 }
