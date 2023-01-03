@@ -11,6 +11,7 @@ export const initialState: InventoryManagementInterface = {
     inventorySelectedRows: [],
     inventoryFormState: 'create',
     // Form
+    isInventoryFormOpen: false,
     inventoryCategories: [],
     isInventoriesCategoriesLoading: false,
     errorInventoriesCategories: '',
@@ -48,10 +49,13 @@ export const inventoryManagementReducers = createReducer(
   immerOn(imActions.inventoryFormStateToCreate, (state) => {
     state.inventoryPage.inventoryFormState = 'create';
   }),
-
+  immerOn(imActions.openInventoryForm, (state) => {
+    state.inventoryPage.isInventoryFormOpen = true;
+    state.inventoryPage.currentEditingInventory = null;
+  }),
   immerOn(imActions.closeInventoryForm, (state) => {
-    state.inventoryPage.inventoryFormState = null;
-    state.inventoryPage.inventorySelectedRows = [];
+    state.inventoryPage.isInventoryFormOpen = false;
+    state.inventoryPage.currentEditingInventory = null;
   }),
   immerOn(imActions.getInventoryCategories, (state) => {
     state.inventoryPage.isInventoriesCategoriesLoading = true;

@@ -167,6 +167,7 @@ export class GridStyle01Component implements OnInit {
   }
   openCreationForm(): void {
     if (this.pageName === 'inventory') {
+      this.store.dispatch(imActions.openInventoryForm());
       // this.store.dispatch(imActions.inventoryFormStateToCreate());
       this.store.dispatch(
         imActions.inventoryNameFormUpdate({ inventoryName: '' })

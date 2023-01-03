@@ -31,8 +31,12 @@ export const inventoryFormStateToCreate = createAction(
   '[Inventory Management] Change Inventory Form State To Create'
 );
 
+export const openInventoryForm = createAction(
+  '[Inventory Management] Open Inventory Form'
+);
+
 export const closeInventoryForm = createAction(
-  '[Inventory Management] Change Inventory Form State To Null'
+  '[Inventory Management] Close Inventory Form'
 );
 
 export const getInventoryCategories = createAction(

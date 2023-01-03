@@ -1,25 +1,11 @@
 <div class="row-flex">
   <ng-container *ngrxLet="currentEditingInventory$ as currentEditing">
-    <div *ngIf="inventoryFormState$ | async" class="card">
+    <div *ngIf="(isInventoryFormOpen$ | async) || currentEditing" class="card">
       <div class="header">
-        <ng-container *ngIf="(inventoryFormState$ | async) === 'create'">
-          <h3>
-            {{ currentEditing ? "ویرایش انبار" : "انبار جدید" }}
-          </h3>
-        </ng-container>
-        <ng-container *ngIf="(inventoryFormState$ | async) === 'edit'">
-          <div
-            *ngIf="
-              (inventorySelectedRowsCount$ | async) === 1;
-              then thenTemplateName;
-              else elseTemplateName
-            "
-          ></div>
+        <h3>
+          {{ currentEditing ? "ویرایش انبار" : "انبار جدید" }}
+        </h3>
 
-          <ng-template #thenTemplateName> <h3>ویرایش انبار</h3></ng-template>
-
-          <ng-template #elseTemplateName> <h3>ویرایش انبار ها</h3></ng-template>
-        </ng-container>
         <img
           alt="X"
           src="./assets/media/icons/duotune/general/gen040.svg"
@@ -39,17 +25,7 @@
           placeholder="مثال: انبار کالاهای اولیه"
           formControlName="name"
           class="input"
-          [pTooltip]="
-            (inventorySelectedRowsCount$ | async)! > 1 &&
-            (inventoryFormState$ | async) === 'edit'
-              ? 'امکان تغییر نام انبارها در ویرایش گروهی وجود ندارد.'
-              : ''
-          "
           tooltipPosition="left"
-          [readOnly]="
-            (inventorySelectedRowsCount$ | async)! > 1 &&
-            (inventoryFormState$ | async) === 'edit'
-          "
           (ngModelChange)="onChange('name', $event)"
           [ngClass]="{
             'ng-invalid ng-dirty':
@@ -105,7 +81,6 @@
         <p-inputSwitch
           formControlName="status"
           (ngModelChange)="onChange('status', $event)"
-          [ngModel]="true"
         ></p-inputSwitch>
         <h5>دسترسی کاربران</h5>
         <p-multiSelect
@@ -140,9 +115,15 @@
           [label]="currentEditing ? 'ویرایش انبار' : 'ایجاد انبار'"
           [loading]="false"
           type="submit"
+          [disabled]="!isRowEdited(currentEditing)"
+          [pTooltip]="
+            !isRowEdited(currentEditing)
+              ? 'لطفا حداقل یک فیلد را تغییر دهید.'
+              : ''
+          "
+          tooltipPosition="left"
         ></p-button>
       </form>
-      <button (click)="isRowEdited(currentEditing)"></button>
     </div>
   </ng-container>
 

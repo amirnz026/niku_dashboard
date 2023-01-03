@@ -18,6 +18,11 @@ export const inventoryFormStateSelector = createSelector(
   (state) => state.inventoryFormState
 );
 
+export const isInventoryFormOpenSelector = createSelector(
+  selectInventoryPageFeature,
+  (state) => state.isInventoryFormOpen
+);
+
 export const inventoryCategoriesSelector = createSelector(
   selectInventoryPageFeature,
   (state) => state.inventoryCategories

@@ -10,6 +10,7 @@ export interface InventoryPageInterface {
   inventorySelectedRows: InventoryInterface[];
   inventoryFormState: 'edit' | 'create' | null;
   // Form
+  isInventoryFormOpen: boolean;
   // Inventory Categories
   inventoryCategories: InventoryCategoryInterface[];
   isInventoriesCategoriesLoading: boolean;

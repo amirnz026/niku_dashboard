@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import * as tabsActions from 'src/app/ngrx/tabs/tabs.actions';
 import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
+import { isEqual } from 'lodash';
+
 import {
   currentEditingInventorySelector,
   inventoriesSelector,
@@ -18,6 +20,7 @@ import {
   inventoryUsersSelector,
   isInventoriesLoadingSelector,
   isInventoryCategoriesLoadingSelector,
+  isInventoryFormOpenSelector,
   isInventoryUsersLoadingSelector,
 } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
 import { inventoryFormStateSelector } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
@@ -45,11 +48,11 @@ export class InventoryComponent implements OnInit {
   // Table
   rowData$: Observable<any[]>;
   isInventoriesLoading$: Observable<boolean>;
-  inventoryFormState$: Observable<'edit' | 'create' | null>;
   inventorySelectedRows$: Observable<InventoryInterface[]>;
   colDefs: ColDef[] = inventoryColDef;
 
   // Form
+  isInventoryFormOpen$: Observable<boolean>;
   inventoryCategories$: Observable<InventoryCategoryInterface[]>;
   isInventoryCategoriesLoading$: Observable<boolean>;
   inventoryUsers$: Observable<InventoryUserInterface[]>;
@@ -61,6 +64,7 @@ export class InventoryComponent implements OnInit {
   inventoryStatusForm$: Observable<boolean | null>;
   inventorySelectedRowsCount$: Observable<number>;
   currentEditingInventory$: Observable<InventoryInterface | null>;
+
   isSubmitted = false;
   get name() {
     return this.inventoryCreationForm.get('name');
@@ -85,7 +89,9 @@ export class InventoryComponent implements OnInit {
 
   ngOnInit(): void {
     // Get selected rows
-
+    this.isInventoryFormOpen$ = this.store.pipe(
+      select(isInventoryFormOpenSelector)
+    );
     this.inventorySelectedRows$ = this.store.pipe(
       select(inventorySelectedRowsSelector)
     );
@@ -121,9 +127,7 @@ export class InventoryComponent implements OnInit {
       select(inventorySelectedRowsCountSelector)
     );
     // Form data
-    this.inventoryFormState$ = this.store.pipe(
-      select(inventoryFormStateSelector)
-    );
+
     this.inventoryUsers$ = this.store.pipe(select(inventoryUsersSelector));
     this.inventoryUsers$.subscribe((val) => {
       if (val === undefined || val.length == 0)
@@ -184,82 +188,72 @@ export class InventoryComponent implements OnInit {
   onSubmitCreate() {
     this.isSubmitted = true;
 
-    this.inventoryFormState$.subscribe((formState) => {
-      if (formState === 'create') {
-        if (this.inventoryCreationForm.valid) {
-          this.confirmationService.confirm({
-            target: event?.target,
-            message: `آیا از ایجاد انبار "${
+    if (this.inventoryCreationForm.valid) {
+      this.confirmationService.confirm({
+        target: event?.target,
+        message: `آیا از ایجاد انبار "${
+          this.inventoryCreationForm.get('name')?.value
+        }" مطمئن هستید؟`,
+        icon: 'pi pi-exclamation-triangle',
+        acceptLabel: 'بله',
+        rejectLabel: 'خیر',
+        accept: () => {
+          this.messageService.add({
+            severity: 'info',
+            summary: 'ایجاد انبار',
+            detail: `درخواست ایجاد انبار "${
               this.inventoryCreationForm.get('name')?.value
-            }" مطمئن هستید؟`,
-            icon: 'pi pi-exclamation-triangle',
-            acceptLabel: 'بله',
-            rejectLabel: 'خیر',
-            accept: () => {
-              this.messageService.add({
-                severity: 'info',
-                summary: 'ایجاد انبار',
-                detail: `درخواست ایجاد انبار "${
-                  this.inventoryCreationForm.get('name')?.value
-                }" ارسال شد.`,
-              });
-              this.imService
-                .postSubmitInventoryCreationForm()
-                .subscribe((val) => {
-                  this.messageService.add({
-                    severity: 'success',
-                    summary: 'ایجاد انبار',
-                    detail: `انبار "${
-                      this.inventoryCreationForm.get('name')?.value
-                    }" با موفقیت ایجاد شد.`,
-                  });
-                });
-            },
-            reject: () => {},
-            header: 'ایجاد انبار',
+            }" ارسال شد.`,
           });
-        }
-      }
-    });
+          this.imService.postSubmitInventoryCreationForm().subscribe((val) => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'ایجاد انبار',
+              detail: `انبار "${
+                this.inventoryCreationForm.get('name')?.value
+              }" با موفقیت ایجاد شد.`,
+            });
+          });
+        },
+        reject: () => {},
+        header: 'ایجاد انبار',
+      });
+    }
   }
   onSubmitEdit() {
     this.isSubmitted = true;
     console.log('editiing');
-    this.inventoryFormState$.subscribe((formState) => {
-      if (this.inventoryCreationForm.valid) {
-        this.confirmationService.confirm({
-          target: event?.target,
-          message: `آیا از ویرایش انبار "${
-            this.inventoryCreationForm.get('name')?.value
-          }" مطمئن هستید؟`,
-          icon: 'pi pi-exclamation-triangle',
-          acceptLabel: 'بله',
-          rejectLabel: 'خیر',
-          accept: () => {
+    if (this.inventoryCreationForm.valid) {
+      this.confirmationService.confirm({
+        target: event?.target,
+        message: `آیا از ویرایش انبار "${
+          this.inventoryCreationForm.get('name')?.value
+        }" مطمئن هستید؟`,
+        icon: 'pi pi-exclamation-triangle',
+        acceptLabel: 'بله',
+        rejectLabel: 'خیر',
+        accept: () => {
+          this.messageService.add({
+            severity: 'info',
+            summary: 'ویرایش انبار',
+            detail: `درخواست ویرایش انبار "${
+              this.inventoryCreationForm.get('name')?.value
+            }" ارسال شد.`,
+          });
+          this.imService.postSubmitInventoryCreationForm().subscribe((val) => {
             this.messageService.add({
-              severity: 'info',
+              severity: 'success',
               summary: 'ویرایش انبار',
-              detail: `درخواست ویرایش انبار "${
+              detail: `انبار "${
                 this.inventoryCreationForm.get('name')?.value
-              }" ارسال شد.`,
+              }" با موفقیت ویرایش شد.`,
             });
-            this.imService
-              .postSubmitInventoryCreationForm()
-              .subscribe((val) => {
-                this.messageService.add({
-                  severity: 'success',
-                  summary: 'ویرایش انبار',
-                  detail: `انبار "${
-                    this.inventoryCreationForm.get('name')?.value
-                  }" با موفقیت ویرایش شد.`,
-                });
-              });
-          },
-          reject: () => {},
-          header: 'ویرایش انبار',
-        });
-      }
-    });
+          });
+        },
+        reject: () => {},
+        header: 'ویرایش انبار',
+      });
+    }
   }
 
   onChange(
@@ -290,12 +284,7 @@ export class InventoryComponent implements OnInit {
       );
     }
   }
-  isRowEdited(current: any) {
-    console.log(current);
-    console.log(this.inventoryCreationForm.value);
-    console.log(
-      JSON.stringify(this.inventoryCreationForm.value) ===
-        JSON.stringify(current)
-    );
+  isRowEdited(current: any): boolean {
+    return !isEqual(current, this.inventoryCreationForm.value);
   }
 }
