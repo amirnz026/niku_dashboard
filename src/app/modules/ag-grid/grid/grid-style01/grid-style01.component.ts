@@ -157,6 +157,17 @@ export class GridStyle01Component implements OnInit {
       this.gridOptions.rowClassRules = {};
       this.gridApi?.redrawRows();
     });
+    this.inventorySelectedRows$.subscribe((selectedRows) => {
+      if (selectedRows.length > 0) {
+        this.gridOptions.rowClassRules = {
+          'disabled-row': function (params) {
+            if (!params.node.isSelected()) return true;
+            else return false;
+          },
+        };
+        this.gridApi?.redrawRows();
+      }
+    });
   }
   onCellClicked(event: CellClickedEvent) {}
   onRowSelected() {
