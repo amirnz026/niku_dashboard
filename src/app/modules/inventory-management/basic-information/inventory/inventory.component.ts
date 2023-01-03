@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import * as tabsActions from 'src/app/ngrx/tabs/tabs.actions';
 import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
@@ -64,6 +64,9 @@ export class InventoryComponent implements OnInit {
   inventoryStatusForm$: Observable<boolean | null>;
   inventorySelectedRowsCount$: Observable<number>;
   currentEditingInventory$: Observable<InventoryInterface | null>;
+
+  isErrorModal = false;
+  errorModalText = '';
 
   isSubmitted = false;
   get name() {
@@ -185,9 +188,22 @@ export class InventoryComponent implements OnInit {
   closeForm(): void {
     this.store.dispatch(imActions.closeInventoryForm());
   }
-  onSubmitCreate() {
+  onSubmitCreate(name: any) {
     this.isSubmitted = true;
-
+    let exit = false;
+    this.rowData$.pipe(take(1)).subscribe((rows: InventoryInterface[]) => {
+      for (let i = 0; i < rows.length; i++) {
+        if (name === rows[i].name) {
+          this.errorModalText =
+            'آیتمی با همین نام وجود دارد، لطفا نام آیتم را تغییر بدهید.';
+          this.isErrorModal = true;
+          exit = true;
+        }
+      }
+    });
+    if (exit) {
+      return;
+    }
     if (this.inventoryCreationForm.valid) {
       this.confirmationService.confirm({
         target: event?.target,
@@ -220,9 +236,20 @@ export class InventoryComponent implements OnInit {
       });
     }
   }
-  onSubmitEdit() {
+  onSubmitEdit(name: any, currentEditing: string) {
     this.isSubmitted = true;
-    console.log('editiing');
+    let exit = false;
+    this.rowData$.pipe(take(1)).subscribe((rows: InventoryInterface[]) => {
+      for (let i = 0; i < rows.length; i++) {
+        if (name === rows[i].name && rows[i].name !== currentEditing) {
+          exit = true;
+          this.errorModalText =
+            'آیتمی با همین نام وجود دارد، لطفا نام آیتم را تغییر بدهید.';
+          this.isErrorModal = true;
+        }
+      }
+    });
+    if (exit) return;
     if (this.inventoryCreationForm.valid) {
       this.confirmationService.confirm({
         target: event?.target,

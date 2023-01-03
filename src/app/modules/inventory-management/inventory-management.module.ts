@@ -33,6 +33,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { ToolbarModule } from 'primeng/toolbar';
 import { LetModule } from '@ngrx/component';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { LetModule } from '@ngrx/component';
     TooltipModule,
     ToggleButtonModule,
     ToolbarModule,
+    DialogModule,
   ],
   providers: [InventoryManagementService, ConfirmationService, MessageService],
 })

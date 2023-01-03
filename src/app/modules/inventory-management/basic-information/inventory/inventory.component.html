@@ -14,7 +14,11 @@
       </div>
       <form
         [formGroup]="inventoryCreationForm"
-        (ngSubmit)="currentEditing ? onSubmitEdit() : onSubmitCreate()"
+        (ngSubmit)="
+          currentEditing
+            ? onSubmitEdit(name?.value, currentEditing.name)
+            : onSubmitCreate(name?.value)
+        "
         #form
       >
         <h5>نام انبار</h5>
@@ -137,3 +141,22 @@
   ></app-grid-style01>
 </div>
 <p-toast position="top-left"></p-toast>
+
+<p-dialog
+  header="خطا"
+  [(visible)]="isErrorModal"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  {{ errorModalText }}
+  <ng-template pTemplate="footer">
+    <p-button
+      icon="pi pi-check"
+      (click)="isErrorModal = false"
+      label="باشه"
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+</p-dialog>
