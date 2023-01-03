@@ -6,6 +6,7 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
 import * as tabsActions from 'src/app/ngrx/tabs/tabs.actions';
 import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
 import {
+  currentEditingInventorySelector,
   inventoriesSelector,
   inventoryCategoriesSelector,
   inventoryCategoryFormSelector,
@@ -59,6 +60,7 @@ export class InventoryComponent implements OnInit {
   inventoryUsersForm$: Observable<InventoryUserInterface[]>;
   inventoryStatusForm$: Observable<boolean | null>;
   inventorySelectedRowsCount$: Observable<number>;
+  currentEditingInventory$: Observable<InventoryInterface | null>;
   isSubmitted = false;
   get inventoryName() {
     return this.inventoryCreationForm.get('inventoryName');
@@ -86,6 +88,9 @@ export class InventoryComponent implements OnInit {
 
     this.inventorySelectedRows$ = this.store.pipe(
       select(inventorySelectedRowsSelector)
+    );
+    this.currentEditingInventory$ = this.store.pipe(
+      select(currentEditingInventorySelector)
     );
     // Tab Management
     this.store.dispatch(

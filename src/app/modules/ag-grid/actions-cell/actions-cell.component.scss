@@ -10,3 +10,9 @@ button {
 :host ::ng-deep .p-button {
   padding-inline-start: 0.4rem;
 }
+
+:host ::ng-deep .p-togglebutton {
+  height: 3rem;
+  border-radius: 2rem;
+  padding-inline-start: 0.8rem;
+}

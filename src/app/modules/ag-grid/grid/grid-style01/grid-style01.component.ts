@@ -5,7 +5,7 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { ColDef, GridApi, GridOptions, SideBarDef } from 'ag-grid-community';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import {
   CellClickedEvent,
   SelectionChangedEvent,
@@ -17,6 +17,7 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
 import { CustomTooltipComponent } from 'src/app/modules/ag-grid/tooltip/custom-tooltip.component';
 import { LoadingOverlayComponent } from '../../loading-overlay/loading-overlay.compoment';
 import {
+  currentEditingInventorySelector,
   inventoryFormStateSelector,
   inventorySelectedRowsSelector,
   isInventoriesLoadingSelector,
@@ -94,6 +95,7 @@ export class GridStyle01Component implements OnInit {
   isInventoriesLoading$: Observable<boolean>;
   inventorySelectedRows$: Observable<InventoryInterface[]>;
   inventoryFormState$: Observable<InventoryFormStateType>;
+  currentEditingInventory$: Observable<InventoryInterface | null>;
 
   constructor(
     private store: Store<AppStateInterface>,
@@ -111,8 +113,41 @@ export class GridStyle01Component implements OnInit {
     this.inventoryFormState$ = this.store.pipe(
       select(inventoryFormStateSelector)
     );
+    this.currentEditingInventory$ = this.store.pipe(
+      select(currentEditingInventorySelector)
+    );
+
+    this.currentEditingInventory$.subscribe((selectedRow) => {
+      if (selectedRow) {
+        this.gridOptions.rowClassRules = {
+          'disabled-row': function (params) {
+            if (params.data.name === selectedRow.name) return false;
+            else return true;
+          },
+        };
+        this.gridApi.deselectAll();
+      } else {
+        this.gridOptions.rowClassRules = {};
+      }
+      this.gridApi.redrawRows();
+    });
   }
-  onCellClicked(event: CellClickedEvent) {}
+  onCellClicked(event: CellClickedEvent) {
+    this.currentEditingInventory$
+      .pipe(take(1))
+      .subscribe((editingInventory) => {
+        if (
+          editingInventory &&
+          editingInventory?.name !== event.api.getSelectedRows()[0].name
+        ) {
+          this.store.dispatch(
+            imActions.setCurrentEditingInventory({ inventory: null })
+          );
+          this.gridOptions.rowClassRules = {};
+          this.gridApi.redrawRows();
+        }
+      });
+  }
   onRowSelected() {}
   clearSelection() {}
   onGridReady(params: any) {
@@ -132,7 +167,7 @@ export class GridStyle01Component implements OnInit {
   }
   openCreationForm(): void {
     if (this.pageName === 'inventory') {
-      this.store.dispatch(imActions.inventoryFormStateToCreate());
+      // this.store.dispatch(imActions.inventoryFormStateToCreate());
       this.store.dispatch(
         imActions.inventoryNameFormUpdate({ inventoryName: '' })
       );

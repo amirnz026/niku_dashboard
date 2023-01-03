@@ -22,6 +22,11 @@ export const inventoryFormStateToEdit = createAction(
   '[Inventory Management] Change Inventory Form State To Edit'
 );
 
+export const setCurrentEditingInventory = createAction(
+  '[Inventory Management] Change Current Editing Row',
+  props<{ inventory: InventoryInterface | null }>()
+);
+
 export const inventoryFormStateToCreate = createAction(
   '[Inventory Management] Change Inventory Form State To Create'
 );

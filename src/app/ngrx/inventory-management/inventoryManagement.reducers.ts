@@ -22,6 +22,8 @@ export const initialState: InventoryManagementInterface = {
     inventoryCategoryForm: null,
     inventoryUsersForm: [],
     inventoryStatusForm: null,
+    // Editing Inventory
+    currentEditingInventory: null,
   },
 };
 export const inventoryManagementReducers = createReducer(
@@ -39,6 +41,9 @@ export const inventoryManagementReducers = createReducer(
   }),
   immerOn(imActions.inventoryFormStateToEdit, (state) => {
     state.inventoryPage.inventoryFormState = 'edit';
+  }),
+  immerOn(imActions.setCurrentEditingInventory, (state, action) => {
+    state.inventoryPage.currentEditingInventory = action.inventory;
   }),
   immerOn(imActions.inventoryFormStateToCreate, (state) => {
     state.inventoryPage.inventoryFormState = 'create';

@@ -2,7 +2,11 @@
   <div *ngIf="inventoryFormState$ | async" class="card">
     <div class="header">
       <ng-container *ngIf="(inventoryFormState$ | async) === 'create'">
-        <h3>انبار جدید</h3>
+        <h3>
+          {{
+            (currentEditingInventory$ | async) ? "ویرایش انبار" : "انبار جدید"
+          }}
+        </h3>
       </ng-container>
       <ng-container *ngIf="(inventoryFormState$ | async) === 'edit'">
         <div
@@ -139,10 +143,11 @@
       </ng-container>
       <p-button
         [label]="
-          (inventoryFormState$ | async)! === 'create' ? 'ایجاد انبار' : 'ویرایش'
+          (currentEditingInventory$ | async) ? 'ویرایش انبار' : 'ایجاد انبار'
         "
         [loading]="false"
         type="submit"
+        *ngrxLet
       ></p-button>
     </form>
   </div>

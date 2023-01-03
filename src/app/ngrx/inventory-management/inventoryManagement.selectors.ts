@@ -59,3 +59,8 @@ export const inventorySelectedRowsCountSelector = createSelector(
   selectInventoryPageFeature,
   (state) => state.inventorySelectedRows.length
 );
+
+export const currentEditingInventorySelector = createSelector(
+  selectInventoryPageFeature,
+  (state) => state.currentEditingInventory
+);

@@ -7,7 +7,12 @@ import { AppStateInterface } from 'src/app/types/appState.interface';
 import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
 import { Observable, take } from 'rxjs';
 import { InventoryFormStateType } from 'src/app/types/inventory-management/inventory/inventoryPage.interface';
-import { inventoryFormStateSelector } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
+import {
+  currentEditingInventorySelector,
+  inventoryFormStateSelector,
+} from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
+import { InventoryInterface } from 'src/app/types/inventory-management/inventory/inventory.interface';
+import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-actions-cell',
   templateUrl: './actions-cell.component.html',
@@ -19,12 +24,19 @@ export class ActionsCellComponent implements OnInit, ICellRendererAngularComp {
   status: boolean;
   private gridApi: GridApi;
   private gridOptions: GridOptions;
-  inventoryFormState$: Observable<InventoryFormStateType>;
   public params!: ICellRendererParams;
+  inventoryFormState$: Observable<InventoryFormStateType>;
+  currentEditingInventory$: Observable<InventoryInterface | null>;
+  actionsForm: FormGroup;
+
+  get editToggle() {
+    return this.actionsForm.get('editToggle');
+  }
 
   constructor(
     private store: Store<AppStateInterface>,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private fb: FormBuilder
   ) {}
   agInit(params: ICellRendererParams): void {
     this.data = params.data;
@@ -39,6 +51,13 @@ export class ActionsCellComponent implements OnInit, ICellRendererAngularComp {
     this.inventoryFormState$ = this.store.pipe(
       select(inventoryFormStateSelector)
     );
+    this.currentEditingInventory$ = this.store.pipe(
+      select(currentEditingInventorySelector)
+    );
+
+    this.actionsForm = this.fb.group({
+      editToggle: [false],
+    });
   }
   onDelete() {
     this.confirmationService.confirm({
@@ -51,27 +70,41 @@ export class ActionsCellComponent implements OnInit, ICellRendererAngularComp {
       header: 'حذف انبار',
     });
   }
+
   onEdit() {
-    // this.store.dispatch(imActions.inventoryFormStateToEdit());
-    // this.store.dispatch(
-    //   imActions.inventoryNameFormUpdate({
-    //     inventoryName: this.data.name,
-    //   })
-    // );
-    // this.store.dispatch(
-    //   imActions.inventoryCategoryFormUpdate({
-    //     inventoryCategoryName: this.data.category,
-    //   })
-    // );
-    // this.store.dispatch(
-    //   imActions.inventoryStatusFormUpdate({
-    //     status: this.data.status,
-    //   })
-    // );
-    // this.store.dispatch(
-    //   imActions.inventoryUsersFormUpdate({
-    //     inventoryUsers: this.data.users,
-    //   })
-    // );
+    if (!this.actionsForm.value.editToggle) {
+      this.store.dispatch(
+        imActions.setCurrentEditingInventory({ inventory: null })
+      );
+    } else {
+      // this.store.dispatch(imActions.inventoryFormStateToEdit());
+      this.store.dispatch(
+        imActions.setInventorySelectedRows({ inventories: [] })
+      );
+
+      this.store.dispatch(
+        imActions.setCurrentEditingInventory({ inventory: this.data })
+      );
+      this.store.dispatch(
+        imActions.inventoryNameFormUpdate({
+          inventoryName: this.data.name,
+        })
+      );
+      this.store.dispatch(
+        imActions.inventoryCategoryFormUpdate({
+          inventoryCategoryName: this.data.category,
+        })
+      );
+      this.store.dispatch(
+        imActions.inventoryStatusFormUpdate({
+          status: this.data.status,
+        })
+      );
+      this.store.dispatch(
+        imActions.inventoryUsersFormUpdate({
+          inventoryUsers: this.data.users,
+        })
+      );
+    }
   }
 }

@@ -1,15 +1,15 @@
-<div class="container">
+<form class="container" [formGroup]="actionsForm" #form>
   <button
     pButton
     pRipple
     type="button"
-    class="p-button-rounded p-button-danger"
+    class="p-button-rounded p-button-danger p-button-outlined"
     icon="pi pi-trash"
     (click)="onDelete()"
     pTooltip="حذف آیتم"
   ></button>
 
-  <button
+  <!-- <button
     pButton
     pRipple
     type="button"
@@ -17,5 +17,14 @@
     icon="pi pi-file-edit"
     (click)="onEdit()"
     pTooltip="ویرایش آیتم"
-  ></button>
-</div>
+  ></button> -->
+  <p-toggleButton
+    [ngModel]="this.data.name === (currentEditingInventory$ | async)?.name"
+    onIcon="pi pi-file-edit"
+    class="p-button-rounded p-button-warning"
+    offIcon="pi pi-file-edit"
+    pTooltip="ویرایش آیتم"
+    (click)="onEdit()"
+    formControlName="editToggle"
+  ></p-toggleButton>
+</form>
