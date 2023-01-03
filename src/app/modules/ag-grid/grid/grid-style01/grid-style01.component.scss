@@ -26,7 +26,7 @@
   border: none;
   box-shadow: 0px 0px 20px 0px rgba(76, 87, 125, 0.02);
 }
-hello world :host ::ng-deep .p-toolbar-group-start {
+:host ::ng-deep .p-toolbar-group-start {
   .p-button {
     margin-inline-end: 1rem;
   }
