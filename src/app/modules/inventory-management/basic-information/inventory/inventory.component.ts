@@ -253,9 +253,7 @@ export class InventoryComponent implements OnInit {
     if (this.inventoryCreationForm.valid) {
       this.confirmationService.confirm({
         target: event?.target,
-        message: `آیا از ویرایش انبار "${
-          this.inventoryCreationForm.get('name')?.value
-        }" مطمئن هستید؟`,
+        message: `آیا از ویرایش انبار "${currentEditing}" مطمئن هستید؟`,
         icon: 'pi pi-exclamation-triangle',
         acceptLabel: 'بله',
         rejectLabel: 'خیر',
