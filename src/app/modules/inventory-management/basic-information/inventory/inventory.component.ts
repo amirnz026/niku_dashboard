@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { select, Store } from '@ngrx/store';
-import { Observable, take } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import * as tabsActions from 'src/app/ngrx/tabs/tabs.actions';
 import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
@@ -20,7 +20,7 @@ import {
   isInventoryUsersLoadingSelector,
 } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
 import { inventoryFormStateSelector } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
-import { ColDef, GridApi } from 'ag-grid-community';
+import { ColDef } from 'ag-grid-community';
 import { InventoryUserInterface } from 'src/app/types/inventory-management/inventory/inventoryUser.interface';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { InventoryCategoryInterface } from 'src/app/types/inventory-management/inventory/inventoryCategory.interface';
@@ -48,12 +48,6 @@ export class InventoryComponent implements OnInit {
   inventorySelectedRows$: Observable<InventoryInterface[]>;
   colDefs: ColDef[] = inventoryColDef;
 
-  isOpen = true;
-
-  toggle() {
-    this.isOpen = !this.isOpen;
-  }
-
   // Form
   inventoryCategories$: Observable<InventoryCategoryInterface[]>;
   isInventoryCategoriesLoading$: Observable<boolean>;
@@ -66,6 +60,17 @@ export class InventoryComponent implements OnInit {
   inventoryStatusForm$: Observable<boolean | null>;
   inventorySelectedRowsCount$: Observable<number>;
   isSubmitted = false;
+  get inventoryName() {
+    return this.inventoryCreationForm.get('inventoryName');
+  }
+
+  get categoriesDropdown() {
+    return this.inventoryCreationForm.get('categoriesDropdown');
+  }
+
+  get usersDropdown() {
+    return this.inventoryCreationForm.get('usersDropdown');
+  }
 
   constructor(
     private store: Store<AppStateInterface>,
@@ -173,16 +178,7 @@ export class InventoryComponent implements OnInit {
   }
   onSubmit(): void {
     this.isSubmitted = true;
-    let inventoryNames = '"';
-    this.store.dispatch(imActions.inventoryFormStateToEdit());
-    this.inventorySelectedRows$.subscribe((selectedRows) => {
-      selectedRows.map((row, index) => {
-        if (index <= selectedRows.length - 3) inventoryNames += row.name + '، ';
-        else if (index === selectedRows.length - 2)
-          inventoryNames += row.name + ' و ';
-        else if (index === selectedRows.length - 1) inventoryNames += row.name;
-      });
-    });
+
     this.inventoryFormState$.subscribe((formState) => {
       if (formState === 'create') {
         if (this.inventoryCreationForm.valid) {
@@ -218,52 +214,8 @@ export class InventoryComponent implements OnInit {
             header: 'ایجاد انبار',
           });
         }
-      } else if (formState === 'edit') {
-        this.confirmationService.confirm({
-          target: event?.target,
-          message: `آیا از ویرایش انبار "${
-            this.inventoryCreationForm.get('inventoryName')?.value
-          }" مطمئن هستید؟`,
-          icon: 'pi pi-exclamation-triangle',
-          acceptLabel: 'بله',
-          rejectLabel: 'خیر',
-          accept: () => {
-            this.messageService.add({
-              severity: 'info',
-              summary: 'ویرایش انبار',
-              detail: `درخواست ویرایش انبار "${
-                this.inventoryCreationForm.get('inventoryName')?.value
-              }" ارسال شد.`,
-            });
-            this.imService
-              .postSubmitInventoryCreationForm()
-              .subscribe((val) => {
-                this.messageService.add({
-                  severity: 'success',
-                  summary: 'ویرایش انبار',
-                  detail: `انبار "${
-                    this.inventoryCreationForm.get('inventoryName')?.value
-                  }" با موفقیت ویرایش شد.`,
-                });
-              });
-          },
-          reject: () => {},
-          header: 'ویرایش انبار',
-        });
       }
     });
-  }
-
-  get inventoryName() {
-    return this.inventoryCreationForm.get('inventoryName');
-  }
-
-  get categoriesDropdown() {
-    return this.inventoryCreationForm.get('categoriesDropdown');
-  }
-
-  get usersDropdown() {
-    return this.inventoryCreationForm.get('usersDropdown');
   }
 
   onChange(

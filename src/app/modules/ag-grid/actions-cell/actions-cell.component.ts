@@ -52,34 +52,26 @@ export class ActionsCellComponent implements OnInit, ICellRendererAngularComp {
     });
   }
   onEdit() {
-    this.store.dispatch(imActions.inventoryFormStateToEdit());
-
-    this.store.dispatch(
-      imActions.inventoryNameFormUpdate({
-        inventoryName: this.data.name,
-      })
-    );
-
-    this.store.dispatch(
-      imActions.inventoryCategoryFormUpdate({
-        inventoryCategoryName: this.data.category,
-      })
-    );
-    this.store.dispatch(
-      imActions.inventoryStatusFormUpdate({
-        status: this.data.status,
-      })
-    );
-    this.store.dispatch(
-      imActions.inventoryUsersFormUpdate({
-        inventoryUsers: this.data.users,
-      })
-    );
-  }
-  test() {
-    console.log('test');
-    this.store.dispatch(
-      imActions.setInventorySelectedRows({ inventories: [this.data] })
-    );
+    // this.store.dispatch(imActions.inventoryFormStateToEdit());
+    // this.store.dispatch(
+    //   imActions.inventoryNameFormUpdate({
+    //     inventoryName: this.data.name,
+    //   })
+    // );
+    // this.store.dispatch(
+    //   imActions.inventoryCategoryFormUpdate({
+    //     inventoryCategoryName: this.data.category,
+    //   })
+    // );
+    // this.store.dispatch(
+    //   imActions.inventoryStatusFormUpdate({
+    //     status: this.data.status,
+    //   })
+    // );
+    // this.store.dispatch(
+    //   imActions.inventoryUsersFormUpdate({
+    //     inventoryUsers: this.data.users,
+    //   })
+    // );
   }
 }

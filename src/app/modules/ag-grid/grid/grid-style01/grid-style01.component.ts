@@ -1,24 +1,15 @@
 import {
   Component,
   OnInit,
-  ViewChild,
   Input,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import {
-  ColDef,
-  ColumnApi,
-  GridApi,
-  GridOptions,
-  RowNode,
-  SideBarDef,
-} from 'ag-grid-community';
-import { Observable, take } from 'rxjs';
+import { ColDef, GridApi, GridOptions, SideBarDef } from 'ag-grid-community';
+import { Observable } from 'rxjs';
 import {
   CellClickedEvent,
   SelectionChangedEvent,
 } from 'ag-grid-community/dist/lib/events';
-import { AgGridAngular } from 'ag-grid-angular';
 import { AG_GRID_LOCALE_FA } from 'src/app/language/persian/ag-grid/AG_GRID_LOCALE_FA';
 import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
 import { select, Store } from '@ngrx/store';
@@ -41,84 +32,16 @@ import { InventoryFormStateType } from 'src/app/types/inventory-management/inven
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GridStyle01Component implements OnInit {
-  private gridApi: GridApi;
-  private gridColumnApi: ColumnApi;
-  public tooltipShowDelay = 1000;
-
-  colResizeDefault: any;
   langFa = AG_GRID_LOCALE_FA;
   @Input() rowInputData: any[] | null;
   @Input() colInputDefs: ColDef[];
   @Input() pageName: string;
   @Input() isInventoryUsersLoading: boolean | null;
   @Input() isInventoryCategoryLoading: boolean | null;
-  isInventoriesLoading$: Observable<boolean>;
-  defaultColDef: ColDef = {
-    flex: 1,
-    resizable: true,
-    sortable: true,
-    filter: true,
-    tooltipComponent: CustomTooltipComponent,
-    autoHeight: true,
-    cellStyle: {
-      overflow: 'hidden',
-    },
-    lockPinned: true,
-  };
-  inventorySelectedRows$: Observable<InventoryInterface[]>;
-  inventoryFormState$: Observable<InventoryFormStateType>;
+  private gridApi: GridApi;
+  tooltipShowDelay = 1000;
   isTableLoaded: boolean;
-  @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
-  constructor(
-    private store: Store<AppStateInterface>,
-    private confirmationService: ConfirmationService,
-    private messageService: MessageService
-  ) {}
-  gridOptions: GridOptions = {
-    // EVENTS
-    // Add event handlers
-    // onRowClicked: (event) => console.log('A row was clicked'),
-    // onColumnResized: (event) => console.log('A column was resized'),
-    onGridReady: (event) => (this.isTableLoaded = true),
-    // CALLBACKS
-    getRowHeight: (params) => 65,
-    // getRowStyle: (params) => {
-    //   if (params.node.rowIndex !== null) {
-    //     if (params.node.rowIndex % 2 === 0) {
-    //       return { background: '#f9f9f9' };
-    //     } else {
-    //       return { background: '#f6f6f6' };
-    //     }
-    //   }
-    // },
-
-    // getRowClass: (params) => {
-    //   let returnClass = '';
-    //   this.inventorySelectedRows$.subscribe((selectedRows) => {
-    //     console.log('selectedRows', selectedRows);
-    //     console.log('params.node.data', params.node.data);
-    //     console.log(
-    //       'does selected rows include data',
-    //       selectedRows.includes(params.node.data)
-    //     );
-    //     if (selectedRows.includes(params.node.data)) {
-    //       // params.node.selectable = false;
-    //       returnClass = 'disabled-row';
-    //     } else {
-    //       returnClass = 'wrong-row';
-    //     }
-    //   });
-    //   console.log('returnClass', returnClass);
-    //   return returnClass;
-    // },
-
-    // suppressNoRowsOverlay: true,
-    loadingOverlayComponent: LoadingOverlayComponent,
-    loadingOverlayComponentParams: {},
-    suppressDragLeaveHidesColumns: true,
-  };
-
-  public sideBar: SideBarDef | string | string[] | boolean | null = {
+  sideBar: SideBarDef | string | string[] | boolean | null = {
     toolPanels: [
       {
         id: 'columns',
@@ -142,6 +65,41 @@ export class GridStyle01Component implements OnInit {
       },
     ],
   };
+  defaultColDef: ColDef = {
+    flex: 1,
+    resizable: true,
+    sortable: true,
+    filter: true,
+    tooltipComponent: CustomTooltipComponent,
+    autoHeight: true,
+    cellStyle: {
+      overflow: 'hidden',
+    },
+    lockPinned: true,
+  };
+  gridOptions: GridOptions = {
+    onGridReady: (event) => (this.isTableLoaded = true),
+    getRowHeight: (params) => 65,
+
+    loadingOverlayComponent: LoadingOverlayComponent,
+    loadingOverlayComponentParams: {},
+    suppressDragLeaveHidesColumns: true,
+  };
+  get selectedRowsCount() {
+    return this.gridApi?.getSelectedRows().length;
+  }
+  get rowsCount() {
+    return this.gridApi?.getDisplayedRowCount();
+  }
+  isInventoriesLoading$: Observable<boolean>;
+  inventorySelectedRows$: Observable<InventoryInterface[]>;
+  inventoryFormState$: Observable<InventoryFormStateType>;
+
+  constructor(
+    private store: Store<AppStateInterface>,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.isInventoriesLoading$ = this.store.pipe(
@@ -153,44 +111,19 @@ export class GridStyle01Component implements OnInit {
     this.inventoryFormState$ = this.store.pipe(
       select(inventoryFormStateSelector)
     );
-    this.inventoryFormState$.subscribe((formState) => {
-      this.gridOptions.rowClassRules = {};
-      this.gridApi?.redrawRows();
-    });
-    this.inventorySelectedRows$.subscribe((selectedRows) => {
-      if (selectedRows.length > 0) {
-        this.gridOptions.rowClassRules = {
-          'disabled-row': function (params) {
-            if (!params.node.isSelected()) return true;
-            else return false;
-          },
-        };
-        this.gridApi?.redrawRows();
-      }
-    });
   }
   onCellClicked(event: CellClickedEvent) {}
-  onRowSelected() {
-    if (this.gridApi.getSelectedRows().length === 0) {
-      this.store.dispatch(imActions.inventoryFormStateToCreate());
-    }
-    console.log('on row selected');
-  }
-  clearSelection() {
-    this.agGrid.api.deselectAll();
-  }
+  onRowSelected() {}
+  clearSelection() {}
   onGridReady(params: any) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
     this.isInventoriesLoading$.subscribe((val) => {
       if (val) this.gridApi.showLoadingOverlay();
       else this.gridApi.hideOverlay();
     });
-    this.selectAllAmerican();
+    this.selectRowsFromState();
   }
-  onFirstDataRendered(params: any) {
-    // this.gridApi.sizeColumnsToFit();
-  }
+  onFirstDataRendered(params: any) {}
 
   onFilterTextBoxChanged() {
     this.gridApi.setQuickFilter(
@@ -203,9 +136,20 @@ export class GridStyle01Component implements OnInit {
       this.store.dispatch(
         imActions.inventoryNameFormUpdate({ inventoryName: '' })
       );
+      this.store.dispatch(
+        imActions.inventoryStatusFormUpdate({ status: true })
+      );
+      this.store.dispatch(
+        imActions.inventoryCategoryFormUpdate({
+          inventoryCategoryName: { name: '' },
+        })
+      );
+      this.store.dispatch(
+        imActions.inventoryUsersFormUpdate({
+          inventoryUsers: [],
+        })
+      );
     }
-    this.gridOptions.rowClassRules = {};
-    this.gridApi.redrawRows();
   }
   refreshPage(): void {
     if (this.pageName === 'inventory') {
@@ -220,9 +164,8 @@ export class GridStyle01Component implements OnInit {
         inventories: val.api.getSelectedRows(),
       })
     );
-    this.gridApi.redrawRows();
   }
-  selectAllAmerican() {
+  selectRowsFromState() {
     this.gridApi.forEachNode((node) => {
       this.inventorySelectedRows$.subscribe((selectedRows) => {
         selectedRows.map((row) => {
@@ -233,63 +176,10 @@ export class GridStyle01Component implements OnInit {
       });
     });
   }
-  onEdit() {
-    this.store.dispatch(imActions.inventoryFormStateToEdit());
-    this.inventoryFormState$.pipe(take(1)).subscribe((formState) => {
-      console.log(formState);
-      if (formState === 'edit') {
-        this.gridOptions.rowClassRules = {
-          'disabled-row': function (params) {
-            if (!params.node.isSelected()) return true;
-            else return false;
-          },
-        };
-      } else this.gridOptions.rowClassRules = {};
-    });
-    this.gridApi.redrawRows();
-    this.inventorySelectedRows$.subscribe((selectedRows) => {
-      if (selectedRows?.length) {
-        if (selectedRows.length > 1) {
-          this.store.dispatch(
-            imActions.inventoryNameFormUpdate({
-              inventoryName: '...',
-            })
-          );
-        } else if (selectedRows.length === 1) {
-          this.store.dispatch(
-            imActions.inventoryNameFormUpdate({
-              inventoryName: selectedRows[0].name,
-            })
-          );
-        }
+  onEdit() {}
 
-        this.store.dispatch(
-          imActions.inventoryCategoryFormUpdate({
-            inventoryCategoryName: selectedRows[0].category,
-          })
-        );
-        this.store.dispatch(
-          imActions.inventoryStatusFormUpdate({
-            status: selectedRows[0].status,
-          })
-        );
-        this.store.dispatch(
-          imActions.inventoryUsersFormUpdate({
-            inventoryUsers: selectedRows[0].users,
-          })
-        );
-      }
-    });
-  }
-  get selectedRowsCount() {
-    return this.gridApi?.getSelectedRows().length;
-  }
-  get rowsCount() {
-    return this.gridApi?.getDisplayedRowCount();
-  }
   onDelete() {
     let inventoryNames = '"';
-    this.store.dispatch(imActions.inventoryFormStateToEdit());
     this.inventorySelectedRows$.subscribe((selectedRows) => {
       selectedRows.map((row, index) => {
         if (index <= selectedRows.length - 3) inventoryNames += row.name + '، ';

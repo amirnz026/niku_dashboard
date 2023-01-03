@@ -1,35 +1,31 @@
-<div class="table-controls">
-  <span class="p-input-icon-right">
-    <i class="pi pi-search"></i>
-    <input
-      type="text"
-      pInputText
-      placeholder="فیلتر..."
-      [pTooltip]="'فیلتر جدول'"
-      (input)="onFilterTextBoxChanged()"
-      id="filter-text-box"
-      type="text"
-      class="table-search-input"
-    />
-  </span>
-  <p-button
-    icon="pi pi-refresh"
-    (click)="refreshPage()"
-    [pTooltip]="'به روزرسانی صفحه'"
-    [loading]="
-      (isInventoriesLoading$ | async)! ||
-      isInventoryUsersLoading! ||
-      isInventoryCategoryLoading!
-    "
-  ></p-button>
+<p-toolbar>
+  <div class="p-toolbar-group-start">
+    <p-button
+      icon="pi pi-refresh"
+      (click)="refreshPage()"
+      [pTooltip]="'به روزرسانی صفحه'"
+      [loading]="
+        (isInventoriesLoading$ | async)! ||
+        isInventoryUsersLoading! ||
+        isInventoryCategoryLoading!
+      "
+    ></p-button>
+    <span class="p-input-icon-right">
+      <i class="pi pi-search"></i>
+      <input
+        type="text"
+        pInputText
+        placeholder="فیلتر..."
+        [pTooltip]="'فیلتر جدول'"
+        (input)="onFilterTextBoxChanged()"
+        id="filter-text-box"
+        type="text"
+        class="table-search-input"
+      />
+    </span>
+  </div>
 
-  <div
-    [pTooltip]="
-      selectedRowsCount < 2
-        ? 'برای حذف گروهی آیتم ها، حداقل دو آیتم را از جدول پایین انتخاب کنید.'
-        : ''
-    "
-  >
+  <div class="p-toolbar-group-end">
     <button
       pButton
       type="button"
@@ -40,39 +36,18 @@
       iconPos="right"
       [disabled]="!(selectedRowsCount > 1)"
     ></button>
-  </div>
-  <div
-    [pTooltip]="
-      selectedRowsCount < 2
-        ? 'برای ویرایش گروهی آیتم ها، حداقل دو آیتم را از جدول پایین انتخاب کنید.'
-        : ''
-    "
-  >
     <button
       pButton
-      type="button"
-      class="p-button-warning"
-      (click)="onEdit()"
-      pTooltip="ویرایش گروهی"
-      icon="pi pi-file-edit"
+      label="جدید"
+      icon="pi pi-plus-circle"
       iconPos="right"
-      [disabled]="
-        !(selectedRowsCount > 1) ||
-        (selectedRowsCount === 1 && (inventoryFormState$ | async) === 'edit')
-      "
+      [pTooltip]="'انبار جدید'"
+      (click)="openCreationForm()"
+      class="p-button-success"
     ></button>
   </div>
+</p-toolbar>
 
-  <button
-    pButton
-    label="جدید"
-    icon="pi pi-plus-circle"
-    iconPos="right"
-    [pTooltip]="'انبار جدید'"
-    (click)="openCreationForm()"
-    class="p-button-success"
-  ></button>
-</div>
 <ag-grid-angular
   class="ag-theme-alpine card"
   style="

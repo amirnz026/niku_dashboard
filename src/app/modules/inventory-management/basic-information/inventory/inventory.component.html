@@ -108,9 +108,7 @@
       <p-multiSelect
         [options]="(inventoryUsers$ | async)!"
         [defaultLabel]="
-          (isInventoryUsersLoading$ | async)
-            ? 'در حال دریافت اطلاعات...'
-            : '۰ کاربر انتخاب شده'
+          (isInventoryUsersLoading$ | async) ? 'در حال دریافت اطلاعات...' : ''
         "
         optionLabel="name"
         display="chip"

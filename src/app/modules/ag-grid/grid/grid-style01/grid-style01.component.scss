@@ -18,3 +18,23 @@
 :host ::ng-deep .disabled-row {
   opacity: 0.5;
 }
+
+:host ::ng-deep .p-toolbar {
+  margin-bottom: 0.7rem;
+  padding: 0.7rem 1rem;
+  background-color: white;
+  border: none;
+  box-shadow: 0px 0px 20px 0px rgba(76, 87, 125, 0.02);
+}
+
+:host ::ng-deep .p-toolbar-group-start {
+  .p-button {
+    margin-inline-end: 1rem;
+  }
+}
+
+:host ::ng-deep .p-toolbar-group-end {
+  .p-button {
+    margin-inline-start: 1rem;
+  }
+}

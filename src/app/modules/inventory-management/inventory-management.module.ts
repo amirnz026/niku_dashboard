@@ -31,6 +31,7 @@ import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TooltipModule } from 'primeng/tooltip';
 import { ToggleButtonModule } from 'primeng/togglebutton';
+import { ToolbarModule } from 'primeng/toolbar';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
     ConfirmDialogModule,
     TooltipModule,
     ToggleButtonModule,
+    ToolbarModule,
   ],
   providers: [InventoryManagementService, ConfirmationService, MessageService],
 })
