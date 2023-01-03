@@ -1461,6 +1461,13 @@
   dependencies:
     tslib "^2.3.0"
 
+"@ngrx/component@^14.0.0":
+  version "14.0.0"
+  resolved "https://registry.npmjs.org/@ngrx/component/-/component-14.0.0.tgz"
+  integrity sha512-+HDLj63WcxofE/b9/0QROhvnDz3evXqLEYu3DKbOFBZoNv/GbpAznBgo/yqEZ1QBnj7Nfy3W6yi78sHanH3FzA==
+  dependencies:
+    tslib "^2.0.0"
+
 "@ngrx/effects@^14.0.0":
   version "14.0.0"
   resolved "https://registry.npmjs.org/@ngrx/effects/-/effects-14.0.0.tgz"

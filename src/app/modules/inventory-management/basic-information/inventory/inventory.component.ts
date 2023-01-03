@@ -181,7 +181,7 @@ export class InventoryComponent implements OnInit {
   closeForm(): void {
     this.store.dispatch(imActions.closeInventoryForm());
   }
-  onSubmit(): void {
+  onSubmitCreate() {
     this.isSubmitted = true;
 
     this.inventoryFormState$.subscribe((formState) => {
@@ -189,7 +189,7 @@ export class InventoryComponent implements OnInit {
         if (this.inventoryCreationForm.valid) {
           this.confirmationService.confirm({
             target: event?.target,
-            message: `آیا از ساخت انبار "${
+            message: `آیا از ایجاد انبار "${
               this.inventoryCreationForm.get('inventoryName')?.value
             }" مطمئن هستید؟`,
             icon: 'pi pi-exclamation-triangle',
@@ -219,6 +219,45 @@ export class InventoryComponent implements OnInit {
             header: 'ایجاد انبار',
           });
         }
+      }
+    });
+  }
+  onSubmitEdit() {
+    this.isSubmitted = true;
+    console.log('editiing');
+    this.inventoryFormState$.subscribe((formState) => {
+      if (this.inventoryCreationForm.valid) {
+        this.confirmationService.confirm({
+          target: event?.target,
+          message: `آیا از ویرایش انبار "${
+            this.inventoryCreationForm.get('inventoryName')?.value
+          }" مطمئن هستید؟`,
+          icon: 'pi pi-exclamation-triangle',
+          acceptLabel: 'بله',
+          rejectLabel: 'خیر',
+          accept: () => {
+            this.messageService.add({
+              severity: 'info',
+              summary: 'ویرایش انبار',
+              detail: `درخواست ویرایش انبار "${
+                this.inventoryCreationForm.get('inventoryName')?.value
+              }" ارسال شد.`,
+            });
+            this.imService
+              .postSubmitInventoryCreationForm()
+              .subscribe((val) => {
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'ویرایش انبار',
+                  detail: `انبار "${
+                    this.inventoryCreationForm.get('inventoryName')?.value
+                  }" با موفقیت ویرایش شد.`,
+                });
+              });
+          },
+          reject: () => {},
+          header: 'ویرایش انبار',
+        });
       }
     });
   }
@@ -254,5 +293,9 @@ export class InventoryComponent implements OnInit {
         })
       );
     }
+  }
+  isRowEdited(current: any): void {
+    console.log(current);
+    console.log(this.inventoryCreationForm.value);
   }
 }

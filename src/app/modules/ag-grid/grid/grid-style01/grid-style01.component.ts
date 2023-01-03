@@ -231,7 +231,7 @@ export class GridStyle01Component implements OnInit {
       },
       acceptLabel: 'بله',
       rejectLabel: 'خیر',
-      header: 'حذف انبار انبارها',
+      header: 'حذف انبارها',
     });
   }
 }

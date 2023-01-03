@@ -32,6 +32,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TooltipModule } from 'primeng/tooltip';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { ToolbarModule } from 'primeng/toolbar';
+import { LetModule } from '@ngrx/component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ToolbarModule } from 'primeng/toolbar';
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
+    LetModule,
     InventoryManagementRoutingModule,
     WidgetsModule,
     StoreModule.forFeature('inventoryManagement', inventoryManagementReducers),
