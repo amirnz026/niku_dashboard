@@ -25,6 +25,7 @@ import {
 import { InventoryInterface } from 'src/app/types/inventory-management/inventory/inventory.interface';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { InventoryFormStateType } from 'src/app/types/inventory-management/inventory/inventoryPage.interface';
+import { InventoryManagementService } from 'src/app/services/inventory-management/inventory-management.service';
 
 @Component({
   selector: 'app-grid-style01',
@@ -100,7 +101,8 @@ export class GridStyle01Component implements OnInit {
   constructor(
     private store: Store<AppStateInterface>,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private imService: InventoryManagementService
   ) {}
 
   ngOnInit(): void {
@@ -212,7 +214,6 @@ export class GridStyle01Component implements OnInit {
       });
     });
   }
-  onEdit() {}
 
   onDelete() {
     let inventoryNames = '"';
@@ -228,7 +229,18 @@ export class GridStyle01Component implements OnInit {
     this.confirmationService.confirm({
       message: `آیا از حذف  ${inventoryNames} مطمئن هستید؟`,
       accept: () => {
-        //Actual logic to perform a confirmation
+        this.messageService.add({
+          severity: 'info',
+          summary: 'حذف انبارها',
+          detail: `درخواست حذف انبارها ارسال شد.`,
+        });
+        this.imService.postSubmitInventoryCreationForm().subscribe((val) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'حذف انبارها',
+            detail: `انبارهای انتخاب شده با موفقیت حذف شدند.`,
+          });
+        });
       },
       acceptLabel: 'بله',
       rejectLabel: 'خیر',

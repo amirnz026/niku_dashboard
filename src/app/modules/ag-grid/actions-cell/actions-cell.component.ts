@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { GridApi, GridOptions, ICellRendererParams } from 'ag-grid-community';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
 import { Observable, take } from 'rxjs';
@@ -13,6 +13,7 @@ import {
 } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
 import { InventoryInterface } from 'src/app/types/inventory-management/inventory/inventory.interface';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { InventoryManagementService } from 'src/app/services/inventory-management/inventory-management.service';
 @Component({
   selector: 'app-actions-cell',
   templateUrl: './actions-cell.component.html',
@@ -36,7 +37,9 @@ export class ActionsCellComponent implements OnInit, ICellRendererAngularComp {
   constructor(
     private store: Store<AppStateInterface>,
     private confirmationService: ConfirmationService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private messageService: MessageService,
+    private imService: InventoryManagementService
   ) {}
   agInit(params: ICellRendererParams): void {
     this.data = params.data;
@@ -63,7 +66,18 @@ export class ActionsCellComponent implements OnInit, ICellRendererAngularComp {
     this.confirmationService.confirm({
       message: `آیا از حذف  "${this.data.name}" مطمئن هستید؟`,
       accept: () => {
-        //Actual logic to perform a confirmation
+        this.messageService.add({
+          severity: 'info',
+          summary: 'حذف انبار',
+          detail: `درخواست حذف انبار "${this.data.name}" ارسال شد.`,
+        });
+        this.imService.postSubmitInventoryCreationForm().subscribe((val) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'حذف انبار',
+            detail: `انبار "${this.data.name}" با موفقیت حذف شد.`,
+          });
+        });
       },
       acceptLabel: 'بله',
       rejectLabel: 'خیر',
