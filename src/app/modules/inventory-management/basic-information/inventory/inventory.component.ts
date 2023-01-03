@@ -261,17 +261,13 @@ export class InventoryComponent implements OnInit {
           this.messageService.add({
             severity: 'info',
             summary: 'ویرایش انبار',
-            detail: `درخواست ویرایش انبار "${
-              this.inventoryCreationForm.get('name')?.value
-            }" ارسال شد.`,
+            detail: `درخواست ویرایش انبار "${currentEditing}" ارسال شد.`,
           });
           this.imService.postSubmitInventoryCreationForm().subscribe((val) => {
             this.messageService.add({
               severity: 'success',
               summary: 'ویرایش انبار',
-              detail: `انبار "${
-                this.inventoryCreationForm.get('name')?.value
-              }" با موفقیت ویرایش شد.`,
+              detail: `انبار "${currentEditing}" با موفقیت ویرایش شد.`,
             });
           });
         },
