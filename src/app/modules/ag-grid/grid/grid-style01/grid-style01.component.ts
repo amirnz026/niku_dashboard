@@ -177,7 +177,7 @@ export class GridStyle01Component implements OnInit {
       );
       this.store.dispatch(
         imActions.inventoryCategoryFormUpdate({
-          inventoryCategoryName: { name: '' },
+          inventoryCategoryName: null,
         })
       );
       this.store.dispatch(
