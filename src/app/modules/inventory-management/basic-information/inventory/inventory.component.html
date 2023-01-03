@@ -37,7 +37,7 @@
           type="text"
           pInputText
           placeholder="مثال: انبار کالاهای اولیه"
-          formControlName="inventoryName"
+          formControlName="name"
           class="input"
           [pTooltip]="
             (inventorySelectedRowsCount$ | async)! > 1 &&
@@ -50,21 +50,17 @@
             (inventorySelectedRowsCount$ | async)! > 1 &&
             (inventoryFormState$ | async) === 'edit'
           "
-          (ngModelChange)="onChange('inventoryName', $event)"
+          (ngModelChange)="onChange('name', $event)"
           [ngClass]="{
             'ng-invalid ng-dirty':
-              (isSubmitted && inventoryName && inventoryName.errors) ||
-              (inventoryName &&
-                inventoryName.invalid &&
-                (inventoryName.dirty || inventoryName.touched))
+              (isSubmitted && name && name.errors) ||
+              (name && name.invalid && (name.dirty || name.touched))
           }"
         />
         <ng-container
           *ngIf="
-            (isSubmitted && inventoryName && inventoryName.errors) ||
-            (inventoryName &&
-              inventoryName.invalid &&
-              (inventoryName.dirty || inventoryName.touched))
+            (isSubmitted && name && name.errors) ||
+            (name && name.invalid && (name.dirty || name.touched))
           "
         >
           <app-form-validation-error
@@ -75,32 +71,30 @@
         <p-dropdown
           [options]="(inventoryCategories$ | async)!"
           optionLabel="name"
-          formControlName="categoriesDropdown"
+          formControlName="category"
           [placeholder]="
             (isInventoryCategoriesLoading$ | async)
               ? 'در حال دریافت اطلاعات...'
               : 'یک دسته بندی انتخاب کنید'
           "
           [disabled]="(isInventoryCategoriesLoading$ | async) === true"
-          (ngModelChange)="onChange('categoriesDropdown', $event)"
+          (ngModelChange)="onChange('category', $event)"
           [ngClass]="{
             'ng-invalid ng-dirty':
-              (isSubmitted &&
-                categoriesDropdown &&
-                categoriesDropdown.errors) ||
-              (categoriesDropdown &&
-                categoriesDropdown.invalid &&
-                (categoriesDropdown.dirty || categoriesDropdown.touched))
+              (isSubmitted && category && category.errors) ||
+              (category &&
+                category.invalid &&
+                (category.dirty || category.touched))
           }"
           emptyMessage="هیچ دسته بندی یافت نشد"
         ></p-dropdown>
 
         <ng-container
           *ngIf="
-            (isSubmitted && categoriesDropdown && categoriesDropdown.errors) ||
-            (categoriesDropdown &&
-              categoriesDropdown.invalid &&
-              (categoriesDropdown.dirty || categoriesDropdown.touched))
+            (isSubmitted && category && category.errors) ||
+            (category &&
+              category.invalid &&
+              (category.dirty || category.touched))
           "
         >
           <app-form-validation-error
@@ -122,24 +116,20 @@
           optionLabel="name"
           display="chip"
           [disabled]="(isInventoryUsersLoading$ | async) === true"
-          formControlName="usersDropdown"
-          (ngModelChange)="onChange('usersDropdown', $event)"
+          formControlName="users"
+          (ngModelChange)="onChange('users', $event)"
           [ngClass]="{
             'ng-invalid ng-dirty':
-              (isSubmitted && usersDropdown && usersDropdown.errors) ||
-              (usersDropdown &&
-                usersDropdown.invalid &&
-                (usersDropdown.dirty || usersDropdown.touched))
+              (isSubmitted && users && users.errors) ||
+              (users && users.invalid && (users.dirty || users.touched))
           }"
           emptyMessage="هیچ کاربری یافت نشد"
           emptyFilterMessage="هیچ کاربری یافت نشد"
         ></p-multiSelect>
         <ng-container
           *ngIf="
-            (isSubmitted && usersDropdown && usersDropdown.errors) ||
-            (usersDropdown &&
-              usersDropdown.invalid &&
-              (usersDropdown.dirty || usersDropdown.touched))
+            (isSubmitted && users && users.errors) ||
+            (users && users.invalid && (users.dirty || users.touched))
           "
         >
           <app-form-validation-error

@@ -62,16 +62,16 @@ export class InventoryComponent implements OnInit {
   inventorySelectedRowsCount$: Observable<number>;
   currentEditingInventory$: Observable<InventoryInterface | null>;
   isSubmitted = false;
-  get inventoryName() {
-    return this.inventoryCreationForm.get('inventoryName');
+  get name() {
+    return this.inventoryCreationForm.get('name');
   }
 
-  get categoriesDropdown() {
-    return this.inventoryCreationForm.get('categoriesDropdown');
+  get category() {
+    return this.inventoryCreationForm.get('category');
   }
 
-  get usersDropdown() {
-    return this.inventoryCreationForm.get('usersDropdown');
+  get users() {
+    return this.inventoryCreationForm.get('users');
   }
 
   constructor(
@@ -102,9 +102,9 @@ export class InventoryComponent implements OnInit {
 
     // Form creation
     this.inventoryCreationForm = this.fb.group({
-      inventoryName: ['', Validators.required],
-      categoriesDropdown: ['', Validators.required],
-      usersDropdown: ['', Validators.required],
+      name: ['', Validators.required],
+      category: ['', Validators.required],
+      users: ['', Validators.required],
       status: [true],
     });
 
@@ -158,17 +158,17 @@ export class InventoryComponent implements OnInit {
     // Form values subscribing to observables
     this.inventoryNameForm$.subscribe((value) => {
       this.inventoryCreationForm.patchValue({
-        inventoryName: value,
+        name: value,
       });
     });
     this.inventoryCategoryForm$.subscribe((value) => {
       this.inventoryCreationForm.patchValue({
-        categoriesDropdown: value,
+        category: value,
       });
     });
     this.inventoryUsersForm$.subscribe((value) => {
       this.inventoryCreationForm.patchValue({
-        usersDropdown: value,
+        users: value,
       });
     });
 
@@ -190,7 +190,7 @@ export class InventoryComponent implements OnInit {
           this.confirmationService.confirm({
             target: event?.target,
             message: `آیا از ایجاد انبار "${
-              this.inventoryCreationForm.get('inventoryName')?.value
+              this.inventoryCreationForm.get('name')?.value
             }" مطمئن هستید؟`,
             icon: 'pi pi-exclamation-triangle',
             acceptLabel: 'بله',
@@ -200,7 +200,7 @@ export class InventoryComponent implements OnInit {
                 severity: 'info',
                 summary: 'ایجاد انبار',
                 detail: `درخواست ایجاد انبار "${
-                  this.inventoryCreationForm.get('inventoryName')?.value
+                  this.inventoryCreationForm.get('name')?.value
                 }" ارسال شد.`,
               });
               this.imService
@@ -210,7 +210,7 @@ export class InventoryComponent implements OnInit {
                     severity: 'success',
                     summary: 'ایجاد انبار',
                     detail: `انبار "${
-                      this.inventoryCreationForm.get('inventoryName')?.value
+                      this.inventoryCreationForm.get('name')?.value
                     }" با موفقیت ایجاد شد.`,
                   });
                 });
@@ -230,7 +230,7 @@ export class InventoryComponent implements OnInit {
         this.confirmationService.confirm({
           target: event?.target,
           message: `آیا از ویرایش انبار "${
-            this.inventoryCreationForm.get('inventoryName')?.value
+            this.inventoryCreationForm.get('name')?.value
           }" مطمئن هستید؟`,
           icon: 'pi pi-exclamation-triangle',
           acceptLabel: 'بله',
@@ -240,7 +240,7 @@ export class InventoryComponent implements OnInit {
               severity: 'info',
               summary: 'ویرایش انبار',
               detail: `درخواست ویرایش انبار "${
-                this.inventoryCreationForm.get('inventoryName')?.value
+                this.inventoryCreationForm.get('name')?.value
               }" ارسال شد.`,
             });
             this.imService
@@ -250,7 +250,7 @@ export class InventoryComponent implements OnInit {
                   severity: 'success',
                   summary: 'ویرایش انبار',
                   detail: `انبار "${
-                    this.inventoryCreationForm.get('inventoryName')?.value
+                    this.inventoryCreationForm.get('name')?.value
                   }" با موفقیت ویرایش شد.`,
                 });
               });
@@ -263,24 +263,20 @@ export class InventoryComponent implements OnInit {
   }
 
   onChange(
-    elementType:
-      | 'inventoryName'
-      | 'categoriesDropdown'
-      | 'usersDropdown'
-      | 'status',
+    elementType: 'name' | 'category' | 'users' | 'status',
     val: any
   ): void {
-    if (elementType === 'inventoryName') {
+    if (elementType === 'name') {
       this.store.dispatch(
         imActions.inventoryNameFormUpdate({ inventoryName: val })
       );
-    } else if (elementType === 'categoriesDropdown') {
+    } else if (elementType === 'category') {
       this.store.dispatch(
         imActions.inventoryCategoryFormUpdate({
           inventoryCategoryName: val,
         })
       );
-    } else if (elementType === 'usersDropdown') {
+    } else if (elementType === 'users') {
       this.store.dispatch(
         imActions.inventoryUsersFormUpdate({
           inventoryUsers: val,
@@ -294,8 +290,12 @@ export class InventoryComponent implements OnInit {
       );
     }
   }
-  isRowEdited(current: any): void {
+  isRowEdited(current: any) {
     console.log(current);
     console.log(this.inventoryCreationForm.value);
+    console.log(
+      JSON.stringify(this.inventoryCreationForm.value) ===
+        JSON.stringify(current)
+    );
   }
 }
