@@ -11,7 +11,7 @@ import {
 })
 export class InventoryManagementService {
   getInventories(): Observable<InventoryType[]> {
-    return of(inventories).pipe(delay(4000));
+    return of(inventories).pipe(delay(0));
   }
   getInventoryCategories(): Observable<string[]> {
     return of(inventoryCategories).pipe(delay(3000));

@@ -17,10 +17,7 @@ import { InventoryManagementService } from 'src/app/services/inventory-managemen
 export class ActionsCellComponent implements OnInit, ICellRendererAngularComp {
   data: any;
   status: boolean;
-  private gridApi: GridApi;
-  private gridOptions: GridOptions;
   public params!: ICellRendererParams;
-  inventoryFormState$: Observable<InventoryFormStateType>;
   currentEditingInventory$: Observable<InventoryType | null>;
   actionsForm: FormGroup;
 
@@ -37,7 +34,6 @@ export class ActionsCellComponent implements OnInit, ICellRendererAngularComp {
   ) {}
   agInit(params: ICellRendererParams): void {
     this.data = params.data;
-    this.gridApi = params.api;
     this.params = params;
   }
   refresh(params: ICellRendererParams): boolean {

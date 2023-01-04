@@ -1,50 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
 // @import "./assets/sass/style.scss";
 @import "./assets/css/style.rtl.css";
-
 // Replace above style with this css file to enable RTL styles
 @import "./assets/sass/plugins.scss";
 @import "./assets/sass/style.angular.scss";
-
 @import "ag-grid-community/dist/styles/ag-grid.css";
 @import "ag-grid-community/dist/styles/ag-theme-alpine.css";
-
-@font-face {
-  font-family: "Shabnam";
-  src: url("./assets/media/plugins/fonts/Shabnam/Shabnam-100.woff2")
-    format("woff2");
-  font-weight: 100;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Shabnam";
-  src: url("./assets/media/plugins/fonts/Shabnam/Shabnam-300.woff2")
-    format("woff2");
-  font-weight: 300;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Shabnam";
-  src: url("./assets/media/plugins/fonts/Shabnam/Shabnam-400.woff2")
-    format("woff2");
-  font-weight: 400;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Shabnam";
-  src: url("./assets/media/plugins/fonts/Shabnam/Shabnam-500.woff2")
-    format("woff2");
-  font-weight: 500;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Shabnam";
-  src: url("./assets/media/plugins/fonts/Shabnam/Shabnam-700.woff2")
-    format("woff2");
-  font-weight: 700;
-  font-style: normal;
+@import "src/assets/sass/animations/dots-loader.scss";
+// Fonts
+@import "src/assets/sass/fonts.scss";
+body,
+body .p-component {
+  font-family: Shabnam, "Open Sans", sans-serif;
 }
 
+// Table
 .ag-theme-alpine {
   font-family: Shabnam, "Open Sans", sans-serif;
   --ag-foreground-color: #000000;
@@ -70,96 +39,20 @@
   .ag-menu {
     background-color: white;
     border-radius: 0.5rem;
-  }
-
-  .ag-menu-header {
-    background-color: #f0f0f0;
-    .ag-icon {
-      color: #5e6278;
+    .ag-menu-header {
+      background-color: #f0f0f0;
+      .ag-icon {
+        color: #5e6278;
+      }
     }
   }
+  .ag-row .ag-cell {
+    display: flex;
+    align-items: center;
+  }
 }
 
-.my-component-container {
-  margin: 0 2rem;
-}
-.ag-row .ag-cell {
-  display: flex;
-  align-items: center;
-}
-body,
-body .p-component {
-  font-family: Shabnam, "Open Sans", sans-serif;
-}
-
-h5 {
-  color: #5e6278;
-}
-
-.disable-interactions {
-  pointer-events: none;
-}
-
-// loading animation
-.lds-ellipsis {
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  height: 80px;
-}
-.lds-ellipsis div {
-  position: absolute;
-  top: 5px;
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  background: #fff;
-  animation-timing-function: cubic-bezier(0, 1, 1, 0);
-}
-.lds-ellipsis div:nth-child(1) {
-  left: 8px;
-  animation: lds-ellipsis1 0.6s infinite;
-  background-color: #cccccc;
-}
-.lds-ellipsis div:nth-child(2) {
-  left: 8px;
-  animation: lds-ellipsis2 0.6s infinite;
-  background-color: #cccccc;
-}
-.lds-ellipsis div:nth-child(3) {
-  left: 32px;
-  animation: lds-ellipsis2 0.6s infinite;
-  background-color: #cccccc;
-}
-.lds-ellipsis div:nth-child(4) {
-  left: 56px;
-  animation: lds-ellipsis3 0.6s infinite;
-  background-color: #cccccc;
-}
-@keyframes lds-ellipsis1 {
-  0% {
-    transform: scale(0);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-@keyframes lds-ellipsis3 {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(0);
-  }
-}
-@keyframes lds-ellipsis2 {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(24px, 0);
-  }
-}
+// Popups
 .p-confirm-popup-icon {
   margin-inline-end: 1rem;
 }
@@ -171,4 +64,13 @@ h5 {
   .p-dialog-content {
     gap: 0.5rem;
   }
+}
+
+// Utils
+.my-component-container {
+  margin: 0 2rem;
+}
+
+.disable-interactions {
+  pointer-events: none;
 }

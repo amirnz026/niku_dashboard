@@ -2,7 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { immerOn } from 'ngrx-immer/store';
 import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
 
-export const initialState: InventoryManagementType = {
+export const initialState: InventoryManagementStateType = {
   inventoryPage: {
     inventories: [],
     isInventoriesLoading: false,

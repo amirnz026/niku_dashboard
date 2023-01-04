@@ -127,7 +127,6 @@ export class GridStyle01Component implements OnInit {
 
   isInventoriesLoading$: Observable<boolean>;
   inventorySelectedRows$: Observable<InventoryType[]>;
-  inventoryFormState$: Observable<InventoryFormStateType>;
   currentEditingInventory$: Observable<InventoryType | null>;
 
   constructor(

@@ -2,10 +2,10 @@ declare var ClipboardJS: any;
 
 type AppStateType = {
   tabsState: TabsStateType;
-  inventoryManagement: InventoryManagementType;
+  inventoryManagement: InventoryManagementStateType;
 };
 
-interface InventoryManagementType {
+interface InventoryManagementStateType {
   inventoryPage: InventoryPageStateType;
 }
 
@@ -51,5 +51,3 @@ type TabType = {
   tabRoute: string;
   order: number;
 };
-
-type InventoryFormStateType = 'create' | 'edit' | null;
