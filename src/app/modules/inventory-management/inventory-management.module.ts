@@ -36,10 +36,18 @@ import { LetModule } from '@ngrx/component';
 import { NgxPrintModule } from 'ngx-print';
 import { DialogModule } from 'primeng/dialog';
 import { PrintTableComponent } from 'src/app/modules/partials/print-table/print-table.component';
+import { GroupComponent } from './basic-information/group/group.component';
+import { MaterialComponent } from './basic-information/material/material.component';
+import { ProductComponent } from './basic-information/product/product.component';
+import { UnitComponent } from './basic-information/unit/unit.component';
 @NgModule({
   declarations: [
     InventoryManagementComponent,
     InventoryComponent,
+    GroupComponent,
+    ProductComponent,
+    UnitComponent,
+    MaterialComponent,
     UsersCellComponent,
     StatusCellComponent,
     GridStyle01Component,
