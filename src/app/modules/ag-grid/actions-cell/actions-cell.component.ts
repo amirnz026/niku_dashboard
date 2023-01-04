@@ -3,12 +3,9 @@ import { select, Store } from '@ngrx/store';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { GridApi, GridOptions, ICellRendererParams } from 'ag-grid-community';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { AppStateInterface } from 'src/app/types/appState.type';
 import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
 import { Observable } from 'rxjs';
-import { InventoryFormStateType } from 'src/app/types/inventory-management/inventory/inventoryPage.type';
 import { currentEditingInventorySelector } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
-import { InventoryType } from 'src/app/types/inventory-management/inventory/inventoryPage.type';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { InventoryManagementService } from 'src/app/services/inventory-management/inventory-management.service';
 @Component({
@@ -32,7 +29,7 @@ export class ActionsCellComponent implements OnInit, ICellRendererAngularComp {
   }
 
   constructor(
-    private store: Store<AppStateInterface>,
+    private store: Store<AppStateType>,
     private confirmationService: ConfirmationService,
     private fb: FormBuilder,
     private messageService: MessageService,

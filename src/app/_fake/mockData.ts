@@ -1,5 +1,3 @@
-import { InventoryType } from 'src/app/types/inventory-management/inventory/inventoryPage.type';
-
 export const inventories: InventoryType[] = [
   {
     name: 'انبار محصولات اولیه',

@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { AppStateInterface } from 'src/app/types/appState.type';
 import { Store } from '@ngrx/store';
 import * as tabsActions from 'src/app/ngrx/tabs/tabs.actions';
 
@@ -9,7 +8,7 @@ import * as tabsActions from 'src/app/ngrx/tabs/tabs.actions';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UnitComponent implements OnInit {
-  constructor(private store: Store<AppStateInterface>) {}
+  constructor(private store: Store<AppStateType>) {}
 
   ngOnInit(): void {
     this.store.dispatch(

@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { select, Store } from '@ngrx/store';
 import { Observable, take } from 'rxjs';
-import { AppStateInterface } from 'src/app/types/appState.type';
 import * as tabsActions from 'src/app/ngrx/tabs/tabs.actions';
 import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
 import { isEqual } from 'lodash';
@@ -25,10 +24,9 @@ import {
 } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
 import { ColDef } from 'ag-grid-community';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { inventoryColDef } from 'src/app/types/inventory-management/columns/inventory.column';
+import { inventoryColDef } from 'src/app/modules/inventory-management/basic-information/inventory/inventory.column';
 import { InventoryManagementService } from 'src/app/services/inventory-management/inventory-management.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { InventoryType } from 'src/app/types/inventory-management/inventory/inventoryPage.type';
 
 @Component({
   selector: 'app-inventory',
@@ -79,7 +77,7 @@ export class InventoryComponent implements OnInit {
   }
 
   constructor(
-    private store: Store<AppStateInterface>,
+    private store: Store<AppStateType>,
     private fb: FormBuilder,
     private http: HttpClient,
     private imService: InventoryManagementService,

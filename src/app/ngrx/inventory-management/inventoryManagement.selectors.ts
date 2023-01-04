@@ -1,7 +1,6 @@
-import { AppStateInterface } from 'src/app/types/appState.type';
 import { createSelector } from '@ngrx/store';
 
-export const selectInventoryPageFeature = (state: AppStateInterface) =>
+export const selectInventoryPageFeature = (state: AppStateType) =>
   state.inventoryManagement.inventoryPage;
 
 export const inventoriesSelector = createSelector(

@@ -21,7 +21,6 @@ import {
 import { AG_GRID_LOCALE_FA } from 'src/app/language/persian/ag-grid/AG_GRID_LOCALE_FA';
 import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
 import { select, Store } from '@ngrx/store';
-import { AppStateInterface } from 'src/app/types/appState.type';
 import { CustomTooltipComponent } from 'src/app/modules/ag-grid/tooltip/custom-tooltip.component';
 import { LoadingOverlayComponent } from '../../loading-overlay/loading-overlay.component';
 import {
@@ -29,10 +28,8 @@ import {
   inventorySelectedRowsSelector,
   isInventoriesLoadingSelector,
 } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
-import { InventoryType } from 'src/app/types/inventory-management/inventory/inventoryPage.type';
 
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { InventoryFormStateType } from 'src/app/types/inventory-management/inventory/inventoryPage.type';
 import { InventoryManagementService } from 'src/app/services/inventory-management/inventory-management.service';
 
 @Component({
@@ -134,7 +131,7 @@ export class GridStyle01Component implements OnInit {
   currentEditingInventory$: Observable<InventoryType | null>;
 
   constructor(
-    private store: Store<AppStateInterface>,
+    private store: Store<AppStateType>,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private imService: InventoryManagementService

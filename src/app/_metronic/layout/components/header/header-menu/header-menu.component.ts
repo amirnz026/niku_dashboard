@@ -11,10 +11,8 @@ import {
   tabIndexSelector,
   tabsSelector,
 } from 'src/app/ngrx/tabs/tabs.selectors';
-import { AppStateInterface } from 'src/app/types/appState.type';
 import { Observable, take } from 'rxjs';
 
-import { TabType } from 'src/app/types/tab/tabsState.type';
 import * as tabsActions from 'src/app/ngrx/tabs/tabs.actions';
 
 @Component({
@@ -30,7 +28,7 @@ export class HeaderMenuComponent implements OnInit {
     private router: Router,
     private layout: LayoutService,
     private layoutInit: LayoutInitService,
-    private store: Store<AppStateInterface>
+    private store: Store<AppStateType>
   ) {}
   ngOnInit(): void {
     this.tabs$ = this.store.pipe(select(tabsSelector));

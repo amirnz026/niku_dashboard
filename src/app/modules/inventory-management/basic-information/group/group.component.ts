@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppStateInterface } from 'src/app/types/appState.type';
 import { addTab } from 'src/app/ngrx/tabs/tabs.actions';
 
 @Component({
@@ -9,7 +8,7 @@ import { addTab } from 'src/app/ngrx/tabs/tabs.actions';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GroupComponent implements OnInit {
-  constructor(private store: Store<AppStateInterface>) {}
+  constructor(private store: Store<AppStateType>) {}
 
   tabName = 'گروه';
   tabRoute = '/inventory-management/group';

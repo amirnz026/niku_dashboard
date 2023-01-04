@@ -34,7 +34,6 @@ export class AppComponent implements OnInit {
       frLang
     );
   }
-
   ngOnInit() {
     this.modeService.init();
     this.primengConfig.ripple = true;

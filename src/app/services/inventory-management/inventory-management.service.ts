@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { delay, Observable, of } from 'rxjs';
-import { InventoryType } from 'src/app/types/inventory-management/inventory/inventoryPage.type';
 import {
   inventories,
   inventoryCategories,

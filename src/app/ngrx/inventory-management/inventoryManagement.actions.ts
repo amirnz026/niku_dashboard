@@ -1,6 +1,4 @@
 import { createAction, props } from '@ngrx/store';
-import { CellClickedEvent } from 'ag-grid-community';
-import { InventoryType } from 'src/app/types/inventory-management/inventory/inventoryPage.type';
 
 export const getInventories = createAction(
   '[Inventory Management] Get Inventories'
