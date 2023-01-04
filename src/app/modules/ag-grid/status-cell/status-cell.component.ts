@@ -10,12 +10,9 @@ import { ICellRendererParams } from 'ag-grid-community';
 })
 export class StatusCellComponent implements OnInit, ICellRendererAngularComp {
   value: any;
-  status: boolean;
 
   agInit(params: ICellRendererParams): void {
     this.value = params.value;
-    if (this.value) this.status = true;
-    else this.status = false;
   }
   refresh(params: ICellRendererParams): boolean {
     return false;

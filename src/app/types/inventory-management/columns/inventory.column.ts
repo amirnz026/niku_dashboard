@@ -15,7 +15,6 @@ export const inventoryColDef: ColDef[] = [
   {
     headerName: 'دسته بندی',
     field: 'category',
-    valueGetter: 'data.category.name',
   },
   {
     headerName: 'وضعیت',
@@ -27,7 +26,6 @@ export const inventoryColDef: ColDef[] = [
     field: 'users',
     cellRenderer: UsersCellComponent,
     tooltipField: 'users',
-    valueGetter: 'data.users',
   },
   {
     headerName: 'عملیات',
@@ -38,5 +36,6 @@ export const inventoryColDef: ColDef[] = [
     autoHeight: false,
     lockPosition: 'right',
     pinned: left,
+    sortable: false,
   },
 ];

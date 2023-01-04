@@ -3,8 +3,16 @@ import {
   OnInit,
   Input,
   ChangeDetectionStrategy,
+  EventEmitter,
 } from '@angular/core';
-import { ColDef, GridApi, GridOptions, SideBarDef } from 'ag-grid-community';
+import {
+  ColDef,
+  GridApi,
+  GridOptions,
+  SideBarDef,
+  AgGridEvent,
+  ColumnApi,
+} from 'ag-grid-community';
 import { Observable, take } from 'rxjs';
 import {
   CellClickedEvent,
@@ -41,6 +49,7 @@ export class GridStyle01Component implements OnInit {
   @Input() isInventoryUsersLoading: boolean | null;
   @Input() isInventoryCategoryLoading: boolean | null;
   private gridApi: GridApi;
+  private columnApi: ColumnApi;
   tooltipShowDelay = 1000;
   isTableLoaded: boolean;
   sideBar: SideBarDef | string | string[] | boolean | null = {
@@ -93,6 +102,18 @@ export class GridStyle01Component implements OnInit {
   get rowsCount() {
     return this.gridApi?.getDisplayedRowCount();
   }
+
+  get displayedColumns() {
+    return this.columnApi?.getAllDisplayedColumns();
+  }
+  get selectedRows() {
+    return this.gridApi?.getSelectedRows();
+  }
+  test() {
+    console.log(this.displayedColumns);
+    console.log(this.selectedRows);
+  }
+
   isInventoriesLoading$: Observable<boolean>;
   inventorySelectedRows$: Observable<InventoryInterface[]>;
   inventoryFormState$: Observable<InventoryFormStateType>;
@@ -154,6 +175,7 @@ export class GridStyle01Component implements OnInit {
   clearSelection() {}
   onGridReady(params: any) {
     this.gridApi = params.api;
+    this.columnApi = params.columnApi;
     this.isInventoriesLoading$.subscribe((val) => {
       if (val) this.gridApi.showLoadingOverlay();
       else this.gridApi.hideOverlay();

@@ -1,3 +1,5 @@
+<p-confirmDialog icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
 <p-toolbar>
   <div class="p-toolbar-group-start">
     <p-button
@@ -26,16 +28,46 @@
   </div>
 
   <div class="p-toolbar-group-end">
-    <button
-      pButton
-      type="button"
-      class="p-button-danger"
-      (click)="onDelete()"
-      icon="pi pi-trash"
-      [pTooltip]="'حذف گروهی'"
-      iconPos="right"
-      [disabled]="!(selectedRowsCount > 1)"
-    ></button>
+    <span
+      [pTooltip]="
+        !selectedRowsCount ? 'هنوز آیتمی برای چاپ انتخاب نشده است.' : ''
+      "
+    >
+      <button
+        pButton
+        type="button"
+        class="p-button-secondary"
+        icon="pi pi-print"
+        [pTooltip]="'چاپ آیتم های انتخاب شده'"
+        iconPos="right"
+        [disabled]="!selectedRowsCount"
+        printSectionId="print-section"
+        ngxPrint
+        printTitle="جدول انبار"
+        [printStyle]="{
+          table: { direction: 'rtl' }
+        }"
+        [useExistingCss]="true"
+      ></button>
+    </span>
+    <span
+      [pTooltip]="
+        !(selectedRowsCount > 1)
+          ? 'برای حذف گروهی لازم است حداقل دو آیتم انتخاب شده باشد.'
+          : ''
+      "
+    >
+      <button
+        pButton
+        type="button"
+        class="p-button-danger"
+        (click)="onDelete()"
+        icon="pi pi-trash"
+        [pTooltip]="'حذف گروهی'"
+        iconPos="right"
+        [disabled]="!(selectedRowsCount > 1)"
+      ></button>
+    </span>
     <button
       pButton
       label="جدید"
@@ -65,7 +97,6 @@
   [pagination]="true"
   [localeText]="langFa"
   [gridOptions]="gridOptions"
-  (gridReady)="onGridReady($event)"
   (firstDataRendered)="onFirstDataRendered($event)"
   (gridReady)="onGridReady($event)"
   [tooltipShowDelay]="tooltipShowDelay"
@@ -74,4 +105,4 @@
   (selectionChanged)="onSelectionChanged($event)"
   (rowSelected)="onRowSelected()"
 ></ag-grid-angular>
-<p-confirmDialog icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<app-print-table id="print-section" [cols]="displayedColumns"></app-print-table>

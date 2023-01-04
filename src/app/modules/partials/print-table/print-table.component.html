@@ -1,0 +1,16 @@
+<table width="700">
+  <tr>
+    <ng-container *ngFor="let col of cols">
+      <th *ngIf="col.colDef.headerName !== 'عملیات'">
+        {{ col.colDef.headerName }}
+      </th>
+    </ng-container>
+  </tr>
+  <ng-container *ngFor="let row of rows$ | async">
+    <tr>
+      <ng-container *ngFor="let col of cols">
+        <td *ngIf="row[col.colDef.field]">{{ row[col.colDef.field] }}</td>
+      </ng-container>
+    </tr>
+  </ng-container>
+</table>

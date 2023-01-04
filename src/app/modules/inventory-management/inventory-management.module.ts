@@ -33,8 +33,9 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { ToolbarModule } from 'primeng/toolbar';
 import { LetModule } from '@ngrx/component';
+import { NgxPrintModule } from 'ngx-print';
 import { DialogModule } from 'primeng/dialog';
-
+import { PrintTableComponent } from 'src/app/modules/partials/print-table/print-table.component';
 @NgModule({
   declarations: [
     InventoryManagementComponent,
@@ -45,6 +46,7 @@ import { DialogModule } from 'primeng/dialog';
     ActionsCellComponent,
     CustomTooltipComponent,
     FormValidationErrorComponent,
+    PrintTableComponent,
   ],
   imports: [
     HttpClientModule,
@@ -73,6 +75,7 @@ import { DialogModule } from 'primeng/dialog';
     ToggleButtonModule,
     ToolbarModule,
     DialogModule,
+    NgxPrintModule,
   ],
   providers: [InventoryManagementService, ConfirmationService, MessageService],
 })

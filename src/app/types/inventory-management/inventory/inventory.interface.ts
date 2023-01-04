@@ -3,7 +3,7 @@ import { InventoryUserInterface } from './inventoryUser.interface';
 
 export interface InventoryInterface {
   name: string;
-  category: InventoryCategoryInterface;
-  status: boolean;
-  users: InventoryUserInterface[];
+  category: string;
+  status: string;
+  users: string[];
 }
