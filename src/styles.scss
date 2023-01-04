@@ -163,3 +163,12 @@ h5 {
 .p-confirm-popup-icon {
   margin-inline-end: 1rem;
 }
+
+.p-dialog {
+  .p-button {
+    gap: 0.3rem;
+  }
+  .p-dialog-content {
+    gap: 0.5rem;
+  }
+}
