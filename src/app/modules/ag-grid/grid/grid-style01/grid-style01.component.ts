@@ -79,7 +79,6 @@ export class GridStyle01Component implements OnInit {
     ],
   };
   defaultColDef: ColDef = {
-    flex: 1,
     resizable: true,
     sortable: true,
     filter: true,
@@ -88,7 +87,7 @@ export class GridStyle01Component implements OnInit {
     cellStyle: {
       overflow: 'hidden',
     },
-    lockPinned: true,
+    // lockPinned: true,
   };
   gridOptions: GridOptions = {
     onGridReady: (event) => (this.isTableLoaded = true),

@@ -18,7 +18,10 @@
 
 <div class="row-flex">
   <ng-container *ngrxLet="currentEditingInventory$ as currentEditing">
-    <div *ngIf="(isInventoryFormOpen$ | async) || currentEditing" class="card">
+    <div
+      *ngIf="(isInventoryFormOpen$ | async) || currentEditing"
+      class="card form"
+    >
       <div class="header">
         <h3>
           {{ currentEditing ? "ویرایش انبار" : "انبار جدید" }}
@@ -156,6 +159,7 @@
     [pageName]="'inventory'"
     [isInventoryCategoryLoading]="isInventoryCategoriesLoading$ | async"
     [isInventoryUsersLoading]="isInventoryUsersLoading$ | async"
+    class="table"
   ></app-grid-style01>
 </div>
 <p-toast position="top-left"></p-toast>

@@ -11,21 +11,28 @@ export const inventoryColDef: ColDef[] = [
     headerCheckboxSelection: true,
     checkboxSelection: true,
     flex: 2,
+    minWidth: 230,
   },
   {
     headerName: 'دسته بندی',
     field: 'category',
+    flex: 1,
+    minWidth: 130,
   },
   {
     headerName: 'وضعیت',
     field: 'status',
     cellRenderer: StatusCellComponent,
+    flex: 1,
+    minWidth: 100,
   },
   {
     headerName: 'کاربران',
     field: 'users',
     cellRenderer: UsersCellComponent,
     tooltipField: 'users',
+    flex: 1,
+    minWidth: 100,
   },
   {
     headerName: 'عملیات',
@@ -35,7 +42,8 @@ export const inventoryColDef: ColDef[] = [
     width: 140,
     autoHeight: false,
     lockPosition: 'right',
-    pinned: left,
+    // pinned: left,
     sortable: false,
+    minWidth: 100,
   },
 ];

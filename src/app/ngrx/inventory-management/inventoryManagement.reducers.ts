@@ -11,7 +11,7 @@ export const initialState: InventoryManagementInterface = {
     inventorySelectedRows: [],
     inventoryFormState: 'create',
     // Form
-    isInventoryFormOpen: true,
+    isInventoryFormOpen: false,
     inventoryCategories: [],
     isInventoriesCategoriesLoading: false,
     errorInventoriesCategories: '',
