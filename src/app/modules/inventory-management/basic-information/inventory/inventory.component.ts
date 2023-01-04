@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { select, Store } from '@ngrx/store';
 import { Observable, take } from 'rxjs';
-import { AppStateInterface } from 'src/app/types/appState.interface';
+import { AppStateInterface } from 'src/app/types/appState.type';
 import * as tabsActions from 'src/app/ngrx/tabs/tabs.actions';
 import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
 import { isEqual } from 'lodash';

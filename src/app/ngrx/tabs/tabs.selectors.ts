@@ -1,5 +1,5 @@
 import { createSelector } from '@ngrx/store';
-import { AppStateInterface } from 'src/app/types/appState.interface';
+import { AppStateInterface } from 'src/app/types/appState.type';
 
 export const selectTabsFeature = (state: AppStateInterface) => state.tabsState;
 

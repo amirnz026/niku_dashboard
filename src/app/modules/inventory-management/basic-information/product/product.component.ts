@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppStateInterface } from 'src/app/types/appState.interface';
+import { AppStateInterface } from 'src/app/types/appState.type';
 import * as tabsActions from 'src/app/ngrx/tabs/tabs.actions';
 
 @Component({

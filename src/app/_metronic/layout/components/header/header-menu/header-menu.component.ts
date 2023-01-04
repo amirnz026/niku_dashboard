@@ -11,9 +11,10 @@ import {
   tabIndexSelector,
   tabsSelector,
 } from 'src/app/ngrx/tabs/tabs.selectors';
-import { AppStateInterface } from 'src/app/types/appState.interface';
+import { AppStateInterface } from 'src/app/types/appState.type';
 import { Observable, take } from 'rxjs';
-import { TabInterface } from 'src/app/types/tab/tab.interface';
+
+import { TabType } from 'src/app/types/tab/tabsState.type';
 import * as tabsActions from 'src/app/ngrx/tabs/tabs.actions';
 
 @Component({
@@ -22,7 +23,7 @@ import * as tabsActions from 'src/app/ngrx/tabs/tabs.actions';
   styleUrls: ['./header-menu.component.scss'],
 })
 export class HeaderMenuComponent implements OnInit {
-  tabs$: Observable<TabInterface[]>;
+  tabs$: Observable<TabType[]>;
   closingTabIndex$: Observable<number | undefined>;
   currentTabEqualActiveTab$: Observable<boolean>;
   constructor(

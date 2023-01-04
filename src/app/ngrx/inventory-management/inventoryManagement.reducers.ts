@@ -1,15 +1,14 @@
 import { createReducer, on } from '@ngrx/store';
 import { immerOn } from 'ngrx-immer/store';
-import { InventoryManagementInterface } from 'src/app/types/inventory-management/inventoryManagement.type';
+import { InventoryManagementType } from 'src/app/types/inventory-management/inventory/inventoryManagement.type';
 import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
 
-export const initialState: InventoryManagementInterface = {
+export const initialState: InventoryManagementType = {
   inventoryPage: {
     inventories: [],
     isInventoriesLoading: false,
     errorInventories: '',
     inventorySelectedRows: [],
-    inventoryFormState: 'create',
     // Form
     isInventoryFormOpen: false,
     inventoryCategories: [],
@@ -40,15 +39,11 @@ export const inventoryManagementReducers = createReducer(
     state.inventoryPage.errorInventories = action.error;
     state.inventoryPage.isInventoriesLoading = false;
   }),
-  immerOn(imActions.inventoryFormStateToEdit, (state) => {
-    state.inventoryPage.inventoryFormState = 'edit';
-  }),
+
   immerOn(imActions.setCurrentEditingInventory, (state, action) => {
     state.inventoryPage.currentEditingInventory = action.inventory;
   }),
-  immerOn(imActions.inventoryFormStateToCreate, (state) => {
-    state.inventoryPage.inventoryFormState = 'create';
-  }),
+
   immerOn(imActions.openInventoryForm, (state) => {
     state.inventoryPage.isInventoryFormOpen = true;
     state.inventoryPage.currentEditingInventory = null;

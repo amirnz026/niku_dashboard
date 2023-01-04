@@ -3,14 +3,12 @@ import {
   OnInit,
   Input,
   ChangeDetectionStrategy,
-  EventEmitter,
 } from '@angular/core';
 import {
   ColDef,
   GridApi,
   GridOptions,
   SideBarDef,
-  AgGridEvent,
   ColumnApi,
   GetContextMenuItemsParams,
   MenuItemDef,
@@ -23,12 +21,11 @@ import {
 import { AG_GRID_LOCALE_FA } from 'src/app/language/persian/ag-grid/AG_GRID_LOCALE_FA';
 import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
 import { select, Store } from '@ngrx/store';
-import { AppStateInterface } from 'src/app/types/appState.interface';
+import { AppStateInterface } from 'src/app/types/appState.type';
 import { CustomTooltipComponent } from 'src/app/modules/ag-grid/tooltip/custom-tooltip.component';
-import { LoadingOverlayComponent } from '../../loading-overlay/loading-overlay.compoment';
+import { LoadingOverlayComponent } from '../../loading-overlay/loading-overlay.component';
 import {
   currentEditingInventorySelector,
-  inventoryFormStateSelector,
   inventorySelectedRowsSelector,
   isInventoriesLoadingSelector,
 } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
@@ -150,9 +147,7 @@ export class GridStyle01Component implements OnInit {
     this.inventorySelectedRows$ = this.store.pipe(
       select(inventorySelectedRowsSelector)
     );
-    this.inventoryFormState$ = this.store.pipe(
-      select(inventoryFormStateSelector)
-    );
+
     this.currentEditingInventory$ = this.store.pipe(
       select(currentEditingInventorySelector)
     );

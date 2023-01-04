@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { inventorySelectedRowsSelector } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
-import { AppStateInterface } from 'src/app/types/appState.interface';
+import { AppStateInterface } from 'src/app/types/appState.type';
 
 @Component({
   selector: 'app-print-table',

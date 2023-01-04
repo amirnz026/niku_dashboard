@@ -1,9 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
 import { immerOn } from 'ngrx-immer/store';
 import * as tabsActions from 'src/app/ngrx/tabs/tabs.actions';
-import { TabsStateInterface } from 'src/app/types/tab/tabsState.interface';
+import { TabsStateType } from 'src/app/types/tab/tabsState.type';
 
-export const initialState: TabsStateInterface = {
+export const initialState: TabsStateType = {
   tabs: [],
   activeTab: {
     tabName: '',

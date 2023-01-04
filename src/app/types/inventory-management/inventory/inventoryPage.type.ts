@@ -4,7 +4,6 @@ export type InventoryPageStateType = {
   isInventoriesLoading: boolean;
   errorInventories: string;
   inventorySelectedRows: InventoryType[];
-  inventoryFormState: 'edit' | 'create' | null;
   // Form
   isInventoryFormOpen: boolean;
   // Inventory Categories

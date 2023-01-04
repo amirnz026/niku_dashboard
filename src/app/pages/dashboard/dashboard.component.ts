@@ -4,7 +4,7 @@ import {
   OnInit,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { AppStateInterface } from 'src/app/types/appState.interface';
+import { AppStateInterface } from 'src/app/types/appState.type';
 import { ModalConfig, ModalComponent } from '../../_metronic/partials';
 import { Store } from '@ngrx/store';
 import * as tabsActions from 'src/app/ngrx/tabs/tabs.actions';
