@@ -52,7 +52,6 @@ export class HeaderMenuComponent implements OnInit {
                 .pipe(select(findTabRouteByIndexSelector(index)))
                 .pipe(take(1))
                 .subscribe((tabRoute) => {
-                  console.log(index);
                   this.store.dispatch(tabsActions.closeTab({ tabName }));
                   this.router.navigateByUrl(tabRoute!);
                 });

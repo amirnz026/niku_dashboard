@@ -129,10 +129,6 @@ export class GridStyle01Component implements OnInit {
   get selectedRows() {
     return this.gridApi?.getSelectedRows();
   }
-  test() {
-    console.log(this.displayedColumns);
-    console.log(this.selectedRows);
-  }
 
   isInventoriesLoading$: Observable<boolean>;
   inventorySelectedRows$: Observable<InventoryInterface[]>;
@@ -172,7 +168,7 @@ export class GridStyle01Component implements OnInit {
       } else {
         this.gridOptions.rowClassRules = {};
       }
-      this.gridApi.redrawRows();
+      this.gridApi?.redrawRows();
     });
   }
   onCellClicked(event: CellClickedEvent) {

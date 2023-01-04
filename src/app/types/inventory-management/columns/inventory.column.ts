@@ -11,13 +11,13 @@ export const inventoryColDef: ColDef[] = [
     headerCheckboxSelection: true,
     checkboxSelection: true,
     flex: 2,
-    minWidth: 230,
+    minWidth: 200,
   },
   {
     headerName: 'دسته بندی',
     field: 'category',
     flex: 1,
-    minWidth: 130,
+    minWidth: 100,
   },
   {
     headerName: 'وضعیت',

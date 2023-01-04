@@ -34,22 +34,15 @@ export const tabIndexSelector = (tabName: string) =>
 export const findTabRouteByIndexSelector = (index: number) =>
   createSelector(selectTabsFeature, (state) => {
     if (state.tabs.length === 1) {
-      console.log('1');
       return '/';
     } // only tab close
     else if (index === state.tabs.length - 1) {
-      console.log('2');
-
       return state.tabs[index - 1].tabRoute;
     } // last tab close
     else if (index !== state.tabs.length - 1 && index !== 0) {
-      console.log('3');
-
       return state.tabs[index - 1].tabRoute;
     } // not last tab close
     else if (index !== state.tabs.length - 1 && index === 0) {
-      console.log('4');
-
       return state.tabs[index + 1].tabRoute;
     }
   });

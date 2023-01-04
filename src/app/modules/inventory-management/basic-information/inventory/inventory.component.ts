@@ -278,7 +278,6 @@ export class InventoryComponent implements OnInit {
     elementType: 'name' | 'category' | 'users' | 'status',
     val: any
   ): void {
-    console.log(val.name);
     if (elementType === 'name') {
       this.store.dispatch(
         imActions.inventoryNameFormUpdate({ inventoryName: val })
