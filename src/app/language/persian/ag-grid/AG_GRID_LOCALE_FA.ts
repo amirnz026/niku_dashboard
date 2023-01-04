@@ -227,4 +227,5 @@ export const AG_GRID_LOCALE_FA = {
   ariaRowSelectAll: 'برای جابجایی انتخاب همه ردیف ها, Space را فشار دهید',
   ariaSearch: 'جستجو',
   ariaSearchFilterValues: 'مقادیر فیلتر جستجو',
+  copyWithGroupHeaders: 'کپی با گروه سر ستون',
 };

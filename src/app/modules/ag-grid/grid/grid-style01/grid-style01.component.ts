@@ -12,6 +12,8 @@ import {
   SideBarDef,
   AgGridEvent,
   ColumnApi,
+  GetContextMenuItemsParams,
+  MenuItemDef,
 } from 'ag-grid-community';
 import { Observable, take } from 'rxjs';
 import {
@@ -48,8 +50,8 @@ export class GridStyle01Component implements OnInit {
   @Input() pageName: string;
   @Input() isInventoryUsersLoading: boolean | null;
   @Input() isInventoryCategoryLoading: boolean | null;
-  private gridApi: GridApi;
-  private columnApi: ColumnApi;
+  gridApi: GridApi;
+  columnApi: ColumnApi;
   tooltipShowDelay = 1000;
   isTableLoaded: boolean;
   sideBar: SideBarDef | string | string[] | boolean | null = {
@@ -95,7 +97,26 @@ export class GridStyle01Component implements OnInit {
     loadingOverlayComponent: LoadingOverlayComponent,
     loadingOverlayComponentParams: {},
     suppressDragLeaveHidesColumns: true,
+    defaultCsvExportParams: {
+      onlySelected: true,
+      columnKeys: ['name', 'category', 'status', 'users'],
+    },
+    defaultExcelExportParams: {
+      onlySelected: true,
+      columnKeys: ['name', 'category', 'status', 'users'],
+    },
   };
+  getContextMenuItems(
+    params: GetContextMenuItemsParams
+  ): (string | MenuItemDef)[] {
+    var result: (string | MenuItemDef)[] = [
+      'copy',
+      'copyWithHeaders',
+      'resetColumns',
+      'export',
+    ];
+    return result;
+  }
   get selectedRowsCount() {
     return this.gridApi?.getSelectedRows().length;
   }
