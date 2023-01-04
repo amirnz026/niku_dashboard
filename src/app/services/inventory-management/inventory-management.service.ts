@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { delay, Observable, of } from 'rxjs';
 import { InventoryInterface } from 'src/app/types/inventory-management/inventory/inventory.interface';
-import { InventoryCategoryInterface } from 'src/app/types/inventory-management/inventory/inventoryCategory.interface';
-import { InventoryUserInterface } from 'src/app/types/inventory-management/inventory/inventoryUser.interface';
 import {
   inventories,
   inventoryCategories,
@@ -19,10 +17,10 @@ export class InventoryManagementService {
   getInventories(): Observable<InventoryInterface[]> {
     return of(inventories);
   }
-  getInventoryCategories(): Observable<InventoryCategoryInterface[]> {
+  getInventoryCategories(): Observable<string[]> {
     return of(inventoryCategories);
   }
-  getInventoryUsers(): Observable<InventoryUserInterface[]> {
+  getInventoryUsers(): Observable<string[]> {
     return of(inventoryUsers);
   }
   postSubmitInventoryCreationForm(): Observable<boolean> {

@@ -1,3 +1,21 @@
+<p-dialog
+  header="خطا"
+  [(visible)]="isErrorModal"
+  [modal]="true"
+  [draggable]="true"
+  [resizable]="true"
+>
+  {{ errorModalText }}
+  <ng-template pTemplate="footer">
+    <p-button
+      icon="pi pi-check"
+      (click)="isErrorModal = false"
+      label="باشه"
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+</p-dialog>
+
 <div class="row-flex">
   <ng-container *ngrxLet="currentEditingInventory$ as currentEditing">
     <div *ngIf="(isInventoryFormOpen$ | async) || currentEditing" class="card">
@@ -50,7 +68,6 @@
         <h5>دسته بندی</h5>
         <p-dropdown
           [options]="(inventoryCategories$ | async)!"
-          optionLabel="name"
           formControlName="category"
           [placeholder]="
             (isInventoryCategoriesLoading$ | async)
@@ -85,6 +102,8 @@
         <h5>فعال</h5>
         <p-inputSwitch
           formControlName="status"
+          trueValue="فعال"
+          falseValue="غیر فعال"
           (ngModelChange)="onChange('status', $event)"
         ></p-inputSwitch>
         <h5>دسترسی کاربران</h5>
@@ -93,7 +112,6 @@
           [defaultLabel]="
             (isInventoryUsersLoading$ | async) ? 'در حال دریافت اطلاعات...' : ''
           "
-          optionLabel="name"
           display="chip"
           [disabled]="(isInventoryUsersLoading$ | async) === true"
           formControlName="users"
@@ -141,22 +159,3 @@
   ></app-grid-style01>
 </div>
 <p-toast position="top-left"></p-toast>
-
-<p-dialog
-  header="خطا"
-  [(visible)]="isErrorModal"
-  [modal]="true"
-  [style]="{ width: '50vw' }"
-  [draggable]="false"
-  [resizable]="false"
->
-  {{ errorModalText }}
-  <ng-template pTemplate="footer">
-    <p-button
-      icon="pi pi-check"
-      (click)="isErrorModal = false"
-      label="باشه"
-      styleClass="p-button-text"
-    ></p-button>
-  </ng-template>
-</p-dialog>

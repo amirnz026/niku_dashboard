@@ -1,6 +1,4 @@
 import { InventoryInterface } from 'src/app/types/inventory-management/inventory/inventory.interface';
-import { InventoryCategoryInterface } from '../types/inventory-management/inventory/inventoryCategory.interface';
-import { InventoryUserInterface } from '../types/inventory-management/inventory/inventoryUser.interface';
 
 export const inventories: InventoryInterface[] = [
   {
@@ -598,28 +596,24 @@ export const inventories: InventoryInterface[] = [
   //   users: ['علی رضا رضایی', 'امین امینی', 'محمد وفایی کیا', 'عرفان دولتی'],
   // },
 ];
-export const inventoryCategories: InventoryCategoryInterface[] = [
-  { name: 'اولیه' },
-  { name: 'تولید شده' },
-  { name: 'ثانویه' },
-];
+export const inventoryCategories: string[] = ['اولیه', 'تولید شده', 'ثانویه'];
 
-export const inventoryUsers: InventoryUserInterface[] = [
-  { name: 'امیر الموتی' },
-  { name: 'امیر نظری' },
-  { name: 'علی نادری' },
-  { name: 'محمد وفایی کیا' },
-  { name: 'امین امینی' },
-  { name: 'علی رضا رضایی' },
-  { name: 'احمد قاسمی' },
-  { name: 'حسین سعادت' },
-  { name: 'محمد قدوسی' },
-  { name: 'مهدی هاشم پور' },
-  { name: 'حسین زیبا سرشت' },
-  { name: 'پوریا تیموری' },
-  { name: 'حامد فاضلی' },
-  { name: 'سینا علی زاده' },
-  { name: 'علی محمد زاده' },
-  { name: 'محمد باقر قدوسی' },
-  { name: 'عرفان دولتی' },
+export const inventoryUsers: string[] = [
+  'امیر الموتی',
+  'امیر نظری',
+  'علی نادری',
+  'محمد وفایی کیا',
+  'امین امینی',
+  'علی رضا رضایی',
+  'احمد قاسمی',
+  'حسین سعادت',
+  'محمد قدوسی',
+  'مهدی هاشم پور',
+  'حسین زیبا سرشت',
+  'پوریا تیموری',
+  'حامد فاضلی',
+  'سینا علی زاده',
+  'علی محمد زاده',
+  'محمد باقر قدوسی',
+  'عرفان دولتی',
 ];

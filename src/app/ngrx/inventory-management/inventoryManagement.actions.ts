@@ -1,8 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { CellClickedEvent } from 'ag-grid-community';
 import { InventoryInterface } from 'src/app/types/inventory-management/inventory/inventory.interface';
-import { InventoryCategoryInterface } from 'src/app/types/inventory-management/inventory/inventoryCategory.interface';
-import { InventoryUserInterface } from 'src/app/types/inventory-management/inventory/inventoryUser.interface';
 
 export const getInventories = createAction(
   '[Inventory Management] Get Inventories'
@@ -44,7 +42,7 @@ export const getInventoryCategories = createAction(
 );
 export const getInventoryCategoriesSuccess = createAction(
   '[Inventory Management] Get Inventory Categories Success',
-  props<{ inventoryCategories: InventoryCategoryInterface[] }>()
+  props<{ inventoryCategories: string[] }>()
 );
 export const getInventoryCategoriesFailure = createAction(
   '[Inventory Management] Get Inventory Categories Failure',
@@ -56,7 +54,7 @@ export const getInventoryUsers = createAction(
 );
 export const getInventoryUsersSuccess = createAction(
   '[Inventory Management] Get Inventory Users Success',
-  props<{ inventoryUsers: InventoryUserInterface[] }>()
+  props<{ inventoryUsers: string[] }>()
 );
 export const getInventoryUsersFailure = createAction(
   '[Inventory Management] Get Inventory Users Failure',
@@ -69,11 +67,11 @@ export const inventoryNameFormUpdate = createAction(
 );
 export const inventoryCategoryFormUpdate = createAction(
   '[Inventory Management] Change Inventory Category Name Form Element',
-  props<{ inventoryCategoryName: InventoryCategoryInterface | null }>()
+  props<{ inventoryCategoryName: string | null }>()
 );
 export const inventoryUsersFormUpdate = createAction(
   '[Inventory Management] Change Inventory Users Form Element',
-  props<{ inventoryUsers: InventoryUserInterface[] }>()
+  props<{ inventoryUsers: string[] }>()
 );
 export const inventoryStatusFormUpdate = createAction(
   '[Inventory Management] Change Inventory Status Form Element',

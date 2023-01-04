@@ -23,11 +23,8 @@ import {
   isInventoryFormOpenSelector,
   isInventoryUsersLoadingSelector,
 } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
-import { inventoryFormStateSelector } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
 import { ColDef } from 'ag-grid-community';
-import { InventoryUserInterface } from 'src/app/types/inventory-management/inventory/inventoryUser.interface';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { InventoryCategoryInterface } from 'src/app/types/inventory-management/inventory/inventoryCategory.interface';
 import { inventoryColDef } from 'src/app/types/inventory-management/columns/inventory.column';
 import { InventoryManagementService } from 'src/app/services/inventory-management/inventory-management.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -53,14 +50,14 @@ export class InventoryComponent implements OnInit {
 
   // Form
   isInventoryFormOpen$: Observable<boolean>;
-  inventoryCategories$: Observable<InventoryCategoryInterface[]>;
+  inventoryCategories$: Observable<string[]>;
   isInventoryCategoriesLoading$: Observable<boolean>;
-  inventoryUsers$: Observable<InventoryUserInterface[]>;
+  inventoryUsers$: Observable<string[]>;
   isInventoryUsersLoading$: Observable<boolean>;
   inventoryCreationForm: FormGroup;
   inventoryNameForm$: Observable<string | null>;
-  inventoryCategoryForm$: Observable<InventoryCategoryInterface | null>;
-  inventoryUsersForm$: Observable<InventoryUserInterface[]>;
+  inventoryCategoryForm$: Observable<string | null>;
+  inventoryUsersForm$: Observable<string[]>;
   inventoryStatusForm$: Observable<boolean | null>;
   inventorySelectedRowsCount$: Observable<number>;
   currentEditingInventory$: Observable<InventoryInterface | null>;
@@ -281,6 +278,7 @@ export class InventoryComponent implements OnInit {
     elementType: 'name' | 'category' | 'users' | 'status',
     val: any
   ): void {
+    console.log(val.name);
     if (elementType === 'name') {
       this.store.dispatch(
         imActions.inventoryNameFormUpdate({ inventoryName: val })
