@@ -32,9 +32,10 @@ import {
   inventorySelectedRowsSelector,
   isInventoriesLoadingSelector,
 } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
-import { InventoryInterface } from 'src/app/types/inventory-management/inventory/inventory.interface';
+import { InventoryType } from 'src/app/types/inventory-management/inventory/inventoryPage.type';
+
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { InventoryFormStateType } from 'src/app/types/inventory-management/inventory/inventoryPage.interface';
+import { InventoryFormStateType } from 'src/app/types/inventory-management/inventory/inventoryPage.type';
 import { InventoryManagementService } from 'src/app/services/inventory-management/inventory-management.service';
 
 @Component({
@@ -131,9 +132,9 @@ export class GridStyle01Component implements OnInit {
   }
 
   isInventoriesLoading$: Observable<boolean>;
-  inventorySelectedRows$: Observable<InventoryInterface[]>;
+  inventorySelectedRows$: Observable<InventoryType[]>;
   inventoryFormState$: Observable<InventoryFormStateType>;
-  currentEditingInventory$: Observable<InventoryInterface | null>;
+  currentEditingInventory$: Observable<InventoryType | null>;
 
   constructor(
     private store: Store<AppStateInterface>,

@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { immerOn } from 'ngrx-immer/store';
-import { InventoryManagementInterface } from 'src/app/types/inventory-management/inventoryManagement.interface';
+import { InventoryManagementInterface } from 'src/app/types/inventory-management/inventoryManagement.type';
 import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
 
 export const initialState: InventoryManagementInterface = {

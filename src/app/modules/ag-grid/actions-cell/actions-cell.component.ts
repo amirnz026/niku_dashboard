@@ -5,13 +5,13 @@ import { GridApi, GridOptions, ICellRendererParams } from 'ag-grid-community';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
-import { Observable, take } from 'rxjs';
-import { InventoryFormStateType } from 'src/app/types/inventory-management/inventory/inventoryPage.interface';
+import { Observable } from 'rxjs';
+import { InventoryFormStateType } from 'src/app/types/inventory-management/inventory/inventoryPage.type';
 import {
   currentEditingInventorySelector,
   inventoryFormStateSelector,
 } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
-import { InventoryInterface } from 'src/app/types/inventory-management/inventory/inventory.interface';
+import { InventoryType } from 'src/app/types/inventory-management/inventory/inventoryPage.type';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { InventoryManagementService } from 'src/app/services/inventory-management/inventory-management.service';
 @Component({
@@ -27,7 +27,7 @@ export class ActionsCellComponent implements OnInit, ICellRendererAngularComp {
   private gridOptions: GridOptions;
   public params!: ICellRendererParams;
   inventoryFormState$: Observable<InventoryFormStateType>;
-  currentEditingInventory$: Observable<InventoryInterface | null>;
+  currentEditingInventory$: Observable<InventoryType | null>;
   actionsForm: FormGroup;
 
   get editToggle() {

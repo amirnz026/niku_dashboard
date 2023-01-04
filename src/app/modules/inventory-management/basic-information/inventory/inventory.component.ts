@@ -28,7 +28,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { inventoryColDef } from 'src/app/types/inventory-management/columns/inventory.column';
 import { InventoryManagementService } from 'src/app/services/inventory-management/inventory-management.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { InventoryInterface } from 'src/app/types/inventory-management/inventory/inventory.interface';
+import { InventoryType } from 'src/app/types/inventory-management/inventory/inventoryPage.type';
 
 @Component({
   selector: 'app-inventory',
@@ -45,7 +45,7 @@ export class InventoryComponent implements OnInit {
   // Table
   rowData$: Observable<any[]>;
   isInventoriesLoading$: Observable<boolean>;
-  inventorySelectedRows$: Observable<InventoryInterface[]>;
+  inventorySelectedRows$: Observable<InventoryType[]>;
   colDefs: ColDef[] = inventoryColDef;
 
   // Form
@@ -60,7 +60,7 @@ export class InventoryComponent implements OnInit {
   inventoryUsersForm$: Observable<string[]>;
   inventoryStatusForm$: Observable<boolean | null>;
   inventorySelectedRowsCount$: Observable<number>;
-  currentEditingInventory$: Observable<InventoryInterface | null>;
+  currentEditingInventory$: Observable<InventoryType | null>;
 
   isErrorModal = false;
   errorModalText = '';
@@ -188,7 +188,7 @@ export class InventoryComponent implements OnInit {
   onSubmitCreate(name: any) {
     this.isSubmitted = true;
     let exit = false;
-    this.rowData$.pipe(take(1)).subscribe((rows: InventoryInterface[]) => {
+    this.rowData$.pipe(take(1)).subscribe((rows: InventoryType[]) => {
       for (let i = 0; i < rows.length; i++) {
         if (name === rows[i].name) {
           this.errorModalText =
@@ -236,7 +236,7 @@ export class InventoryComponent implements OnInit {
   onSubmitEdit(name: any, currentEditing: string) {
     this.isSubmitted = true;
     let exit = false;
-    this.rowData$.pipe(take(1)).subscribe((rows: InventoryInterface[]) => {
+    this.rowData$.pipe(take(1)).subscribe((rows: InventoryType[]) => {
       for (let i = 0; i < rows.length; i++) {
         if (name === rows[i].name && rows[i].name !== currentEditing) {
           exit = true;

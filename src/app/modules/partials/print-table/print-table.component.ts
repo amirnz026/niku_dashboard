@@ -3,7 +3,6 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { inventorySelectedRowsSelector } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
 import { AppStateInterface } from 'src/app/types/appState.interface';
-import { InventoryInterface } from 'src/app/types/inventory-management/inventory/inventory.interface';
 
 @Component({
   selector: 'app-print-table',

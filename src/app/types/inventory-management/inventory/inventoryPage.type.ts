@@ -1,11 +1,9 @@
-import { InventoryInterface } from './inventory.interface';
-
-export interface InventoryPageInterface {
+export type InventoryPageStateType = {
   // Table
-  inventories: InventoryInterface[];
+  inventories: InventoryType[];
   isInventoriesLoading: boolean;
   errorInventories: string;
-  inventorySelectedRows: InventoryInterface[];
+  inventorySelectedRows: InventoryType[];
   inventoryFormState: 'edit' | 'create' | null;
   // Form
   isInventoryFormOpen: boolean;
@@ -23,6 +21,13 @@ export interface InventoryPageInterface {
   inventoryUsersForm: string[];
   inventoryStatusForm: boolean | null;
   // Editing
-  currentEditingInventory: InventoryInterface | null;
-}
+  currentEditingInventory: InventoryType | null;
+};
 export type InventoryFormStateType = 'create' | 'edit' | null;
+
+export type InventoryType = {
+  name: string;
+  category: string;
+  status: string;
+  users: string[];
+};

@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { CellClickedEvent } from 'ag-grid-community';
-import { InventoryInterface } from 'src/app/types/inventory-management/inventory/inventory.interface';
+import { InventoryType } from 'src/app/types/inventory-management/inventory/inventoryPage.type';
 
 export const getInventories = createAction(
   '[Inventory Management] Get Inventories'
@@ -8,7 +8,7 @@ export const getInventories = createAction(
 
 export const getInventoriesSuccess = createAction(
   '[Inventory Management] Get Inventories Success',
-  props<{ inventories: InventoryInterface[] }>()
+  props<{ inventories: InventoryType[] }>()
 );
 
 export const getInventoriesFailure = createAction(
@@ -22,7 +22,7 @@ export const inventoryFormStateToEdit = createAction(
 
 export const setCurrentEditingInventory = createAction(
   '[Inventory Management] Change Current Editing Row',
-  props<{ inventory: InventoryInterface | null }>()
+  props<{ inventory: InventoryType | null }>()
 );
 
 export const inventoryFormStateToCreate = createAction(
@@ -91,5 +91,5 @@ export const submitInventoryCreationFormFailure = createAction(
 
 export const setInventorySelectedRows = createAction(
   '[Inventory Management] Set Inventory Selected Rows',
-  props<{ inventories: InventoryInterface[] }>()
+  props<{ inventories: InventoryType[] }>()
 );

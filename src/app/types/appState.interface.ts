@@ -1,5 +1,5 @@
 import { TabsStateInterface } from 'src/app/types/tab/tabsState.interface';
-import { InventoryManagementInterface } from 'src/app/types/inventory-management/inventoryManagement.interface';
+import { InventoryManagementInterface } from 'src/app/types/inventory-management/inventoryManagement.type';
 
 export interface AppStateInterface {
   tabsState: TabsStateInterface;
