@@ -9,8 +9,3 @@ export const closeTab = createAction(
   '[Tabs] Close Tab',
   props<{ tabName: string }>()
 );
-
-export const setActiveTab = createAction(
-  '[Tabs] Set Active Tab',
-  props<{ tabName: string; tabRoute: string }>()
-);

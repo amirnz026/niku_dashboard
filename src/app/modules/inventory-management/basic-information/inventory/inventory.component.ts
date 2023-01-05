@@ -1,11 +1,12 @@
+// Angular
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+// NgRx
 import { select, Store } from '@ngrx/store';
 import { Observable, take } from 'rxjs';
 import * as tabsActions from 'src/app/ngrx/tabs/tabs.actions';
 import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
-import { isEqual } from 'lodash';
-
 import {
   currentEditingInventorySelector,
   inventoriesSelector,
@@ -22,11 +23,13 @@ import {
   isInventoryFormOpenSelector,
   isInventoryUsersLoadingSelector,
 } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
-import { ColDef } from 'ag-grid-community';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { inventoryColDef } from 'src/app/modules/inventory-management/basic-information/inventory/inventory.column';
+// Utils
+import { isEqual } from 'lodash';
 import { InventoryManagementService } from 'src/app/services/inventory-management/inventory-management.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
+// Ag-Grid
+import { ColDef } from 'ag-grid-community';
+import { inventoryColDef } from 'src/app/modules/inventory-management/basic-information/inventory/inventory.column';
 
 @Component({
   selector: 'app-inventory',
@@ -36,33 +39,40 @@ import { ConfirmationService, MessageService } from 'primeng/api';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InventoryComponent implements OnInit {
+  constructor(
+    private store: Store<AppStateType>,
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private imService: InventoryManagementService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+  ) {}
   // Navigation
   tabName = 'انبار';
   tabRoute = '/inventory-management/inventory';
 
   // Table
-  rowData$: Observable<any[]>;
+  inventories$: Observable<any[]>;
   isInventoriesLoading$: Observable<boolean>;
   inventorySelectedRows$: Observable<InventoryType[]>;
+  currentEditingInventory$: Observable<InventoryType | null>;
+  inventorySelectedRowsCount$: Observable<number>;
   colDefs: ColDef[] = inventoryColDef;
 
   // Form
   isInventoryFormOpen$: Observable<boolean>;
+  inventoryNameForm$: Observable<string | null>;
   inventoryCategories$: Observable<string[]>;
   isInventoryCategoriesLoading$: Observable<boolean>;
+  inventoryCategoryForm$: Observable<string | null>;
   inventoryUsers$: Observable<string[]>;
   isInventoryUsersLoading$: Observable<boolean>;
-  inventoryCreationForm: FormGroup;
-  inventoryNameForm$: Observable<string | null>;
-  inventoryCategoryForm$: Observable<string | null>;
   inventoryUsersForm$: Observable<string[]>;
   inventoryStatusForm$: Observable<boolean | null>;
-  inventorySelectedRowsCount$: Observable<number>;
-  currentEditingInventory$: Observable<InventoryType | null>;
-
+  inventoryCreationForm: FormGroup;
+  // Utils
   isErrorModal = false;
   errorModalText = '';
-
   isSubmitted = false;
   get name() {
     return this.inventoryCreationForm.get('name');
@@ -76,26 +86,7 @@ export class InventoryComponent implements OnInit {
     return this.inventoryCreationForm.get('users');
   }
 
-  constructor(
-    private store: Store<AppStateType>,
-    private fb: FormBuilder,
-    private http: HttpClient,
-    private imService: InventoryManagementService,
-    private confirmationService: ConfirmationService,
-    private messageService: MessageService
-  ) {}
-
   ngOnInit(): void {
-    // Get selected rows
-    this.isInventoryFormOpen$ = this.store.pipe(
-      select(isInventoryFormOpenSelector)
-    );
-    this.inventorySelectedRows$ = this.store.pipe(
-      select(inventorySelectedRowsSelector)
-    );
-    this.currentEditingInventory$ = this.store.pipe(
-      select(currentEditingInventorySelector)
-    );
     // Tab Management
     this.store.dispatch(
       tabsActions.addTab({
@@ -103,29 +94,37 @@ export class InventoryComponent implements OnInit {
         tabRoute: this.tabRoute,
       })
     );
+    // Get Selected/Editing Rows
+    this.inventorySelectedRows$ = this.store.pipe(
+      select(inventorySelectedRowsSelector)
+    );
+    this.currentEditingInventory$ = this.store.pipe(
+      select(currentEditingInventorySelector)
+    );
 
-    // Form creation
-    this.inventoryCreationForm = this.fb.group({
-      name: ['', Validators.required],
-      category: ['', Validators.required],
-      users: ['', Validators.required],
-      status: [true],
-    });
-
-    // Table data
-    this.rowData$ = this.store.pipe(select(inventoriesSelector));
+    // Table Data
+    this.inventories$ = this.store.pipe(select(inventoriesSelector));
     this.isInventoriesLoading$ = this.store.pipe(
       select(isInventoriesLoadingSelector)
     );
-    this.rowData$.subscribe((val) => {
+    this.inventories$.subscribe((val) => {
       if (val === undefined || val.length == 0)
         this.store.dispatch(imActions.getInventories());
     });
     this.inventorySelectedRowsCount$ = this.store.pipe(
       select(inventorySelectedRowsCountSelector)
     );
-    // Form data
 
+    // Form
+    this.isInventoryFormOpen$ = this.store.pipe(
+      select(isInventoryFormOpenSelector)
+    );
+    this.inventoryCreationForm = this.fb.group({
+      name: ['', Validators.required],
+      category: ['', Validators.required],
+      users: ['', Validators.required],
+      status: [true],
+    });
     this.inventoryUsers$ = this.store.pipe(select(inventoryUsersSelector));
     this.inventoryUsers$.subscribe((val) => {
       if (val === undefined || val.length == 0)
@@ -144,20 +143,20 @@ export class InventoryComponent implements OnInit {
     this.isInventoryUsersLoading$ = this.store.pipe(
       select(isInventoryUsersLoadingSelector)
     );
-    // Reactive form selectors
+    // Form selectors
     this.inventoryNameForm$ = this.store.pipe(
       select(inventoryNameFormSelector)
     );
     this.inventoryCategoryForm$ = this.store.pipe(
       select(inventoryCategoryFormSelector)
     );
-    this.inventoryUsersForm$ = this.store.pipe(
-      select(inventoryUsersFormSelector)
-    );
     this.inventoryStatusForm$ = this.store.pipe(
       select(inventoryStatusFormSelector)
     );
-    // Form values subscribing to observables
+    this.inventoryUsersForm$ = this.store.pipe(
+      select(inventoryUsersFormSelector)
+    );
+    // Form Sync Fields With NgRx
     this.inventoryNameForm$.subscribe((value) => {
       this.inventoryCreationForm.patchValue({
         name: value,
@@ -180,13 +179,14 @@ export class InventoryComponent implements OnInit {
       });
     });
   }
+
   closeForm(): void {
     this.store.dispatch(imActions.closeInventoryForm());
   }
   onSubmitCreate(name: any) {
     this.isSubmitted = true;
     let exit = false;
-    this.rowData$.pipe(take(1)).subscribe((rows: InventoryType[]) => {
+    this.inventories$.pipe(take(1)).subscribe((rows: InventoryType[]) => {
       for (let i = 0; i < rows.length; i++) {
         if (name === rows[i].name) {
           this.errorModalText =
@@ -196,9 +196,8 @@ export class InventoryComponent implements OnInit {
         }
       }
     });
-    if (exit) {
-      return;
-    }
+    if (exit) return;
+
     if (this.inventoryCreationForm.valid) {
       this.confirmationService.confirm({
         target: event?.target,
@@ -234,7 +233,7 @@ export class InventoryComponent implements OnInit {
   onSubmitEdit(name: any, currentEditing: string) {
     this.isSubmitted = true;
     let exit = false;
-    this.rowData$.pipe(take(1)).subscribe((rows: InventoryType[]) => {
+    this.inventories$.pipe(take(1)).subscribe((rows: InventoryType[]) => {
       for (let i = 0; i < rows.length; i++) {
         if (name === rows[i].name && rows[i].name !== currentEditing) {
           exit = true;
@@ -300,7 +299,8 @@ export class InventoryComponent implements OnInit {
       );
     }
   }
-  isRowEdited(current: any): boolean {
+  // Utils
+  isRowEdited(current: InventoryType | null): boolean {
     return !isEqual(current, this.inventoryCreationForm.value);
   }
 }

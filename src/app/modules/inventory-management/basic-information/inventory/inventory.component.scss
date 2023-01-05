@@ -4,43 +4,38 @@
   img {
     cursor: pointer;
   }
-}
-.form {
-  flex: 1;
-}
-
-.table {
-  flex: 4;
-}
-
-h5 {
-  color: #5e6278;
-}
-
-@media only screen and (max-width: 992px) {
-  .row-flex {
-    flex-direction: column;
+  .card {
+    padding: 0.5rem 1rem 1rem 1rem;
+    width: 90%;
+    height: 100%;
+    margin: 0 auto;
+  }
+  .form {
+    flex: 1;
+    .header {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 0.5rem 0.5rem 0;
+      align-items: center;
+    }
+    h5 {
+      color: #5e6278;
+      padding: 1rem 0 0.5rem 0;
+    }
+    .input {
+      width: 100%;
+    }
+  }
+  .table {
+    flex: 4;
+  }
+  app-grid-style01 {
+    width: 100%;
   }
 }
+// Table
 
-.card {
-  padding: 0.5rem 1rem 1rem 1rem;
-  width: 90%;
-  height: 100%;
-  margin: 0 auto;
-}
-
-h5 {
-  padding: 1rem 0 0.5rem 0;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem 0.5rem 0.5rem 0;
-  align-items: center;
-}
-
+// Primeng
 :host ::ng-deep .p-dropdown {
   width: 100%;
 }
@@ -51,11 +46,6 @@ p-button {
   margin-right: auto;
   margin-top: 2rem;
 }
-
-app-grid-style01 {
-  width: 100%;
-}
-
 :host ::ng-deep .p-multiselect-header {
   padding: 1rem 0;
   gap: 1rem;
@@ -69,8 +59,9 @@ app-grid-style01 {
   gap: 0.5rem;
 }
 
-.input {
-  width: 100%;
+:host ::ng-deep .p-toast-summary {
+  margin-inline-start: 0.5rem;
+  margin-top: 0.2rem;
 }
 
 button {
@@ -84,7 +75,9 @@ button {
     margin-bottom: 0.5rem;
   }
 }
-:host ::ng-deep .p-toast-summary {
-  margin-inline-start: 0.5rem;
-  margin-top: 0.2rem;
+
+@media only screen and (max-width: 992px) {
+  .row-flex {
+    flex-direction: column;
+  }
 }

@@ -1,6 +1,6 @@
-import { createReducer, on } from '@ngrx/store';
+import { createReducer } from '@ngrx/store';
 import { immerOn } from 'ngrx-immer/store';
-import * as tabsActions from 'src/app/ngrx/tabs/tabs.actions';
+import { addTab, closeTab } from './tabs.actions';
 
 export const initialState: TabsStateType = {
   tabs: [],
@@ -12,7 +12,7 @@ export const initialState: TabsStateType = {
 };
 export const tabsReducers = createReducer(
   initialState,
-  immerOn(tabsActions.addTab, (state, action) => {
+  immerOn(addTab, (state, action) => {
     state.activeTab.tabName = action.tabName;
     state.activeTab.tabRoute = action.tabRoute;
     let isOpenTab = false;
@@ -30,7 +30,7 @@ export const tabsReducers = createReducer(
       });
     }
   }),
-  immerOn(tabsActions.closeTab, (state, action) => {
+  immerOn(closeTab, (state, action) => {
     state.tabs = state.tabs.filter((tab) => tab.tabName !== action.tabName);
   })
 );

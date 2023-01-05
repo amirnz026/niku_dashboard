@@ -154,12 +154,12 @@
   </ng-container>
 
   <app-grid-style01
-    [rowInputData]="rowData$ | async"
+    class="table"
+    [rowInputData]="inventories$ | async"
     [colInputDefs]="colDefs"
     [pageName]="'inventory'"
     [isInventoryCategoryLoading]="isInventoryCategoriesLoading$ | async"
     [isInventoryUsersLoading]="isInventoryUsersLoading$ | async"
-    class="table"
   ></app-grid-style01>
 </div>
 <p-toast position="top-left"></p-toast>

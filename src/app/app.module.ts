@@ -1,25 +1,26 @@
+// Angular
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+// Dashboard template
+import { FakeAPIService } from './_fake/fake-api.service';
 import { ClipboardModule } from 'ngx-clipboard';
 import { TranslateModule } from '@ngx-translate/core';
 import { InlineSVGModule } from 'ng-inline-svg-2';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { AuthService } from './modules/auth/services/auth.service';
 import { environment } from 'src/environments/environment';
-// #fake-start#
-import { FakeAPIService } from './_fake/fake-api.service';
+// Store
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { tabsReducers } from './ngrx/tabs/tabs.reducers';
+// Primeng
 import { RippleModule } from 'primeng/ripple';
-
-// #fake-end#
-// primeNG
+// Components, Services and Routing
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { AuthService } from './modules/auth/services/auth.service';
 
 function appInitializer(authService: AuthService) {
   return () => {
@@ -38,6 +39,15 @@ function appInitializer(authService: AuthService) {
     TranslateModule.forRoot(),
     HttpClientModule,
     ClipboardModule,
+    NgbModule,
+    InlineSVGModule.forRoot(),
+    StoreModule.forRoot({}),
+    StoreModule.forFeature('tabsState', tabsReducers),
+    StoreDevtoolsModule.instrument({
+      maxAge: 1000,
+      logOnly: environment.production,
+      autoPause: true,
+    }),
     // #fake-start#
     environment.isMockEnabled
       ? HttpClientInMemoryWebApiModule.forRoot(FakeAPIService, {
@@ -46,17 +56,8 @@ function appInitializer(authService: AuthService) {
         })
       : [],
     // #fake-end#
-    AppRoutingModule,
-    InlineSVGModule.forRoot(),
-    NgbModule,
-    StoreModule.forRoot({}),
-    StoreModule.forFeature('tabsState', tabsReducers),
-    StoreDevtoolsModule.instrument({
-      maxAge: 1000,
-      logOnly: environment.production,
-      autoPause: true,
-    }),
     RippleModule,
+    AppRoutingModule,
   ],
   providers: [
     {

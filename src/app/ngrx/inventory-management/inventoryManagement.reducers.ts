@@ -4,28 +4,31 @@ import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagemen
 
 export const initialState: InventoryManagementStateType = {
   inventoryPage: {
+    // Table
     inventories: [],
     isInventoriesLoading: false,
     errorInventories: '',
     inventorySelectedRows: [],
+    currentEditingInventory: null,
     // Form
     isInventoryFormOpen: false,
+    inventoryNameForm: null,
+    inventoryStatusForm: null,
+    // Inventory Categories
     inventoryCategories: [],
     isInventoriesCategoriesLoading: false,
     errorInventoriesCategories: '',
+    inventoryCategoryForm: null,
+    // Inventory Users
     inventoryUsers: [],
     isInventoryUsersLoading: false,
     errorInventoryUsers: '',
-    // Form Elements
-    inventoryNameForm: null,
-    inventoryCategoryForm: null,
     inventoryUsersForm: [],
-    inventoryStatusForm: null,
-    // Editing Inventory
-    currentEditingInventory: null,
   },
 };
 export const inventoryManagementReducers = createReducer(
+  // Inventory-Start
+  // Get
   initialState,
   immerOn(imActions.getInventories, (state) => {
     state.inventoryPage.isInventoriesLoading = true;
@@ -37,19 +40,6 @@ export const inventoryManagementReducers = createReducer(
   immerOn(imActions.getInventoriesFailure, (state, action) => {
     state.inventoryPage.errorInventories = action.error;
     state.inventoryPage.isInventoriesLoading = false;
-  }),
-
-  immerOn(imActions.setCurrentEditingInventory, (state, action) => {
-    state.inventoryPage.currentEditingInventory = action.inventory;
-  }),
-
-  immerOn(imActions.openInventoryForm, (state) => {
-    state.inventoryPage.isInventoryFormOpen = true;
-    state.inventoryPage.currentEditingInventory = null;
-  }),
-  immerOn(imActions.closeInventoryForm, (state) => {
-    state.inventoryPage.isInventoryFormOpen = false;
-    state.inventoryPage.currentEditingInventory = null;
   }),
   immerOn(imActions.getInventoryCategories, (state) => {
     state.inventoryPage.isInventoriesCategoriesLoading = true;
@@ -73,19 +63,34 @@ export const inventoryManagementReducers = createReducer(
     state.inventoryPage.errorInventoryUsers = action.error;
     state.inventoryPage.isInventoryUsersLoading = false;
   }),
+  // Table
+  immerOn(imActions.setInventorySelectedRows, (state, action) => {
+    state.inventoryPage.inventorySelectedRows = action.inventories;
+  }),
+  immerOn(imActions.setCurrentEditingInventory, (state, action) => {
+    state.inventoryPage.currentEditingInventory = action.inventory;
+  }),
+  // Form
+  immerOn(imActions.openInventoryForm, (state) => {
+    state.inventoryPage.isInventoryFormOpen = true;
+    state.inventoryPage.currentEditingInventory = null;
+  }),
+  immerOn(imActions.closeInventoryForm, (state) => {
+    state.inventoryPage.isInventoryFormOpen = false;
+    state.inventoryPage.currentEditingInventory = null;
+  }),
+
   immerOn(imActions.inventoryNameFormUpdate, (state, action) => {
     state.inventoryPage.inventoryNameForm = action.inventoryName;
   }),
   immerOn(imActions.inventoryCategoryFormUpdate, (state, action) => {
     state.inventoryPage.inventoryCategoryForm = action.inventoryCategoryName;
   }),
-  immerOn(imActions.inventoryUsersFormUpdate, (state, action) => {
-    state.inventoryPage.inventoryUsersForm = action.inventoryUsers;
-  }),
   immerOn(imActions.inventoryStatusFormUpdate, (state, action) => {
     state.inventoryPage.inventoryStatusForm = action.status;
   }),
-  immerOn(imActions.setInventorySelectedRows, (state, action) => {
-    state.inventoryPage.inventorySelectedRows = action.inventories;
+  immerOn(imActions.inventoryUsersFormUpdate, (state, action) => {
+    state.inventoryPage.inventoryUsersForm = action.inventoryUsers;
   })
+  // Inventory-End
 );

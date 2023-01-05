@@ -15,23 +15,21 @@ type InventoryPageStateType = {
   isInventoriesLoading: boolean;
   errorInventories: string;
   inventorySelectedRows: InventoryType[];
+  currentEditingInventory: InventoryType | null;
   // Form
   isInventoryFormOpen: boolean;
+  inventoryNameForm: string | null;
+  inventoryStatusForm: boolean | null;
   // Inventory Categories
   inventoryCategories: string[];
   isInventoriesCategoriesLoading: boolean;
   errorInventoriesCategories: string;
+  inventoryCategoryForm: string | null;
   // Inventory Users
   inventoryUsers: string[];
   isInventoryUsersLoading: boolean;
   errorInventoryUsers: string;
-  // Form Elements
-  inventoryNameForm: string | null;
-  inventoryCategoryForm: string | null;
   inventoryUsersForm: string[];
-  inventoryStatusForm: boolean | null;
-  // Editing
-  currentEditingInventory: InventoryType | null;
 };
 
 type InventoryType = {

@@ -6,6 +6,11 @@ import { InventoryManagementService } from 'src/app/services/inventory-managemen
 
 @Injectable()
 export class InventoryManagementEffects {
+  constructor(
+    private actions$: Actions,
+    private inventoryManagementService: InventoryManagementService
+  ) {}
+  // Inventory-Start
   getInventories$ = createEffect(() =>
     this.actions$.pipe(
       ofType(imActions.getInventories),
@@ -73,8 +78,5 @@ export class InventoryManagementEffects {
     )
   );
 
-  constructor(
-    private actions$: Actions,
-    private inventoryManagementService: InventoryManagementService
-  ) {}
+  // Inventory-End
 }
