@@ -99,6 +99,7 @@ export class GridStyle01Component implements OnInit {
       onlySelected: true,
       columnKeys: ['name', 'category', 'status', 'users'],
     },
+    enableRangeSelection: true,
   };
   getContextMenuItems(
     params: GetContextMenuItemsParams

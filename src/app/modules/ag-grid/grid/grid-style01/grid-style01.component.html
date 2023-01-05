@@ -5,7 +5,13 @@
     <p-button
       icon="pi pi-refresh"
       (click)="refreshPage()"
-      [pTooltip]="'به روزرسانی صفحه'"
+      [pTooltip]="
+        (isInventoriesLoading$ | async)! ||
+        isInventoryUsersLoading! ||
+        isInventoryCategoryLoading!
+          ? 'در حال بروزرسانی صفحه'
+          : 'بروزرسانی صفحه'
+      "
       [loading]="
         (isInventoriesLoading$ | async)! ||
         isInventoryUsersLoading! ||
