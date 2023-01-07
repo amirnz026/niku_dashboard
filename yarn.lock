@@ -1461,6 +1461,34 @@
   dependencies:
     tslib "^2.3.0"
 
+"@ng-icons/core@^23.0.0":
+  version "23.0.0"
+  resolved "https://registry.npmjs.org/@ng-icons/core/-/core-23.0.0.tgz"
+  integrity sha512-Umxt3XVmnSl4C0nCMooNjkAGrZc0D9ra8S4cMS9jga1qNTXGJBDvOea7r79izr7XTsei6AxpGDIWYZuDjAlxGA==
+  dependencies:
+    tslib "^2.2.0"
+
+"@ng-icons/feather-icons@^23.0.0":
+  version "23.0.0"
+  resolved "https://registry.npmjs.org/@ng-icons/feather-icons/-/feather-icons-23.0.0.tgz"
+  integrity sha512-Th0tMu3Mg1iF+tMCb0U/FUC6H7jDd7RZDYQngqXXzQhoBOH0rI4RQd77KkXYGvWXMVc5Lwli1RwhlkS3+Lvafw==
+  dependencies:
+    tslib "^2.2.0"
+
+"@ng-icons/heroicons@^23.0.0":
+  version "23.0.0"
+  resolved "https://registry.npmjs.org/@ng-icons/heroicons/-/heroicons-23.0.0.tgz"
+  integrity sha512-2RqQoaa3k1saKiTxn96x7NoE0XX4jkhKDGmmzIo09Alr2gmimq//nv76PP3n5qUuR1IXSdXJUfJ5uqJYcxOxAA==
+  dependencies:
+    tslib "^2.2.0"
+
+"@ng-icons/ionicons@^23.0.0":
+  version "23.0.0"
+  resolved "https://registry.npmjs.org/@ng-icons/ionicons/-/ionicons-23.0.0.tgz"
+  integrity sha512-e5UnpAPIH+6yNbp3Xt7RPci/6QbNHEeYRA7ANMiTdD+V5UIn4SOqqIPvmoLx1LcHTAyAbZViaxEQ9ANI4TP1Ng==
+  dependencies:
+    tslib "^2.2.0"
+
 "@ngrx/component@^14.0.0":
   version "14.0.0"
   resolved "https://registry.npmjs.org/@ngrx/component/-/component-14.0.0.tgz"
@@ -7430,7 +7458,7 @@ tslib@^1.9.3:
   resolved "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
 
-tslib@^2.0.0, tslib@^2.1.0, tslib@^2.3.0, tslib@2.4.0:
+tslib@^2.0.0, tslib@^2.1.0, tslib@^2.2.0, tslib@^2.3.0, tslib@2.4.0:
   version "2.4.0"
   resolved "https://registry.npmjs.org/tslib/-/tslib-2.4.0.tgz"
   integrity sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==

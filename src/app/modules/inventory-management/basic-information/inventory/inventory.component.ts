@@ -30,12 +30,16 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 // Ag-Grid
 import { ColDef } from 'ag-grid-community';
 import { inventoryColDef } from 'src/app/modules/inventory-management/basic-information/inventory/inventory.column';
+// Icons
+import { provideIcons } from '@ng-icons/core';
+import { ionAirplaneOutline } from '@ng-icons/ionicons';
 
 @Component({
   selector: 'app-inventory',
   templateUrl: './inventory.component.html',
   styleUrls: ['./inventory.component.scss'],
-  providers: [MessageService],
+  providers: [MessageService, provideIcons({ ionAirplaneOutline })],
+
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InventoryComponent implements OnInit {
