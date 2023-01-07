@@ -11,7 +11,7 @@ export const initialState: InventoryManagementStateType = {
     inventorySelectedRows: [],
     currentEditingInventory: null,
     // Form
-    isInventoryFormOpen: false,
+    isInventoryFormOpen: true,
     inventoryNameForm: null,
     inventoryStatusForm: null,
     // Inventory Categories

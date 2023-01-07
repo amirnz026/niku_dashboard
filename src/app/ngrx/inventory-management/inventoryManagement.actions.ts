@@ -63,7 +63,7 @@ export const closeInventoryForm = createAction('[IM] Close Inventory Form');
 
 export const inventoryNameFormUpdate = createAction(
   '[IM] Change Inventory Name Form Element',
-  props<{ inventoryName: string }>()
+  props<{ inventoryName: string | null }>()
 );
 export const inventoryCategoryFormUpdate = createAction(
   '[IM] Change Inventory Category Name Form Element',

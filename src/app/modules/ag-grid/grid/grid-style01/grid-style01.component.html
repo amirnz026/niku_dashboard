@@ -12,6 +12,7 @@
           ? 'در حال بروزرسانی صفحه'
           : 'بروزرسانی صفحه'
       "
+      tooltipPosition="top"
       [loading]="
         (isInventoriesLoading$ | async)! ||
         isInventoryUsersLoading! ||
@@ -25,6 +26,7 @@
         pInputText
         placeholder="فیلتر..."
         [pTooltip]="'فیلتر جدول'"
+        tooltipPosition="top"
         (input)="onFilterTextBoxChanged()"
         id="filter-text-box"
         type="text"
@@ -44,7 +46,12 @@
         type="button"
         class="p-button-secondary"
         icon="pi pi-print"
-        [pTooltip]="'چاپ آیتم های انتخاب شده'"
+        [pTooltip]="
+          selectedRowsCount === 1
+            ? 'چاپ آیتم انتخاب شده'
+            : 'چاپ آیتم های انتخاب شده'
+        "
+        tooltipPosition="top"
         iconPos="right"
         [disabled]="!selectedRowsCount"
         printSectionId="print-section"
@@ -69,7 +76,8 @@
         class="p-button-danger"
         (click)="onDelete()"
         icon="pi pi-trash"
-        [pTooltip]="'حذف گروهی'"
+        [pTooltip]="'حذف آیتم های انتخاب شده'"
+        tooltipPosition="top"
         iconPos="right"
         [disabled]="!(selectedRowsCount > 1)"
       ></button>
@@ -80,6 +88,7 @@
       icon="pi pi-plus-circle"
       iconPos="right"
       [pTooltip]="'انبار جدید'"
+      tooltipPosition="top"
       (click)="openCreationForm()"
       class="p-button-success"
     ></button>

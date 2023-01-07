@@ -1,4 +1,5 @@
 <!-- Popups-Start -->
+
 <p-dialog
   header="خطا"
   [(visible)]="isErrorModal"
@@ -31,12 +32,22 @@
           <h3>
             {{ currentEditing ? "ویرایش انبار" : "انبار جدید" }}
           </h3>
-          <div class="redo" (click)="onAgain()">
+          <div
+            class="redo"
+            [pTooltip]="'باز نشاندن فرم'"
+            tooltipPosition="top"
+            (click)="onAgain()"
+          >
             <p>مجدد</p>
             <i class="pi pi-refresh"></i>
           </div>
         </div>
-        <i (click)="closeForm()" class="pi pi-times-circle"></i>
+        <i
+          (click)="closeForm()"
+          class="pi pi-times"
+          [pTooltip]="'بستن فرم'"
+          tooltipPosition="top"
+        ></i>
       </div>
       <form
         [formGroup]="inventoryCreationForm"
@@ -47,6 +58,7 @@
         "
         #form
       >
+        <!-- Name-Start -->
         <h5>نام انبار</h5>
 
         <input
@@ -58,90 +70,87 @@
           tooltipPosition="left"
           (ngModelChange)="onChange('name', $event)"
           [ngClass]="{
-            'ng-invalid ng-dirty':
-              (isSubmitted && name && name.errors) ||
-              (name && name.invalid && (name.dirty || name.touched))
+            'ng-invalid ng-dirty': isNameFieldError
           }"
         />
-        <ng-container
-          *ngIf="
-            (isSubmitted && name && name.errors) ||
-            (name && name.invalid && (name.dirty || name.touched))
-          "
-        >
+        <ng-container *ngIf="isNameFieldError">
           <app-form-validation-error
             error="نام انبار نمی تواند خالی باشد"
           ></app-form-validation-error>
         </ng-container>
-        <h5>دسته بندی</h5>
-        <p-dropdown
-          [options]="(inventoryCategories$ | async)!"
-          formControlName="category"
-          [placeholder]="
-            (isInventoryCategoriesLoading$ | async)
-              ? 'در حال دریافت اطلاعات...'
-              : 'یک دسته بندی انتخاب کنید'
-          "
-          [disabled]="(isInventoryCategoriesLoading$ | async) === true"
-          (ngModelChange)="onChange('category', $event)"
-          [ngClass]="{
-            'ng-invalid ng-dirty':
-              (isSubmitted && category && category.errors) ||
-              (category &&
-                category.invalid &&
-                (category.dirty || category.touched))
-          }"
-          emptyMessage="هیچ دسته بندی یافت نشد"
-        ></p-dropdown>
+        <!-- Name-End -->
+        <!-- Category-Start -->
+        <ng-container *ngrxLet="isInventoryCategoriesLoading$ as isLoading">
+          <h5>دسته بندی</h5>
+          <p-dropdown
+            [options]="(inventoryCategories$ | async)!"
+            formControlName="category"
+            [placeholder]="
+              isLoading
+                ? 'در حال دریافت اطلاعات...'
+                : 'یک دسته بندی انتخاب کنید'
+            "
+            [disabled]="isLoading === true"
+            (ngModelChange)="onChange('category', $event)"
+            [ngClass]="{
+              'ng-invalid ng-dirty': isCategoryFieldError
+            }"
+            emptyMessage="هیچ دسته بندی یافت نشد"
+          ></p-dropdown>
 
-        <ng-container
-          *ngIf="
-            (isSubmitted && category && category.errors) ||
-            (category &&
-              category.invalid &&
-              (category.dirty || category.touched))
-          "
-        >
-          <app-form-validation-error
-            error="لطفا یک دسته بندی انتخاب کنید"
-          ></app-form-validation-error>
+          <ng-container *ngIf="isCategoryFieldError">
+            <app-form-validation-error
+              error="لطفا یک دسته بندی انتخاب کنید"
+            ></app-form-validation-error>
+          </ng-container>
         </ng-container>
-
-        <h5>فعال</h5>
+        <!-- Category-End -->
+        <!-- Status-Start -->
+        <div class="title-container">
+          <h5>فعال</h5>
+          <i
+            class="pi pi-question-circle"
+            [pTooltip]="'وضعیت انبار'"
+            tooltipPosition="left"
+          ></i>
+        </div>
         <p-inputSwitch
           formControlName="status"
           trueValue="فعال"
           falseValue="غیر فعال"
           (ngModelChange)="onChange('status', $event)"
         ></p-inputSwitch>
-        <h5>دسترسی کاربران</h5>
-        <p-multiSelect
-          [options]="(inventoryUsers$ | async)!"
-          [defaultLabel]="
-            (isInventoryUsersLoading$ | async) ? 'در حال دریافت اطلاعات...' : ''
-          "
-          display="chip"
-          [disabled]="(isInventoryUsersLoading$ | async) === true"
-          formControlName="users"
-          (ngModelChange)="onChange('users', $event)"
-          [ngClass]="{
-            'ng-invalid ng-dirty':
-              (isSubmitted && users && users.errors) ||
-              (users && users.invalid && (users.dirty || users.touched))
-          }"
-          emptyMessage="هیچ کاربری یافت نشد"
-          emptyFilterMessage="هیچ کاربری یافت نشد"
-        ></p-multiSelect>
-        <ng-container
-          *ngIf="
-            (isSubmitted && users && users.errors) ||
-            (users && users.invalid && (users.dirty || users.touched))
-          "
-        >
-          <app-form-validation-error
-            error="حداقل یک کاربر انتخاب کنید"
-          ></app-form-validation-error>
+        <!-- Status-End -->
+        <!-- Users-Access-Start -->
+        <ng-container *ngrxLet="isInventoryUsersLoading$ as isLoading">
+          <div class="title-container">
+            <h5>دسترسی کاربران</h5>
+            <i
+              class="pi pi-question-circle"
+              [pTooltip]="'کاربرانی که مجوز دسترسی به این انبار را دارند.'"
+              tooltipPosition="left"
+            ></i>
+          </div>
+          <p-multiSelect
+            [options]="(inventoryUsers$ | async)!"
+            [defaultLabel]="isLoading ? 'در حال دریافت اطلاعات...' : ''"
+            display="chip"
+            [disabled]="isLoading === true"
+            formControlName="users"
+            (ngModelChange)="onChange('users', $event)"
+            [ngClass]="{
+              'ng-invalid ng-dirty': isUsersFieldError
+            }"
+            emptyMessage="هیچ کاربری یافت نشد"
+            emptyFilterMessage="هیچ کاربری یافت نشد"
+          ></p-multiSelect>
+          <ng-container *ngIf="isUsersFieldError">
+            <app-form-validation-error
+              error="حداقل یک کاربر انتخاب کنید"
+            ></app-form-validation-error>
+          </ng-container>
         </ng-container>
+        <!-- Users-Access-End -->
         <p-button
           [label]="currentEditing ? 'ویرایش انبار' : 'ایجاد انبار'"
           [loading]="false"

@@ -86,6 +86,30 @@ export class InventoryComponent implements OnInit {
     return this.inventoryCreationForm.get('users');
   }
 
+  get isNameFieldError() {
+    return (
+      (this.isSubmitted && this.name && this.name.errors) ||
+      (this.name && this.name.invalid && (this.name.dirty || this.name.touched))
+    );
+  }
+  get isCategoryFieldError() {
+    return (
+      (this.isSubmitted && this.category && this.category.errors) ||
+      (this.category &&
+        this.category.invalid &&
+        (this.category.dirty || this.category.touched))
+    );
+  }
+
+  get isUsersFieldError() {
+    return (
+      (this.isSubmitted && this.users && this.users.errors) ||
+      (this.users &&
+        this.users.invalid &&
+        (this.users.dirty || this.users.touched))
+    );
+  }
+
   ngOnInit(): void {
     // Tab Management
     this.store.dispatch(
@@ -304,10 +328,8 @@ export class InventoryComponent implements OnInit {
     return !isEqual(current, this.inventoryCreationForm.value);
   }
   onAgain() {
-    this.store.dispatch(imActions.openInventoryForm());
-    // this.store.dispatch(imActions.inventoryFormStateToCreate());
     this.store.dispatch(
-      imActions.inventoryNameFormUpdate({ inventoryName: '' })
+      imActions.inventoryNameFormUpdate({ inventoryName: null })
     );
     this.store.dispatch(imActions.inventoryStatusFormUpdate({ status: true }));
     this.store.dispatch(
