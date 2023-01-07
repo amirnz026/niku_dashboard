@@ -98,9 +98,10 @@
 <ag-grid-angular
   class="ag-theme-alpine card"
   style="
-    height: 76vh;
+    height: 75vh;
     width: 100%;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    overflow: hidden;
+    border-radius: 0 0 1rem 1rem;
   "
   [rowData]="rowInputData"
   [columnDefs]="colInputDefs"
@@ -109,7 +110,6 @@
   [animateRows]="true"
   (cellClicked)="onCellClicked($event)"
   [enableRtl]="true"
-  [pagination]="true"
   [localeText]="langFa"
   [gridOptions]="gridOptions"
   (firstDataRendered)="onFirstDataRendered($event)"

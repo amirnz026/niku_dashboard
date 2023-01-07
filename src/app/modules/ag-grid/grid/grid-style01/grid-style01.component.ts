@@ -47,7 +47,7 @@ export class GridStyle01Component implements OnInit {
   @Input() isInventoryCategoryLoading: boolean | null;
   gridApi: GridApi;
   columnApi: ColumnApi;
-  tooltipShowDelay = 1000;
+  tooltipShowDelay = 0;
   isTableLoaded: boolean;
   sideBar: SideBarDef | string | string[] | boolean | null = {
     toolPanels: [
@@ -86,11 +86,10 @@ export class GridStyle01Component implements OnInit {
   };
   gridOptions: GridOptions = {
     onGridReady: (event) => (this.isTableLoaded = true),
-    getRowHeight: (params) => 65,
+    getRowHeight: (params) => 60,
 
     loadingOverlayComponent: LoadingOverlayComponent,
     loadingOverlayComponentParams: {},
-    suppressDragLeaveHidesColumns: true,
     defaultCsvExportParams: {
       onlySelected: true,
       columnKeys: ['name', 'category', 'status', 'users'],
