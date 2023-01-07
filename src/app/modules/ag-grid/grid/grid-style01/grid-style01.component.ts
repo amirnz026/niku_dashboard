@@ -47,7 +47,6 @@ export class GridStyle01Component implements OnInit {
   @Input() isInventoryCategoryLoading: boolean | null;
   gridApi: GridApi;
   columnApi: ColumnApi;
-  tooltipShowDelay = 0;
   isTableLoaded: boolean;
   sideBar: SideBarDef | string | string[] | boolean | null = {
     toolPanels: [

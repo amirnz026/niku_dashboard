@@ -98,7 +98,7 @@
 <ag-grid-angular
   class="ag-theme-alpine card"
   style="
-    height: 75vh;
+    height: 72vh;
     width: 100%;
     overflow: hidden;
     border-radius: 0 0 1rem 1rem;
@@ -114,7 +114,8 @@
   [gridOptions]="gridOptions"
   (firstDataRendered)="onFirstDataRendered($event)"
   (gridReady)="onGridReady($event)"
-  [tooltipShowDelay]="tooltipShowDelay"
+  [tooltipShowDelay]="0"
+  [pagination]="true"
   [tooltipMouseTrack]="true"
   [sideBar]="sideBar"
   (selectionChanged)="onSelectionChanged($event)"
