@@ -1,3 +1,4 @@
+<!-- Popups-Start -->
 <p-dialog
   header="خطا"
   [(visible)]="isErrorModal"
@@ -15,9 +16,12 @@
     ></p-button>
   </ng-template>
 </p-dialog>
+<p-toast position="top-left"></p-toast>
+<!-- Popups-End -->
 
-<div class="row-flex">
+<div class="i-container">
   <ng-container *ngrxLet="currentEditingInventory$ as currentEditing">
+    <!-- Form-Start -->
     <div
       *ngIf="(isInventoryFormOpen$ | async) || currentEditing"
       class="card form"
@@ -151,6 +155,7 @@
         ></p-button>
       </form>
     </div>
+    <!-- Form-End -->
   </ng-container>
 
   <app-grid-style01
@@ -162,4 +167,3 @@
     [isInventoryUsersLoading]="isInventoryUsersLoading$ | async"
   ></app-grid-style01>
 </div>
-<p-toast position="top-left"></p-toast>
