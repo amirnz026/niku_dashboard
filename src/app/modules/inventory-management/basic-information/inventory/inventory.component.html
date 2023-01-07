@@ -27,17 +27,17 @@
       class="card form"
     >
       <div class="header">
-        <h3>
-          {{ currentEditing ? "ویرایش انبار" : "انبار جدید" }}
-        </h3>
-
-        <img
-          alt="X"
-          src="./assets/media/icons/duotune/general/gen040.svg"
-          (click)="closeForm()"
-        />
+        <div class="header-right">
+          <h3>
+            {{ currentEditing ? "ویرایش انبار" : "انبار جدید" }}
+          </h3>
+          <div class="redo" (click)="onAgain()">
+            <p>مجدد</p>
+            <i class="pi pi-refresh"></i>
+          </div>
+        </div>
+        <i (click)="closeForm()" class="pi pi-times-circle"></i>
       </div>
-      fg
       <form
         [formGroup]="inventoryCreationForm"
         (ngSubmit)="

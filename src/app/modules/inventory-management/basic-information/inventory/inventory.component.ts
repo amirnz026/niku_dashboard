@@ -303,4 +303,22 @@ export class InventoryComponent implements OnInit {
   isRowEdited(current: InventoryType | null): boolean {
     return !isEqual(current, this.inventoryCreationForm.value);
   }
+  onAgain() {
+    this.store.dispatch(imActions.openInventoryForm());
+    // this.store.dispatch(imActions.inventoryFormStateToCreate());
+    this.store.dispatch(
+      imActions.inventoryNameFormUpdate({ inventoryName: '' })
+    );
+    this.store.dispatch(imActions.inventoryStatusFormUpdate({ status: true }));
+    this.store.dispatch(
+      imActions.inventoryCategoryFormUpdate({
+        inventoryCategoryName: null,
+      })
+    );
+    this.store.dispatch(
+      imActions.inventoryUsersFormUpdate({
+        inventoryUsers: [],
+      })
+    );
+  }
 }
