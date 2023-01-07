@@ -33,6 +33,7 @@
 }
 
 :host ::ng-deep .p-toolbar-group-end {
+  margin-inline-end: 1.5rem;
   .p-button {
     margin-inline-start: 0.4rem;
   }
