@@ -73,7 +73,7 @@ export class GridStyle01Component implements OnInit {
       },
     ],
   };
-
+  fd;
   gridOptions: GridOptions;
   defaultColDef: ColDef;
   getContextMenuItems(
