@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { map, catchError, mergeMap, of } from 'rxjs';
-import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
+import { inventoryActions } from './inventoryManagement.actions';
 import { InventoryManagementService } from 'src/app/services/inventory-management/inventory-management.service';
 
 @Injectable()
@@ -13,14 +13,14 @@ export class InventoryManagementEffects {
   // Inventory-Start
   getInventories$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(imActions.getInventories),
+      ofType(inventoryActions.getInventories),
       mergeMap(() => {
         return this.inventoryManagementService.getInventories().pipe(
           map((inventories) =>
-            imActions.getInventoriesSuccess({ inventories })
+            inventoryActions.getInventoriesSuccess({ inventories })
           ),
           catchError((error) =>
-            of(imActions.getInventoriesFailure({ error: error.message }))
+            of(inventoryActions.getInventoriesFailure({ error: error.message }))
           )
         );
       })
@@ -28,15 +28,19 @@ export class InventoryManagementEffects {
   );
   getInventoryCategories$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(imActions.getInventoryCategories),
+      ofType(inventoryActions.getInventoryCategories),
       mergeMap(() => {
         return this.inventoryManagementService.getInventoryCategories().pipe(
           map((inventoryCategories) =>
-            imActions.getInventoryCategoriesSuccess({ inventoryCategories })
+            inventoryActions.getInventoryCategoriesSuccess({
+              inventoryCategories,
+            })
           ),
           catchError((error) =>
             of(
-              imActions.getInventoryCategoriesFailure({ error: error.message })
+              inventoryActions.getInventoryCategoriesFailure({
+                error: error.message,
+              })
             )
           )
         );
@@ -45,14 +49,18 @@ export class InventoryManagementEffects {
   );
   getInventoryUsers$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(imActions.getInventoryUsers),
+      ofType(inventoryActions.getInventoryUsers),
       mergeMap(() => {
         return this.inventoryManagementService.getInventoryUsers().pipe(
           map((inventoryUsers) =>
-            imActions.getInventoryUsersSuccess({ inventoryUsers })
+            inventoryActions.getInventoryUsersSuccess({ inventoryUsers })
           ),
           catchError((error) =>
-            of(imActions.getInventoryUsersFailure({ error: error.message }))
+            of(
+              inventoryActions.getInventoryUsersFailure({
+                error: error.message,
+              })
+            )
           )
         );
       })
@@ -60,15 +68,15 @@ export class InventoryManagementEffects {
   );
   submitInventoryCreationForm$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(imActions.submitInventoryCreationForm),
+      ofType(inventoryActions.submitInventoryCreationForm),
       mergeMap(() => {
         return this.inventoryManagementService
           .postSubmitInventoryCreationForm()
           .pipe(
-            map(() => imActions.submitInventoryCreationFormSuccess()),
+            map(() => inventoryActions.submitInventoryCreationFormSuccess()),
             catchError((error) =>
               of(
-                imActions.submitInventoryCreationFormFailure({
+                inventoryActions.submitInventoryCreationFormFailure({
                   error: error.message,
                 })
               )

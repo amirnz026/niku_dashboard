@@ -11,13 +11,13 @@ import {
 })
 export class InventoryManagementService {
   getInventories(): Observable<InventoryType[]> {
-    return of(inventories).pipe(delay(0));
+    return of(inventories).pipe(delay(1000));
   }
   getInventoryCategories(): Observable<string[]> {
-    return of(inventoryCategories).pipe(delay(3000));
+    return of(inventoryCategories).pipe(delay(1000));
   }
   getInventoryUsers(): Observable<string[]> {
-    return of(inventoryUsers).pipe(delay(2000));
+    return of(inventoryUsers).pipe(delay(1000));
   }
   postSubmitInventoryCreationForm(): Observable<boolean> {
     return of(true).pipe(delay(3000));

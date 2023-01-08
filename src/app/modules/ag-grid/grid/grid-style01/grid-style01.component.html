@@ -5,19 +5,9 @@
     <p-button
       icon="pi pi-refresh"
       (click)="refreshPage()"
-      [pTooltip]="
-        (isInventoriesLoading$ | async)! ||
-        isInventoryUsersLoading! ||
-        isInventoryCategoryLoading!
-          ? 'در حال بروزرسانی صفحه'
-          : 'بروزرسانی صفحه'
-      "
+      [pTooltip]="isLoading! ? 'در حال بروزرسانی صفحه' : 'بروزرسانی صفحه'"
       tooltipPosition="top"
-      [loading]="
-        (isInventoriesLoading$ | async)! ||
-        isInventoryUsersLoading! ||
-        isInventoryCategoryLoading!
-      "
+      [loading]="isLoading!"
     ></p-button>
     <span class="p-input-icon-right">
       <i class="pi pi-search"></i>
@@ -112,14 +102,12 @@
   [enableRtl]="true"
   [localeText]="langFa"
   [gridOptions]="gridOptions"
-  (firstDataRendered)="onFirstDataRendered($event)"
   (gridReady)="onGridReady($event)"
   [tooltipShowDelay]="0"
   [pagination]="true"
   [tooltipMouseTrack]="true"
   [sideBar]="sideBar"
   (selectionChanged)="onSelectionChanged($event)"
-  (rowSelected)="onRowSelected()"
   [getContextMenuItems]="getContextMenuItems"
 ></ag-grid-angular>
 <app-print-table

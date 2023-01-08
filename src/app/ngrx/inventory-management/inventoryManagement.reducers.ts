@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { immerOn } from 'ngrx-immer/store';
-import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
+import { inventoryActions } from './inventoryManagement.actions';
 
 export const initialState: InventoryManagementStateType = {
   inventoryPage: {
@@ -30,66 +30,70 @@ export const inventoryManagementReducers = createReducer(
   // Inventory-Start
   // Get
   initialState,
-  immerOn(imActions.getInventories, (state) => {
+  immerOn(inventoryActions.getInventories, (state) => {
     state.inventoryPage.isInventoriesLoading = true;
   }),
-  immerOn(imActions.getInventoriesSuccess, (state, action) => {
+  immerOn(inventoryActions.getInventoriesSuccess, (state, action) => {
     state.inventoryPage.inventories = action.inventories;
     state.inventoryPage.isInventoriesLoading = false;
   }),
-  immerOn(imActions.getInventoriesFailure, (state, action) => {
+  immerOn(inventoryActions.getInventoriesFailure, (state, action) => {
     state.inventoryPage.errorInventories = action.error;
     state.inventoryPage.isInventoriesLoading = false;
   }),
-  immerOn(imActions.getInventoryCategories, (state) => {
+  immerOn(inventoryActions.getInventoryCategories, (state) => {
     state.inventoryPage.isInventoriesCategoriesLoading = true;
   }),
-  immerOn(imActions.getInventoryCategoriesSuccess, (state, action) => {
+  immerOn(inventoryActions.getInventoryCategoriesSuccess, (state, action) => {
     state.inventoryPage.inventoryCategories = action.inventoryCategories;
     state.inventoryPage.isInventoriesCategoriesLoading = false;
   }),
-  immerOn(imActions.getInventoryCategoriesFailure, (state, action) => {
+  immerOn(inventoryActions.getInventoryCategoriesFailure, (state, action) => {
     state.inventoryPage.errorInventoriesCategories = action.error;
     state.inventoryPage.isInventoriesCategoriesLoading = false;
   }),
-  immerOn(imActions.getInventoryUsers, (state, action) => {
+  immerOn(inventoryActions.getInventoryUsers, (state, action) => {
     state.inventoryPage.isInventoryUsersLoading = true;
   }),
-  immerOn(imActions.getInventoryUsersSuccess, (state, action) => {
+  immerOn(inventoryActions.getInventoryUsersSuccess, (state, action) => {
     state.inventoryPage.inventoryUsers = action.inventoryUsers;
     state.inventoryPage.isInventoryUsersLoading = false;
   }),
-  immerOn(imActions.getInventoryUsersFailure, (state, action) => {
+  immerOn(inventoryActions.getInventoryUsersFailure, (state, action) => {
     state.inventoryPage.errorInventoryUsers = action.error;
     state.inventoryPage.isInventoryUsersLoading = false;
   }),
   // Table
-  immerOn(imActions.setInventorySelectedRows, (state, action) => {
-    state.inventoryPage.inventorySelectedRows = action.inventories;
+  immerOn(inventoryActions.setInventorySelectedRows, (state, action) => {
+    state.inventoryPage.inventorySelectedRows = action.rows;
   }),
-  immerOn(imActions.setCurrentEditingInventory, (state, action) => {
-    state.inventoryPage.currentEditingInventory = action.inventory;
+  immerOn(inventoryActions.setCurrentEditingInventory, (state, action) => {
+    state.inventoryPage.currentEditingInventory = action.row;
   }),
   // Form
-  immerOn(imActions.openInventoryForm, (state) => {
+  immerOn(inventoryActions.openInventoryForm, (state) => {
     state.inventoryPage.isInventoryFormOpen = true;
     state.inventoryPage.currentEditingInventory = null;
+    state.inventoryPage.inventoryNameForm = '';
+    state.inventoryPage.inventoryStatusForm = true;
+    state.inventoryPage.inventoryCategoryForm = null;
+    state.inventoryPage.inventoryUsersForm = [];
   }),
-  immerOn(imActions.closeInventoryForm, (state) => {
+  immerOn(inventoryActions.closeInventoryForm, (state) => {
     state.inventoryPage.isInventoryFormOpen = false;
     state.inventoryPage.currentEditingInventory = null;
   }),
 
-  immerOn(imActions.inventoryNameFormUpdate, (state, action) => {
+  immerOn(inventoryActions.inventoryNameFormUpdate, (state, action) => {
     state.inventoryPage.inventoryNameForm = action.inventoryName;
   }),
-  immerOn(imActions.inventoryCategoryFormUpdate, (state, action) => {
+  immerOn(inventoryActions.inventoryCategoryFormUpdate, (state, action) => {
     state.inventoryPage.inventoryCategoryForm = action.inventoryCategoryName;
   }),
-  immerOn(imActions.inventoryStatusFormUpdate, (state, action) => {
+  immerOn(inventoryActions.inventoryStatusFormUpdate, (state, action) => {
     state.inventoryPage.inventoryStatusForm = action.status;
   }),
-  immerOn(imActions.inventoryUsersFormUpdate, (state, action) => {
+  immerOn(inventoryActions.inventoryUsersFormUpdate, (state, action) => {
     state.inventoryPage.inventoryUsersForm = action.inventoryUsers;
   })
   // Inventory-End

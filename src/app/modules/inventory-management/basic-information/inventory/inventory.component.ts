@@ -6,7 +6,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { Observable, take } from 'rxjs';
 import * as tabsActions from 'src/app/ngrx/tabs/tabs.actions';
-import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
+import { inventoryActions } from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
 import {
   currentEditingInventorySelector,
   inventoriesSelector,
@@ -29,7 +29,9 @@ import { InventoryManagementService } from 'src/app/services/inventory-managemen
 import { ConfirmationService, MessageService } from 'primeng/api';
 // Ag-Grid
 import { ColDef } from 'ag-grid-community';
-import { inventoryColDef } from 'src/app/modules/inventory-management/basic-information/inventory/inventory.column';
+import { ActionsCellComponent } from 'src/app/modules/ag-grid/actions-cell/actions-cell.component';
+import { UsersCellComponent } from 'src/app/modules/ag-grid/users-cell/users-cell.component';
+import { StatusCellComponent } from 'src/app/modules/ag-grid/status-cell/status-cell.component';
 
 @Component({
   selector: 'app-inventory',
@@ -47,17 +49,59 @@ export class InventoryComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private messageService: MessageService
   ) {}
+  inventoryActions = inventoryActions;
   // Navigation
   tabName = 'انبار';
   tabRoute = '/inventory-management/inventory';
-
   // Table
   inventories$: Observable<any[]>;
   isInventoriesLoading$: Observable<boolean>;
   inventorySelectedRows$: Observable<InventoryType[]>;
   currentEditingInventory$: Observable<InventoryType | null>;
   inventorySelectedRowsCount$: Observable<number>;
-  colDefs: ColDef[] = inventoryColDef;
+  colDefs: ColDef[] = [
+    {
+      headerName: 'نام انبار',
+      field: 'name',
+      headerCheckboxSelection: true,
+      checkboxSelection: true,
+      flex: 2,
+      minWidth: 200,
+    },
+    {
+      headerName: 'دسته بندی',
+      field: 'category',
+      flex: 1,
+      minWidth: 100,
+    },
+    {
+      headerName: 'وضعیت',
+      field: 'status',
+      cellRenderer: StatusCellComponent,
+      flex: 1,
+      minWidth: 100,
+    },
+    {
+      headerName: 'کاربران',
+      field: 'users',
+      cellRenderer: UsersCellComponent,
+      tooltipField: 'users',
+      flex: 1,
+      minWidth: 100,
+    },
+    {
+      headerName: 'عملیات',
+      field: 'actions',
+      cellRenderer: ActionsCellComponent,
+      resizable: false,
+      width: 140,
+      autoHeight: false,
+      lockPosition: 'right',
+      // pinned: left,
+      sortable: false,
+      minWidth: 100,
+    },
+  ];
 
   // Form
   isInventoryFormOpen$: Observable<boolean>;
@@ -133,7 +177,7 @@ export class InventoryComponent implements OnInit {
     );
     this.inventories$.subscribe((val) => {
       if (val === undefined || val.length == 0)
-        this.store.dispatch(imActions.getInventories());
+        this.store.dispatch(inventoryActions.getInventories());
     });
     this.inventorySelectedRowsCount$ = this.store.pipe(
       select(inventorySelectedRowsCountSelector)
@@ -152,14 +196,14 @@ export class InventoryComponent implements OnInit {
     this.inventoryUsers$ = this.store.pipe(select(inventoryUsersSelector));
     this.inventoryUsers$.subscribe((val) => {
       if (val === undefined || val.length == 0)
-        this.store.dispatch(imActions.getInventoryUsers());
+        this.store.dispatch(inventoryActions.getInventoryUsers());
     });
     this.inventoryCategories$ = this.store.pipe(
       select(inventoryCategoriesSelector)
     );
     this.inventoryCategories$.subscribe((val) => {
       if (val === undefined || val.length == 0)
-        this.store.dispatch(imActions.getInventoryCategories());
+        this.store.dispatch(inventoryActions.getInventoryCategories());
     });
     this.isInventoryCategoriesLoading$ = this.store.pipe(
       select(isInventoryCategoriesLoadingSelector)
@@ -205,7 +249,7 @@ export class InventoryComponent implements OnInit {
   }
 
   closeForm(): void {
-    this.store.dispatch(imActions.closeInventoryForm());
+    this.store.dispatch(inventoryActions.closeInventoryForm());
   }
   onSubmitCreate(name: any) {
     this.isSubmitted = true;
@@ -301,23 +345,23 @@ export class InventoryComponent implements OnInit {
   ): void {
     if (elementType === 'name') {
       this.store.dispatch(
-        imActions.inventoryNameFormUpdate({ inventoryName: val })
+        inventoryActions.inventoryNameFormUpdate({ inventoryName: val })
       );
     } else if (elementType === 'category') {
       this.store.dispatch(
-        imActions.inventoryCategoryFormUpdate({
+        inventoryActions.inventoryCategoryFormUpdate({
           inventoryCategoryName: val,
         })
       );
     } else if (elementType === 'users') {
       this.store.dispatch(
-        imActions.inventoryUsersFormUpdate({
+        inventoryActions.inventoryUsersFormUpdate({
           inventoryUsers: val,
         })
       );
     } else if (elementType === 'status') {
       this.store.dispatch(
-        imActions.inventoryStatusFormUpdate({
+        inventoryActions.inventoryStatusFormUpdate({
           status: val,
         })
       );
@@ -329,16 +373,18 @@ export class InventoryComponent implements OnInit {
   }
   onAgain() {
     this.store.dispatch(
-      imActions.inventoryNameFormUpdate({ inventoryName: null })
+      inventoryActions.inventoryNameFormUpdate({ inventoryName: null })
     );
-    this.store.dispatch(imActions.inventoryStatusFormUpdate({ status: true }));
     this.store.dispatch(
-      imActions.inventoryCategoryFormUpdate({
+      inventoryActions.inventoryStatusFormUpdate({ status: true })
+    );
+    this.store.dispatch(
+      inventoryActions.inventoryCategoryFormUpdate({
         inventoryCategoryName: null,
       })
     );
     this.store.dispatch(
-      imActions.inventoryUsersFormUpdate({
+      inventoryActions.inventoryUsersFormUpdate({
         inventoryUsers: [],
       })
     );

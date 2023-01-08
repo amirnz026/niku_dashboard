@@ -13,24 +13,18 @@ import {
   GetContextMenuItemsParams,
   MenuItemDef,
 } from 'ag-grid-community';
-import { Observable, take } from 'rxjs';
 import {
   CellClickedEvent,
   SelectionChangedEvent,
 } from 'ag-grid-community/dist/lib/events';
 import { AG_GRID_LOCALE_FA } from 'src/app/language/persian/ag-grid/AG_GRID_LOCALE_FA';
-import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { CustomTooltipComponent } from 'src/app/modules/ag-grid/tooltip/custom-tooltip.component';
 import { LoadingOverlayComponent } from '../../loading-overlay/loading-overlay.component';
-import {
-  currentEditingInventorySelector,
-  inventorySelectedRowsSelector,
-  isInventoriesLoadingSelector,
-} from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
 
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { InventoryManagementService } from 'src/app/services/inventory-management/inventory-management.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-grid-style01',
@@ -43,12 +37,19 @@ export class GridStyle01Component implements OnInit {
   @Input() rowInputData: any[] | null;
   @Input() colInputDefs: ColDef[];
   @Input() pageName: string;
-  @Input() isInventoryUsersLoading: boolean | null;
-  @Input() isInventoryCategoryLoading: boolean | null;
+  @Input() isLoading: boolean | null;
   @Input() columnKeys: string[];
+  @Input() currentEditingRow$: Observable<InventoryType | null>;
+  @Input() gridSelectedRows: InventoryType[] | null;
+  @Input() isGridLoading$: Observable<boolean | null>;
+  @Input() openFormMethod: Function;
+  @Input() refreshPageMethods: Function[];
+  @Input() onSelectionChangedMethod: Function;
+  @Input() setCurrentEditingMethod: Function;
+
+  // Ag-grid
   gridApi: GridApi;
   columnApi: ColumnApi;
-  isTableLoaded: boolean;
   sideBar: SideBarDef | string | string[] | boolean | null = {
     toolPanels: [
       {
@@ -73,7 +74,6 @@ export class GridStyle01Component implements OnInit {
       },
     ],
   };
-  fd;
   gridOptions: GridOptions;
   defaultColDef: ColDef;
   getContextMenuItems(
@@ -101,10 +101,6 @@ export class GridStyle01Component implements OnInit {
     return this.gridApi?.getSelectedRows();
   }
 
-  isInventoriesLoading$: Observable<boolean>;
-  inventorySelectedRows$: Observable<InventoryType[]>;
-  currentEditingInventory$: Observable<InventoryType | null>;
-
   constructor(
     private store: Store<AppStateType>,
     private confirmationService: ConfirmationService,
@@ -114,7 +110,7 @@ export class GridStyle01Component implements OnInit {
 
   ngOnInit(): void {
     this.gridOptions = {
-      onGridReady: (event) => (this.isTableLoaded = true),
+      onGridReady: (event) => {},
       getRowHeight: (params) => 60,
 
       loadingOverlayComponent: LoadingOverlayComponent,
@@ -126,7 +122,6 @@ export class GridStyle01Component implements OnInit {
       defaultExcelExportParams: {
         onlySelected: true,
         columnKeys: this.columnKeys,
-        //sd
       },
       enableRangeSelection: true,
     };
@@ -135,29 +130,18 @@ export class GridStyle01Component implements OnInit {
       sortable: true,
       filter: true,
       tooltipComponent: CustomTooltipComponent,
+      tooltipComponentParams: { color: 'red' },
       autoHeight: true,
       cellStyle: {
         overflow: 'hidden',
       },
-      // lockPinned: true,
     };
 
-    this.isInventoriesLoading$ = this.store.pipe(
-      select(isInventoriesLoadingSelector)
-    );
-    this.inventorySelectedRows$ = this.store.pipe(
-      select(inventorySelectedRowsSelector)
-    );
-
-    this.currentEditingInventory$ = this.store.pipe(
-      select(currentEditingInventorySelector)
-    );
-
-    this.currentEditingInventory$.subscribe((selectedRow) => {
-      if (selectedRow) {
+    this.currentEditingRow$.subscribe((currentEditingRow) => {
+      if (currentEditingRow) {
         this.gridOptions.rowClassRules = {
           'disabled-row': function (params) {
-            if (params.data.name === selectedRow.name) return false;
+            if (params.data.name === currentEditingRow.name) return false;
             else return true;
           },
         };
@@ -169,33 +153,29 @@ export class GridStyle01Component implements OnInit {
     });
   }
   onCellClicked(event: CellClickedEvent) {
-    this.currentEditingInventory$
-      .pipe(take(1))
-      .subscribe((editingInventory) => {
-        if (
-          editingInventory &&
-          editingInventory?.name !== event.api.getSelectedRows()[0].name
-        ) {
-          this.store.dispatch(
-            imActions.setCurrentEditingInventory({ inventory: null })
-          );
-          this.gridOptions.rowClassRules = {};
-          this.gridApi.redrawRows();
-        }
-      });
+    this.currentEditingRow$.subscribe((currentEditingRow) => {
+      if (
+        currentEditingRow &&
+        currentEditingRow?.name !== event.api.getSelectedRows()[0].name
+      ) {
+        this.store.dispatch(this.setCurrentEditingMethod({ row: null }));
+        this.gridOptions.rowClassRules = {};
+        this.gridApi.redrawRows();
+      }
+    });
   }
-  onRowSelected() {}
-  clearSelection() {}
   onGridReady(params: any) {
     this.gridApi = params.api;
     this.columnApi = params.columnApi;
-    this.isInventoriesLoading$.subscribe((val) => {
-      if (val) this.gridApi.showLoadingOverlay();
-      else this.gridApi.hideOverlay();
+    this.isGridLoading$.subscribe((isGridLoading) => {
+      if (isGridLoading) {
+        this.gridApi.showLoadingOverlay();
+      } else {
+        this.gridApi.hideOverlay();
+      }
     });
     this.selectRowsFromState();
   }
-  onFirstDataRendered(params: any) {}
 
   onFilterTextBoxChanged() {
     this.gridApi.setQuickFilter(
@@ -203,83 +183,64 @@ export class GridStyle01Component implements OnInit {
     );
   }
   openCreationForm(): void {
-    if (this.pageName === 'inventory') {
-      this.store.dispatch(imActions.openInventoryForm());
-      // this.store.dispatch(imActions.inventoryFormStateToCreate());
-      this.store.dispatch(
-        imActions.inventoryNameFormUpdate({ inventoryName: '' })
-      );
-      this.store.dispatch(
-        imActions.inventoryStatusFormUpdate({ status: true })
-      );
-      this.store.dispatch(
-        imActions.inventoryCategoryFormUpdate({
-          inventoryCategoryName: null,
-        })
-      );
-      this.store.dispatch(
-        imActions.inventoryUsersFormUpdate({
-          inventoryUsers: [],
-        })
-      );
-    }
+    this.store.dispatch(this.openFormMethod());
   }
   refreshPage(): void {
-    if (this.pageName === 'inventory') {
-      this.store.dispatch(imActions.getInventories());
-      this.store.dispatch(imActions.getInventoryCategories());
-      this.store.dispatch(imActions.getInventoryUsers());
-    }
+    // Dispatch Actions:
+    //  Get Grid Data
+    //  Get Categories
+    //  Get Users
+    this.refreshPageMethods.map((method) => {
+      this.store.dispatch(method());
+    });
   }
   onSelectionChanged(val: SelectionChangedEvent): void {
     this.store.dispatch(
-      imActions.setInventorySelectedRows({
-        inventories: val.api.getSelectedRows(),
+      this.onSelectionChangedMethod({
+        rows: val.api.getSelectedRows(),
       })
     );
   }
   selectRowsFromState() {
     this.gridApi.forEachNode((node) => {
-      this.inventorySelectedRows$.subscribe((selectedRows) => {
-        selectedRows.map((row) => {
-          if (node.data.name === row.name) {
-            node.setSelected(node.data.name === row.name);
-          }
-        });
+      this.gridSelectedRows?.map((row) => {
+        if (node.data.name === row.name) {
+          node.setSelected(node.data.name === row.name);
+        }
       });
     });
   }
 
   onDelete() {
-    let inventoryNames = '"';
-    this.inventorySelectedRows$.subscribe((selectedRows) => {
-      selectedRows.map((row, index) => {
-        if (index <= selectedRows.length - 3) inventoryNames += row.name + '، ';
-        else if (index === selectedRows.length - 2)
-          inventoryNames += row.name + ' و ';
-        else if (index === selectedRows.length - 1) inventoryNames += row.name;
-      });
+    let names = '"';
+
+    this.gridSelectedRows?.map((row, index) => {
+      if (index <= this.gridSelectedRows!.length - 3) names += row.name + '، ';
+      else if (index === this.gridSelectedRows!.length - 2)
+        names += row.name + ' و ';
+      else if (index === this.gridSelectedRows!.length - 1) names += row.name;
     });
-    inventoryNames += '"';
+
+    names += '"';
     this.confirmationService.confirm({
-      message: `آیا از حذف  ${inventoryNames} مطمئن هستید؟`,
+      message: `آیا از حذف  ${names} مطمئن هستید؟`,
       accept: () => {
         this.messageService.add({
           severity: 'info',
-          summary: 'حذف انبارها',
-          detail: `درخواست حذف انبارها ارسال شد.`,
+          summary: 'حذف آیتم ها',
+          detail: `درخواست حذف آیتم ها ارسال شد.`,
         });
         this.imService.postSubmitInventoryCreationForm().subscribe((val) => {
           this.messageService.add({
             severity: 'success',
-            summary: 'حذف انبارها',
-            detail: `انبارهای انتخاب شده با موفقیت حذف شدند.`,
+            summary: 'حذف آیتم ها',
+            detail: `آیتم های انتخاب شده با موفقیت حذف شدند.`,
           });
         });
       },
       acceptLabel: 'بله',
       rejectLabel: 'خیر',
-      header: 'حذف انبارها',
+      header: 'حذف آیتم ها',
     });
   }
 }

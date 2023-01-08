@@ -173,8 +173,22 @@
     [rowInputData]="inventories$ | async"
     [colInputDefs]="colDefs"
     [pageName]="'inventory'"
+    [isLoading]="
+      (isInventoryCategoriesLoading$ | async) ||
+      (isInventoryUsersLoading$ | async) ||
+      (isInventoriesLoading$ | async)
+    "
     [columnKeys]="['name', 'category', 'status', 'users']"
-    [isInventoryCategoryLoading]="isInventoryCategoriesLoading$ | async"
-    [isInventoryUsersLoading]="isInventoryUsersLoading$ | async"
+    [gridSelectedRows]="inventorySelectedRows$ | async"
+    [isGridLoading$]="isInventoriesLoading$"
+    [currentEditingRow$]="currentEditingInventory$"
+    [openFormMethod]="inventoryActions.openInventoryForm"
+    [refreshPageMethods]="[
+      inventoryActions.getInventories,
+      inventoryActions.getInventoryCategories,
+      inventoryActions.getInventoryUsers
+    ]"
+    [setCurrentEditingMethod]="inventoryActions.setCurrentEditingInventory"
+    [onSelectionChangedMethod]="inventoryActions.setInventorySelectedRows"
   ></app-grid-style01>
 </div>

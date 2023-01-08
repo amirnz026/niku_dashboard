@@ -46,3 +46,4 @@ export const inventoryColDef: ColDef[] = [
     minWidth: 100,
   },
 ];
+moved to inventory component

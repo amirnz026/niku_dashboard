@@ -1,9 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
-import { GridApi, GridOptions, ICellRendererParams } from 'ag-grid-community';
+import { ICellRendererParams } from 'ag-grid-community';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import * as imActions from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
+import { inventoryActions } from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
 import { Observable } from 'rxjs';
 import { currentEditingInventorySelector } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -75,34 +75,33 @@ export class ActionsCellComponent implements OnInit, ICellRendererAngularComp {
   onEdit() {
     if (!this.actionsForm.value.editToggle) {
       this.store.dispatch(
-        imActions.setCurrentEditingInventory({ inventory: null })
+        inventoryActions.setCurrentEditingInventory({ row: null })
       );
     } else {
-      // this.store.dispatch(imActions.inventoryFormStateToEdit());
       this.store.dispatch(
-        imActions.setInventorySelectedRows({ inventories: [] })
+        inventoryActions.setInventorySelectedRows({ rows: [] })
       );
 
       this.store.dispatch(
-        imActions.setCurrentEditingInventory({ inventory: this.data })
+        inventoryActions.setCurrentEditingInventory({ row: this.data })
       );
       this.store.dispatch(
-        imActions.inventoryNameFormUpdate({
+        inventoryActions.inventoryNameFormUpdate({
           inventoryName: this.data.name,
         })
       );
       this.store.dispatch(
-        imActions.inventoryCategoryFormUpdate({
+        inventoryActions.inventoryCategoryFormUpdate({
           inventoryCategoryName: this.data.category,
         })
       );
       this.store.dispatch(
-        imActions.inventoryStatusFormUpdate({
+        inventoryActions.inventoryStatusFormUpdate({
           status: this.data.status,
         })
       );
       this.store.dispatch(
-        imActions.inventoryUsersFormUpdate({
+        inventoryActions.inventoryUsersFormUpdate({
           inventoryUsers: this.data.users,
         })
       );

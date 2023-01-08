@@ -32,6 +32,32 @@ type InventoryPageStateType = {
   inventoryUsersForm: string[];
 };
 
+type InventoryActionsType = {
+  getInventories: any;
+  getInventoriesSuccess: any;
+  getInventoriesFailure: any;
+  getInventoryCategories: any;
+  getInventoryCategoriesSuccess: any;
+  getInventoryCategoriesFailure: any;
+  getInventoryUsers: any;
+  getInventoryUsersSuccess: any;
+  getInventoryUsersFailure: any;
+  // Post
+  submitInventoryCreationForm: any;
+  submitInventoryCreationFormSuccess: any;
+  submitInventoryCreationFormFailure: any;
+  // Table
+  setInventorySelectedRows: any;
+  setCurrentEditingInventory: any;
+  // Form
+  openInventoryForm: any;
+  closeInventoryForm: any;
+  inventoryNameFormUpdate: any;
+  inventoryCategoryFormUpdate: any;
+  inventoryStatusFormUpdate: any;
+  inventoryUsersFormUpdate: any;
+};
+
 type InventoryType = {
   name: string;
   category: string;
