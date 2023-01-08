@@ -45,6 +45,7 @@ export class GridStyle01Component implements OnInit {
   @Input() pageName: string;
   @Input() isInventoryUsersLoading: boolean | null;
   @Input() isInventoryCategoryLoading: boolean | null;
+  @Input() columnKeys: string[];
   gridApi: GridApi;
   columnApi: ColumnApi;
   isTableLoaded: boolean;
@@ -72,33 +73,9 @@ export class GridStyle01Component implements OnInit {
       },
     ],
   };
-  defaultColDef: ColDef = {
-    resizable: true,
-    sortable: true,
-    filter: true,
-    tooltipComponent: CustomTooltipComponent,
-    autoHeight: true,
-    cellStyle: {
-      overflow: 'hidden',
-    },
-    // lockPinned: true,
-  };
-  gridOptions: GridOptions = {
-    onGridReady: (event) => (this.isTableLoaded = true),
-    getRowHeight: (params) => 60,
 
-    loadingOverlayComponent: LoadingOverlayComponent,
-    loadingOverlayComponentParams: {},
-    defaultCsvExportParams: {
-      onlySelected: true,
-      columnKeys: ['name', 'category', 'status', 'users'],
-    },
-    defaultExcelExportParams: {
-      onlySelected: true,
-      columnKeys: ['name', 'category', 'status', 'users'],
-    },
-    enableRangeSelection: true,
-  };
+  gridOptions: GridOptions;
+  defaultColDef: ColDef;
   getContextMenuItems(
     params: GetContextMenuItemsParams
   ): (string | MenuItemDef)[] {
@@ -136,6 +113,35 @@ export class GridStyle01Component implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.gridOptions = {
+      onGridReady: (event) => (this.isTableLoaded = true),
+      getRowHeight: (params) => 60,
+
+      loadingOverlayComponent: LoadingOverlayComponent,
+      loadingOverlayComponentParams: {},
+      defaultCsvExportParams: {
+        onlySelected: true,
+        columnKeys: this.columnKeys,
+      },
+      defaultExcelExportParams: {
+        onlySelected: true,
+        columnKeys: this.columnKeys,
+        //sd
+      },
+      enableRangeSelection: true,
+    };
+    this.defaultColDef = {
+      resizable: true,
+      sortable: true,
+      filter: true,
+      tooltipComponent: CustomTooltipComponent,
+      autoHeight: true,
+      cellStyle: {
+        overflow: 'hidden',
+      },
+      // lockPinned: true,
+    };
+
     this.isInventoriesLoading$ = this.store.pipe(
       select(isInventoriesLoadingSelector)
     );

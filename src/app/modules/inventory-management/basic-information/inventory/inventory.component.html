@@ -173,6 +173,7 @@
     [rowInputData]="inventories$ | async"
     [colInputDefs]="colDefs"
     [pageName]="'inventory'"
+    [columnKeys]="['name', 'category', 'status', 'users']"
     [isInventoryCategoryLoading]="isInventoryCategoriesLoading$ | async"
     [isInventoryUsersLoading]="isInventoryUsersLoading$ | async"
   ></app-grid-style01>

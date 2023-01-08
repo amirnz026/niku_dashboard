@@ -9,15 +9,6 @@
     pTooltip="حذف آیتم"
   ></button>
 
-  <!-- <button
-    pButton
-    pRipple
-    type="button"
-    class="p-button-rounded p-button-warning"
-    icon="pi pi-file-edit"
-    (click)="onEdit()"
-    pTooltip="ویرایش آیتم"
-  ></button> -->
   <p-toggleButton
     [ngModel]="this.data.name === (currentEditingInventory$ | async)?.name"
     onIcon="pi pi-file-edit"

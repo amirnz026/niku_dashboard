@@ -48,6 +48,8 @@ import { PrintTableComponent } from 'src/app/modules/partials/print-table/print-
 import { MaterialComponent } from './basic-information/material/material.component';
 import { ProductComponent } from './basic-information/product/product.component';
 import { UnitComponent } from './basic-information/unit/unit.component';
+// Icons
+
 @NgModule({
   declarations: [
     InventoryManagementComponent,
