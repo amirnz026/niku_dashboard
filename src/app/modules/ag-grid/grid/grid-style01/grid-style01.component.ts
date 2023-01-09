@@ -46,6 +46,8 @@ export class GridStyle01Component implements OnInit {
   @Input() refreshPageMethods: Function[];
   @Input() onSelectionChangedMethod: Function;
   @Input() setCurrentEditingMethod: Function;
+  // Print
+  @Input() pageSelectedRowsSelectorMethod: any;
 
   // Ag-grid
   gridApi: GridApi;

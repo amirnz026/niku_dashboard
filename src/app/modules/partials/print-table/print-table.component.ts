@@ -1,7 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { inventorySelectedRowsSelector } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
+import {
+  categorySelectedRowsSelector,
+  inventorySelectedRowsSelector,
+} from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
 
 @Component({
   selector: 'app-print-table',
@@ -11,11 +14,12 @@ import { inventorySelectedRowsSelector } from 'src/app/ngrx/inventory-management
 export class PrintTableComponent implements OnInit {
   @Input() cols: any;
   @Input() count: number;
+  @Input() pageSelectedRowsSelectorMethod: any;
 
   rows$: Observable<any>;
   constructor(private store: Store<AppStateType>) {}
 
   ngOnInit() {
-    this.rows$ = this.store.pipe(select(inventorySelectedRowsSelector));
+    this.rows$ = this.store.pipe(select(this.pageSelectedRowsSelectorMethod));
   }
 }

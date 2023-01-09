@@ -109,9 +109,11 @@
   [sideBar]="sideBar"
   (selectionChanged)="onSelectionChanged($event)"
   [getContextMenuItems]="getContextMenuItems"
+  [enableBrowserTooltips]="true"
 ></ag-grid-angular>
 <app-print-table
   id="print-section"
   [cols]="displayedColumns"
+  [pageSelectedRowsSelectorMethod]="pageSelectedRowsSelectorMethod"
   style="display: none"
 ></app-print-table>

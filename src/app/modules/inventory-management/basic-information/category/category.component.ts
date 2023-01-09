@@ -72,6 +72,7 @@ export class CategoryComponent implements OnInit {
     {
       headerName: 'توضیحات',
       field: 'desc',
+      tooltipField: 'desc',
       flex: 3,
       minWidth: 200,
     },
@@ -99,6 +100,9 @@ export class CategoryComponent implements OnInit {
   isErrorModal = false;
   errorModalText = '';
   isSubmitted = false;
+  // Print
+  categorySelectedRowsSelectorMethod: any;
+
   get name() {
     return this.categoryCreationForm.get('name');
   }
@@ -126,6 +130,8 @@ export class CategoryComponent implements OnInit {
         tabRoute: this.tabRoute,
       })
     );
+    // Print
+    this.categorySelectedRowsSelectorMethod = categorySelectedRowsSelector;
     // Get Selected/Editing Rows
     this.categorySelectedRows$ = this.store.pipe(
       select(categorySelectedRowsSelector)

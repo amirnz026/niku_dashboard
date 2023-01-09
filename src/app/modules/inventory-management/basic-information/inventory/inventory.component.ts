@@ -118,6 +118,8 @@ export class InventoryComponent implements OnInit {
   isErrorModal = false;
   errorModalText = '';
   isSubmitted = false;
+  // Print
+  inventorySelectedRowsSelectorMethod: any;
   get name() {
     return this.inventoryCreationForm.get('name');
   }
@@ -162,6 +164,8 @@ export class InventoryComponent implements OnInit {
         tabRoute: this.tabRoute,
       })
     );
+    // Print
+    this.inventorySelectedRowsSelectorMethod = inventorySelectedRowsSelector;
     // Get Selected/Editing Rows
     this.inventorySelectedRows$ = this.store.pipe(
       select(inventorySelectedRowsSelector)
