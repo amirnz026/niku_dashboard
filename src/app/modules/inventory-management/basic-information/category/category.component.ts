@@ -17,6 +17,7 @@ import { StatusCellComponent } from 'src/app/modules/ag-grid/status-cell/status-
 import { CategoryActionsCellComponent } from './category-actions-cell.component';
 import {
   categoriesSelector,
+  categoryDescFormSelector,
   categoryNameFormSelector,
   categorySelectedRowsCountSelector,
   categorySelectedRowsSelector,
@@ -161,6 +162,7 @@ export class CategoryComponent implements OnInit {
     this.categoryStatusForm$ = this.store.pipe(
       select(categoryStatusFormSelector)
     );
+    this.categoryDescForm$ = this.store.pipe(select(categoryDescFormSelector));
     // Form Sync Fields With NgRx
     this.categoryNameForm$.subscribe((value) => {
       this.categoryCreationForm.patchValue({

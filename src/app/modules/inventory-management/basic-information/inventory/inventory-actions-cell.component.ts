@@ -9,7 +9,7 @@ import { currentEditingInventorySelector } from 'src/app/ngrx/inventory-manageme
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { InventoryManagementService } from 'src/app/services/inventory-management/inventory-management.service';
 @Component({
-  selector: 'app-actions-cell',
+  selector: 'app-inventory-actions-cell',
   template: `<form class="container" [formGroup]="actionsForm" #form>
     <button
       pButton

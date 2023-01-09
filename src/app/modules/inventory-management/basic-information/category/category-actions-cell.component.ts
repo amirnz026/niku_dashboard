@@ -3,13 +3,16 @@ import { select, Store } from '@ngrx/store';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { ICellRendererParams } from 'ag-grid-community';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { inventoryActions } from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
+import {
+  categoryActions,
+  inventoryActions,
+} from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
 import { Observable } from 'rxjs';
-import { currentEditingInventorySelector } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
+import { currentEditingCategorySelector } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { InventoryManagementService } from 'src/app/services/inventory-management/inventory-management.service';
 @Component({
-  selector: 'app-actions-cell',
+  selector: 'app-category-actions-cell',
   template: `<form class="container" [formGroup]="actionsForm" #form>
     <button
       pButton
@@ -22,7 +25,7 @@ import { InventoryManagementService } from 'src/app/services/inventory-managemen
     ></button>
 
     <p-toggleButton
-      [ngModel]="this.data.name === (currentEditingInventory$ | async)?.name"
+      [ngModel]="this.data.name === (currentEditingCategory$ | async)?.name"
       onIcon="pi pi-file-edit"
       class="p-button-rounded p-button-warning"
       offIcon="pi pi-file-edit"
@@ -61,7 +64,7 @@ export class CategoryActionsCellComponent
   data: any;
   status: boolean;
   public params!: ICellRendererParams;
-  currentEditingInventory$: Observable<InventoryType | null>;
+  currentEditingCategory$: Observable<CategoryType | null>;
   actionsForm: FormGroup;
 
   get editToggle() {
@@ -75,17 +78,17 @@ export class CategoryActionsCellComponent
     private messageService: MessageService,
     private imService: InventoryManagementService
   ) {}
+  refresh(params: ICellRendererParams): boolean {
+    return false;
+  }
   agInit(params: ICellRendererParams): void {
     this.data = params.data;
     this.params = params;
   }
-  refresh(params: ICellRendererParams): boolean {
-    return false;
-  }
 
   ngOnInit(): void {
-    this.currentEditingInventory$ = this.store.pipe(
-      select(currentEditingInventorySelector)
+    this.currentEditingCategory$ = this.store.pipe(
+      select(currentEditingCategorySelector)
     );
 
     this.actionsForm = this.fb.group({
@@ -98,54 +101,49 @@ export class CategoryActionsCellComponent
       accept: () => {
         this.messageService.add({
           severity: 'info',
-          summary: 'حذف انبار',
-          detail: `درخواست حذف انبار "${this.data.name}" ارسال شد.`,
+          summary: 'حذف آیتم',
+          detail: `درخواست حذف آیتم "${this.data.name}" ارسال شد.`,
         });
-        this.imService.postSubmitInventoryCreationForm().subscribe((val) => {
+        this.imService.postSubmitCategoryCreationForm().subscribe((val) => {
           this.messageService.add({
             severity: 'success',
-            summary: 'حذف انبار',
-            detail: `انبار "${this.data.name}" با موفقیت حذف شد.`,
+            summary: 'حذف آیتم',
+            detail: `آیتم "${this.data.name}" با موفقیت حذف شد.`,
           });
         });
       },
       acceptLabel: 'بله',
       rejectLabel: 'خیر',
-      header: 'حذف انبار',
+      header: 'حذف آیتم',
     });
   }
 
   onEdit() {
     if (!this.actionsForm.value.editToggle) {
       this.store.dispatch(
-        inventoryActions.setCurrentEditingInventory({ row: null })
+        categoryActions.setCurrentEditingCategory({ row: null })
       );
     } else {
       this.store.dispatch(
-        inventoryActions.setInventorySelectedRows({ rows: [] })
+        categoryActions.setCategorySelectedRows({ rows: [] })
       );
 
       this.store.dispatch(
-        inventoryActions.setCurrentEditingInventory({ row: this.data })
+        categoryActions.setCurrentEditingCategory({ row: this.data })
       );
       this.store.dispatch(
-        inventoryActions.inventoryNameFormUpdate({
+        categoryActions.categoryNameFormUpdate({
           inventoryName: this.data.name,
         })
       );
       this.store.dispatch(
-        inventoryActions.inventoryCategoryFormUpdate({
-          inventoryCategoryName: this.data.category,
-        })
-      );
-      this.store.dispatch(
-        inventoryActions.inventoryStatusFormUpdate({
+        categoryActions.categoryStatusFormUpdate({
           status: this.data.status,
         })
       );
       this.store.dispatch(
-        inventoryActions.inventoryUsersFormUpdate({
-          inventoryUsers: this.data.users,
+        categoryActions.categoryDescFormUpdate({
+          inventoryUsers: this.data.desc,
         })
       );
     }

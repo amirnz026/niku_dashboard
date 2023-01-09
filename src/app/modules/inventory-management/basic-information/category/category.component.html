@@ -95,6 +95,19 @@
           (ngModelChange)="onChange('status', $event)"
         ></p-inputSwitch>
         <!-- Status-End -->
+        <!-- Desc-Start -->
+        <h5>توضیحات</h5>
+
+        <input
+          type="text"
+          pInputText
+          placeholder="مثال: لورم ایپسوم..."
+          formControlName="desc"
+          class="input"
+          tooltipPosition="left"
+          (ngModelChange)="onChange('desc', $event)"
+        />
+        <!-- Desc-End -->
         <p-button
           [label]="currentEditing ? 'ویرایش دسته بندی' : 'ایجاد دسته بندی'"
           [loading]="false"
