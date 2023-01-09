@@ -3,6 +3,7 @@ import { immerOn } from 'ngrx-immer/store';
 import {
   categoryActions,
   inventoryActions,
+  unitActions,
 } from './inventoryManagement.actions';
 
 export const initialState: InventoryManagementStateType = {
@@ -41,6 +42,18 @@ export const initialState: InventoryManagementStateType = {
     categoryNameForm: null,
     categoryStatusForm: null,
     categoryDescForm: null,
+  },
+  unitPage: {
+    units: [],
+    isUnitsLoading: false,
+    errorUnits: '',
+    unitSelectedRows: [],
+    currentEditingUnit: null,
+    unitSearchFilter: '',
+    // Form
+    isUnitFormOpen: false,
+    unitNameForm: null,
+    unitStatusForm: null,
   },
 };
 
@@ -162,6 +175,49 @@ export const inventoryManagementReducers = createReducer(
   }),
   immerOn(categoryActions.categoryDescFormUpdate, (state, action) => {
     state.categoryPage.categoryDescForm = action.desc;
-  })
+  }),
   // Category-End
+  // Unit-Start
+  // Get
+  immerOn(unitActions.getUnits, (state) => {
+    state.unitPage.isUnitsLoading = true;
+  }),
+  immerOn(unitActions.getUnitsSuccess, (state, action) => {
+    state.unitPage.units = action.items;
+    state.unitPage.isUnitsLoading = false;
+  }),
+  immerOn(unitActions.getUnitsFailure, (state, action) => {
+    state.unitPage.errorUnits = action.error;
+    state.unitPage.isUnitsLoading = false;
+  }),
+  // Table
+  immerOn(unitActions.setUnitSelectedRows, (state, action) => {
+    state.unitPage.unitSelectedRows = action.rows;
+  }),
+  immerOn(unitActions.setCurrentEditingUnit, (state, action) => {
+    state.unitPage.currentEditingUnit = action.row;
+  }),
+  immerOn(unitActions.setUnitSearchFilter, (state, action) => {
+    state.unitPage.unitSearchFilter = action.input;
+  }),
+  // Form
+  immerOn(unitActions.openUnitForm, (state) => {
+    state.unitPage.isUnitFormOpen = true;
+    state.unitPage.currentEditingUnit = null;
+    state.unitPage.unitNameForm = '';
+    state.unitPage.unitStatusForm = true;
+  }),
+  immerOn(unitActions.closeUnitForm, (state) => {
+    state.unitPage.isUnitFormOpen = false;
+    state.unitPage.currentEditingUnit = null;
+  }),
+
+  immerOn(unitActions.unitNameFormUpdate, (state, action) => {
+    state.unitPage.unitNameForm = action.name;
+  }),
+  immerOn(unitActions.unitStatusFormUpdate, (state, action) => {
+    state.unitPage.unitStatusForm = action.status;
+  })
+
+  // Unit-End
 );

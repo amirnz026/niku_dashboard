@@ -8,6 +8,7 @@ type AppStateType = {
 interface InventoryManagementStateType {
   inventoryPage: InventoryPageStateType;
   categoryPage: CategoryPageStateType;
+  unitPage: UnitPageStateType;
 }
 
 type InventoryPageStateType = {
@@ -33,21 +34,6 @@ type InventoryPageStateType = {
   errorInventoryUsers: string;
   inventoryUsersForm: string[];
 };
-type CategoryPageStateType = {
-  // Table
-  categories: CategoryType[];
-  isCategoriesLoading: boolean;
-  errorCategories: string;
-  categorySelectedRows: CategoryType[];
-  currentEditingCategory: CategoryType | null;
-  categorySearchFilter: string;
-  // Form
-  isCategoryFormOpen: boolean;
-  categoryNameForm: string | null;
-  categoryStatusForm: boolean | null;
-  categoryDescForm: string | null;
-};
-
 type InventoryActionsType = {
   getInventories: any;
   getInventoriesSuccess: any;
@@ -81,6 +67,20 @@ type InventoryType = {
   status: string;
   users: string[];
 };
+type CategoryPageStateType = {
+  // Table
+  categories: CategoryType[];
+  isCategoriesLoading: boolean;
+  errorCategories: string;
+  categorySelectedRows: CategoryType[];
+  currentEditingCategory: CategoryType | null;
+  categorySearchFilter: string;
+  // Form
+  isCategoryFormOpen: boolean;
+  categoryNameForm: string | null;
+  categoryStatusForm: boolean | null;
+  categoryDescForm: string | null;
+};
 
 type CategoryActionsType = {
   // Get
@@ -107,6 +107,45 @@ type CategoryType = {
   name: string;
   status: string;
   desc: string;
+};
+
+type UnitPageStateType = {
+  // Table
+  units: UnitType[];
+  isUnitsLoading: boolean;
+  errorUnits: string;
+  unitSelectedRows: UnitType[];
+  currentEditingUnit: UnitType | null;
+  unitSearchFilter: string;
+  // Form
+  isUnitFormOpen: boolean;
+  unitNameForm: string | null;
+  unitStatusForm: boolean | null;
+};
+
+type UnitActionsType = {
+  // Get
+  getUnits: any;
+  getUnitsSuccess: any;
+  getUnitsFailure: any;
+  // Post
+  submitUnitCreationForm: any;
+  submitUnitCreationFormSuccess: any;
+  submitUnitCreationFormFailure: any;
+  // Table
+  setUnitSelectedRows: any;
+  setCurrentEditingUnit: any;
+  setUnitSearchFilter: any;
+  // Form
+  openUnitForm: any;
+  closeUnitForm: any;
+  unitNameFormUpdate: any;
+  unitStatusFormUpdate: any;
+};
+
+type UnitType = {
+  name: string;
+  status: string;
 };
 
 type TabsStateType = {

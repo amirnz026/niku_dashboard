@@ -3,13 +3,13 @@ import { select, Store } from '@ngrx/store';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { ICellRendererParams } from 'ag-grid-community';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { categoryActions } from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
+import { unitActions } from 'src/app/ngrx/inventory-management/inventoryManagement.actions';
 import { Observable } from 'rxjs';
-import { currentEditingCategorySelector } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { InventoryManagementService } from 'src/app/services/inventory-management/inventory-management.service';
+import { currentEditingUnitSelector } from 'src/app/ngrx/inventory-management/inventoryManagement.selectors';
 @Component({
-  selector: 'app-category-actions-cell',
+  selector: 'app-unit-actions-cell',
   template: `<form class="container" [formGroup]="actionsForm" #form>
     <button
       pButton
@@ -22,7 +22,7 @@ import { InventoryManagementService } from 'src/app/services/inventory-managemen
     ></button>
 
     <p-toggleButton
-      [ngModel]="this.data.name === (currentEditingCategory$ | async)?.name"
+      [ngModel]="this.data.name === (currentEditingUnit$ | async)?.name"
       onIcon="pi pi-file-edit"
       class="p-button-rounded p-button-warning"
       offIcon="pi pi-file-edit"
@@ -55,13 +55,13 @@ import { InventoryManagementService } from 'src/app/services/inventory-managemen
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CategoryActionsCellComponent
+export class UnitActionsCellComponent
   implements OnInit, ICellRendererAngularComp
 {
   data: any;
   status: boolean;
   public params!: ICellRendererParams;
-  currentEditingCategory$: Observable<CategoryType | null>;
+  currentEditingUnit$: Observable<UnitType | null>;
   actionsForm: FormGroup;
 
   get editToggle() {
@@ -84,8 +84,8 @@ export class CategoryActionsCellComponent
   }
 
   ngOnInit(): void {
-    this.currentEditingCategory$ = this.store.pipe(
-      select(currentEditingCategorySelector)
+    this.currentEditingUnit$ = this.store.pipe(
+      select(currentEditingUnitSelector)
     );
 
     this.actionsForm = this.fb.group({
@@ -101,7 +101,7 @@ export class CategoryActionsCellComponent
           summary: 'حذف آیتم',
           detail: `درخواست حذف آیتم "${this.data.name}" ارسال شد.`,
         });
-        this.imService.postSubmitCategoryCreationForm().subscribe((val) => {
+        this.imService.postSubmitUnitCreationForm().subscribe((val) => {
           this.messageService.add({
             severity: 'success',
             summary: 'حذف آیتم',
@@ -117,30 +117,21 @@ export class CategoryActionsCellComponent
 
   onEdit() {
     if (!this.actionsForm.value.editToggle) {
-      this.store.dispatch(
-        categoryActions.setCurrentEditingCategory({ row: null })
-      );
+      this.store.dispatch(unitActions.setCurrentEditingUnit({ row: null }));
     } else {
-      this.store.dispatch(
-        categoryActions.setCategorySelectedRows({ rows: [] })
-      );
+      this.store.dispatch(unitActions.setUnitSelectedRows({ rows: [] }));
 
       this.store.dispatch(
-        categoryActions.setCurrentEditingCategory({ row: this.data })
+        unitActions.setCurrentEditingUnit({ row: this.data })
       );
       this.store.dispatch(
-        categoryActions.categoryNameFormUpdate({
+        unitActions.unitNameFormUpdate({
           name: this.data.name,
         })
       );
       this.store.dispatch(
-        categoryActions.categoryStatusFormUpdate({
+        unitActions.unitStatusFormUpdate({
           status: this.data.status,
-        })
-      );
-      this.store.dispatch(
-        categoryActions.categoryDescFormUpdate({
-          desc: this.data.desc,
         })
       );
     }

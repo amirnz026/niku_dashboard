@@ -4,6 +4,7 @@ import { map, catchError, mergeMap, of } from 'rxjs';
 import {
   categoryActions,
   inventoryActions,
+  unitActions,
 } from './inventoryManagement.actions';
 import { InventoryManagementService } from 'src/app/services/inventory-management/inventory-management.service';
 
@@ -128,4 +129,40 @@ export class InventoryManagementEffects {
     )
   );
   // Category-End
+
+  // Unit-Start
+  getUnits$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(unitActions.getUnits),
+      mergeMap(() => {
+        return this.inventoryManagementService.getUnits().pipe(
+          map((units) => unitActions.getUnitsSuccess({ items: units })),
+          catchError((error) =>
+            of(unitActions.getUnitsFailure({ error: error.message }))
+          )
+        );
+      })
+    )
+  );
+
+  submitUnitCreationForm$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(unitActions.submitUnitCreationForm),
+      mergeMap(() => {
+        return this.inventoryManagementService
+          .postSubmitUnitCreationForm()
+          .pipe(
+            map(() => unitActions.submitUnitCreationFormSuccess()),
+            catchError((error) =>
+              of(
+                unitActions.submitUnitCreationFormFailure({
+                  error: error.message,
+                })
+              )
+            )
+          );
+      })
+    )
+  );
+  // Unit-End
 }

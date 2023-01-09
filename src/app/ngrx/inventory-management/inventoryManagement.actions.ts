@@ -1,6 +1,5 @@
 import { createAction, props } from '@ngrx/store';
 
-// Inventory-Start
 export const inventoryActions: InventoryActionsType = {
   // Get
   getInventories: createAction('[Inventory] Get Inventories'),
@@ -80,11 +79,8 @@ export const inventoryActions: InventoryActionsType = {
     '[Inventory] Change Inventory Users Form Element',
     props<{ inventoryUsers: string[] }>()
   ),
-
-  // Inventory-End
 };
 
-// Inventory-Start
 export const categoryActions: CategoryActionsType = {
   // Get
   getCategories: createAction('[Category] Get Categories'),
@@ -141,6 +137,56 @@ export const categoryActions: CategoryActionsType = {
     '[Category] Change Category Desc Form Element',
     props<{ desc: string | null }>()
   ),
+};
 
-  // Inventory-End
+export const unitActions: UnitActionsType = {
+  // Get
+  getUnits: createAction('[Unit] Get Units'),
+
+  getUnitsSuccess: createAction(
+    '[Unit] Get Unit Success',
+    props<{ items: UnitType[] }>()
+  ),
+
+  getUnitsFailure: createAction(
+    '[Unit] Get Unit Failure',
+    props<{ error: 'error while fetching Units' }>()
+  ),
+
+  // Post
+  submitUnitCreationForm: createAction('[Unit] Submit Unit Creation Form'),
+
+  submitUnitCreationFormSuccess: createAction(
+    '[Unit] Submit Unit Creation Form Success'
+  ),
+  submitUnitCreationFormFailure: createAction(
+    '[Unit] Submit Unit Creation Form Failure',
+    props<{ error: 'An error occurred while submitting the form' }>()
+  ),
+  // Table
+  setUnitSelectedRows: createAction(
+    '[Unit] Set Unit Selected Rows',
+    props<{ rows: UnitType[] }>()
+  ),
+  setCurrentEditingUnit: createAction(
+    '[Unit] Change Current Editing Row',
+    props<{ row: UnitType | null }>()
+  ),
+  setUnitSearchFilter: createAction(
+    '[Unit] Change Unit Search Field',
+    props<{ input: string }>()
+  ),
+  // Form
+  openUnitForm: createAction('[Unit] Open Unit Form'),
+
+  closeUnitForm: createAction('[Unit] Close Unit Form'),
+
+  unitNameFormUpdate: createAction(
+    '[Unit] Change Unit Name Form Element',
+    props<{ name: string | null }>()
+  ),
+  unitStatusFormUpdate: createAction(
+    '[Unit] Change Unit Status Form Element',
+    props<{ status: boolean }>()
+  ),
 };

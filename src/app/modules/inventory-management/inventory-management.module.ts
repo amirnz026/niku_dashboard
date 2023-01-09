@@ -11,12 +11,13 @@ import { ModalsModule, WidgetsModule } from '../../_metronic/partials';
 // Ag-Grid
 import { AgGridModule } from 'ag-grid-angular';
 import 'ag-grid-enterprise';
-import { InventoryActionsCellComponent } from './basic-information/inventory/inventory-actions-cell.component';
-import { CategoryActionsCellComponent } from './basic-information/category/category-actions-cell.component';
 import { CustomTooltipComponent } from '../ag-grid/tooltip/custom-tooltip.component';
 import { UsersCellComponent } from '../ag-grid/users-cell/users-cell.component';
 import { StatusCellComponent } from '../ag-grid/status-cell/status-cell.component';
 import { GridStyle01Component } from '../ag-grid/grid/grid-style01/grid-style01.component';
+import { InventoryActionsCellComponent } from './basic-information/inventory/inventory-actions-cell.component';
+import { CategoryActionsCellComponent } from './basic-information/category/category-actions-cell.component';
+import { UnitActionsCellComponent } from './basic-information/unit/unit-actions-cell.component';
 // Utils
 import { NgxPrintModule } from 'ngx-print';
 import { FormValidationErrorComponent } from '../partials/form-validation-error/form-validation-error.component';
@@ -48,8 +49,8 @@ import { InventoryComponent } from './basic-information/inventory/inventory.comp
 import { PrintTableComponent } from 'src/app/modules/partials/print-table/print-table.component';
 import { MaterialComponent } from './basic-information/material/material.component';
 import { ProductComponent } from './basic-information/product/product.component';
-import { UnitComponent } from './basic-information/unit/unit.component';
 import { CategoryComponent } from './basic-information/category/category.component';
+import { UnitComponent } from './basic-information/unit/unit.component';
 // Icons
 
 @NgModule({
@@ -65,10 +66,11 @@ import { CategoryComponent } from './basic-information/category/category.compone
     UsersCellComponent,
     StatusCellComponent,
     GridStyle01Component,
-    InventoryActionsCellComponent,
-    CategoryActionsCellComponent,
     CustomTooltipComponent,
     FormValidationErrorComponent,
+    InventoryActionsCellComponent,
+    CategoryActionsCellComponent,
+    UnitActionsCellComponent,
   ],
   imports: [
     // Angular
