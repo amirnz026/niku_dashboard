@@ -26,7 +26,7 @@ export class InventoryManagementService {
     return of(inventoryUsers).pipe(delay(0));
   }
   postSubmitInventoryCreationForm(): Observable<boolean> {
-    return of(true).pipe(delay(0));
+    return of(true).pipe(delay(3000));
   }
   // Inventory-End
 
@@ -35,7 +35,7 @@ export class InventoryManagementService {
     return of(categories).pipe(delay(0));
   }
   postSubmitCategoryCreationForm(): Observable<boolean> {
-    return of(true).pipe(delay(0));
+    return of(true).pipe(delay(3000));
   }
   // Category-End
 }

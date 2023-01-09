@@ -133,7 +133,7 @@ export class CategoryActionsCellComponent
       );
       this.store.dispatch(
         categoryActions.categoryNameFormUpdate({
-          inventoryName: this.data.name,
+          name: this.data.name,
         })
       );
       this.store.dispatch(
@@ -143,7 +143,7 @@ export class CategoryActionsCellComponent
       );
       this.store.dispatch(
         categoryActions.categoryDescFormUpdate({
-          inventoryUsers: this.data.desc,
+          desc: this.data.desc,
         })
       );
     }

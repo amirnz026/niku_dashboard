@@ -154,7 +154,7 @@ export class GridStyle01Component implements OnInit {
   onCellClicked(event: CellClickedEvent) {
     this.currentEditingRow$.subscribe((currentEditingRow) => {
       // Type Narrowing
-      if (event.api.getSelectedRows()[0] && currentEditingRow) {
+      if (event.api.getSelectedRows().length && currentEditingRow) {
         if (currentEditingRow?.name !== event.api.getSelectedRows()[0].name) {
           this.store.dispatch(this.setCurrentEditingMethod({ row: null }));
           this.gridOptions.rowClassRules = {};
