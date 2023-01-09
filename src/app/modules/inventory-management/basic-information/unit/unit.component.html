@@ -72,7 +72,7 @@
         />
         <ng-container *ngIf="isNameFieldError">
           <app-form-validation-error
-            error="نام واحد سنجش بندی نمی تواند خالی باشد"
+            error="نام واحد سنجش نمی تواند خالی باشد"
           ></app-form-validation-error>
         </ng-container>
         <!-- Name-End -->
@@ -85,12 +85,14 @@
             tooltipPosition="left"
           ></i>
         </div>
-        <p-inputSwitch
-          formControlName="status"
-          trueValue="فعال"
-          falseValue="غیر فعال"
-          (ngModelChange)="onChange('status', $event)"
-        ></p-inputSwitch>
+        <div>
+          <p-inputSwitch
+            formControlName="status"
+            trueValue="فعال"
+            falseValue="غیر فعال"
+            (ngModelChange)="onChange('status', $event)"
+          ></p-inputSwitch>
+        </div>
         <!-- Status-End -->
 
         <p-button
