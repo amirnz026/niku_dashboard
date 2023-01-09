@@ -41,6 +41,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { ToolbarModule } from 'primeng/toolbar';
 import { DialogModule } from 'primeng/dialog';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 // Components
 import { InventoryManagementComponent } from './inventory-management.component';
 import { InventoryComponent } from './basic-information/inventory/inventory.component';
@@ -101,6 +102,7 @@ import { CategoryComponent } from './basic-information/category/category.compone
     ToggleButtonModule,
     ToolbarModule,
     DialogModule,
+    InputTextareaModule,
     // Utils
     NgxPrintModule,
   ],

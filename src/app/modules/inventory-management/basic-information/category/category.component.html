@@ -97,16 +97,17 @@
         <!-- Status-End -->
         <!-- Desc-Start -->
         <h5>توضیحات</h5>
-
-        <input
-          type="text"
-          pInputText
+        <textarea
+          [rows]="5"
+          [cols]="30"
+          pInputTextarea
+          [autoResize]="true"
           placeholder="مثال: لورم ایپسوم..."
-          formControlName="desc"
           class="input"
-          tooltipPosition="left"
+          formControlName="desc"
           (ngModelChange)="onChange('desc', $event)"
-        />
+        ></textarea>
+
         <!-- Desc-End -->
         <p-button
           [label]="currentEditing ? 'ویرایش دسته بندی' : 'ایجاد دسته بندی'"
