@@ -13,6 +13,7 @@ import {
   inventoryCategoriesSelector,
   inventoryCategoryFormSelector,
   inventoryNameFormSelector,
+  inventorySearchFilterSelector,
   inventorySelectedRowsCountSelector,
   inventorySelectedRowsSelector,
   inventoryStatusFormSelector,
@@ -120,6 +121,10 @@ export class InventoryComponent implements OnInit {
   isSubmitted = false;
   // Print
   inventorySelectedRowsSelectorMethod: any;
+  // Search-Filter
+  inventorySearchFilter$: Observable<string>;
+  setInventorySearchFilterMethod: any;
+
   get name() {
     return this.inventoryCreationForm.get('name');
   }
@@ -166,6 +171,12 @@ export class InventoryComponent implements OnInit {
     );
     // Print
     this.inventorySelectedRowsSelectorMethod = inventorySelectedRowsSelector;
+    // Search-Filter
+    this.inventorySearchFilter$ = this.store.pipe(
+      select(inventorySearchFilterSelector)
+    );
+    this.setInventorySearchFilterMethod =
+      inventoryActions.setInventorySearchFilter;
     // Get Selected/Editing Rows
     this.inventorySelectedRows$ = this.store.pipe(
       select(inventorySelectedRowsSelector)

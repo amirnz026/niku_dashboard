@@ -18,7 +18,7 @@ import {
   SelectionChangedEvent,
 } from 'ag-grid-community/dist/lib/events';
 import { AG_GRID_LOCALE_FA } from 'src/app/language/persian/ag-grid/AG_GRID_LOCALE_FA';
-import { Store } from '@ngrx/store';
+import { Action, ActionType, Store } from '@ngrx/store';
 import { CustomTooltipComponent } from 'src/app/modules/ag-grid/tooltip/custom-tooltip.component';
 import { LoadingOverlayComponent } from '../../loading-overlay/loading-overlay.component';
 
@@ -48,6 +48,9 @@ export class GridStyle01Component implements OnInit {
   @Input() setCurrentEditingMethod: Function;
   // Print
   @Input() pageSelectedRowsSelectorMethod: any;
+  // Search-Filter
+  @Input() pageSearchFilter: Observable<string>;
+  @Input() setPageSearchFilterMethod: any;
 
   // Ag-grid
   gridApi: GridApi;
@@ -111,6 +114,7 @@ export class GridStyle01Component implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Table
     this.gridOptions = {
       onGridReady: (event) => {},
       getRowHeight: (params) => 60,
@@ -146,7 +150,7 @@ export class GridStyle01Component implements OnInit {
             else return true;
           },
         };
-        this.gridApi.deselectAll();
+        this.gridApi?.deselectAll();
       } else {
         this.gridOptions.rowClassRules = {};
       }
@@ -176,11 +180,19 @@ export class GridStyle01Component implements OnInit {
       }
     });
     this.selectRowsFromState();
+    // Table-Search-Filter-Start
+    this.pageSearchFilter.subscribe((search: string) => {
+      this.gridApi.setQuickFilter(search);
+    });
+    // Table-Search-Filter-End
   }
 
   onFilterTextBoxChanged() {
-    this.gridApi.setQuickFilter(
-      (document.getElementById('filter-text-box') as HTMLInputElement).value
+    this.store.dispatch(
+      this.setPageSearchFilterMethod({
+        input: (document.getElementById('filter-text-box') as HTMLInputElement)
+          .value,
+      })
     );
   }
   openCreationForm(): void {

@@ -19,6 +19,7 @@ import {
   categoriesSelector,
   categoryDescFormSelector,
   categoryNameFormSelector,
+  categorySearchFilterSelector,
   categorySelectedRowsCountSelector,
   categorySelectedRowsSelector,
   categoryStatusFormSelector,
@@ -102,6 +103,9 @@ export class CategoryComponent implements OnInit {
   isSubmitted = false;
   // Print
   categorySelectedRowsSelectorMethod: any;
+  // Search-Filter
+  categorySearchFilter$: Observable<string>;
+  setCategorySearchFilterMethod: any;
 
   get name() {
     return this.categoryCreationForm.get('name');
@@ -132,6 +136,12 @@ export class CategoryComponent implements OnInit {
     );
     // Print
     this.categorySelectedRowsSelectorMethod = categorySelectedRowsSelector;
+    // Search-Filter
+    this.categorySearchFilter$ = this.store.pipe(
+      select(categorySearchFilterSelector)
+    );
+    this.setCategorySearchFilterMethod =
+      categoryActions.setCategorySearchFilter;
     // Get Selected/Editing Rows
     this.categorySelectedRows$ = this.store.pipe(
       select(categorySelectedRowsSelector)

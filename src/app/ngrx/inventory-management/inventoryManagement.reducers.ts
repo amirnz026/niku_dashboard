@@ -13,6 +13,7 @@ export const initialState: InventoryManagementStateType = {
     errorInventories: '',
     inventorySelectedRows: [],
     currentEditingInventory: null,
+    inventorySearchFilter: '',
     // Form
     isInventoryFormOpen: false,
     inventoryNameForm: null,
@@ -34,6 +35,7 @@ export const initialState: InventoryManagementStateType = {
     errorCategories: '',
     categorySelectedRows: [],
     currentEditingCategory: null,
+    categorySearchFilter: '',
     // Form
     isCategoryFormOpen: false,
     categoryNameForm: null,
@@ -86,6 +88,9 @@ export const inventoryManagementReducers = createReducer(
   immerOn(inventoryActions.setCurrentEditingInventory, (state, action) => {
     state.inventoryPage.currentEditingInventory = action.row;
   }),
+  immerOn(inventoryActions.setInventorySearchFilter, (state, action) => {
+    state.inventoryPage.inventorySearchFilter = action.input;
+  }),
   // Form
   immerOn(inventoryActions.openInventoryForm, (state) => {
     state.inventoryPage.isInventoryFormOpen = true;
@@ -132,6 +137,9 @@ export const inventoryManagementReducers = createReducer(
   }),
   immerOn(categoryActions.setCurrentEditingCategory, (state, action) => {
     state.categoryPage.currentEditingCategory = action.row;
+  }),
+  immerOn(categoryActions.setCategorySearchFilter, (state, action) => {
+    state.categoryPage.categorySearchFilter = action.input;
   }),
   // Form
   immerOn(categoryActions.openCategoryForm, (state) => {

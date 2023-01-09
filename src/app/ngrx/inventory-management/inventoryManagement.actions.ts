@@ -55,6 +55,10 @@ export const inventoryActions: InventoryActionsType = {
     '[Inventory] Change Current Editing Row',
     props<{ row: InventoryType | null }>()
   ),
+  setInventorySearchFilter: createAction(
+    '[Inventory] Change Inventory Search Field',
+    props<{ input: string | null }>()
+  ),
   // Form
   openInventoryForm: createAction('[Inventory] Open Inventory Form'),
 
@@ -115,6 +119,10 @@ export const categoryActions: CategoryActionsType = {
   setCurrentEditingCategory: createAction(
     '[Category] Change Current Editing Row',
     props<{ row: CategoryType | null }>()
+  ),
+  setCategorySearchFilter: createAction(
+    '[Category] Change Category Search Field',
+    props<{ input: string }>()
   ),
   // Form
   openCategoryForm: createAction('[Category] Open Category Form'),

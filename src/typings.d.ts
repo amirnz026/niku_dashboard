@@ -17,6 +17,7 @@ type InventoryPageStateType = {
   errorInventories: string;
   inventorySelectedRows: InventoryType[];
   currentEditingInventory: InventoryType | null;
+  inventorySearchFilter: string;
   // Form
   isInventoryFormOpen: boolean;
   inventoryNameForm: string | null;
@@ -39,6 +40,7 @@ type CategoryPageStateType = {
   errorCategories: string;
   categorySelectedRows: CategoryType[];
   currentEditingCategory: CategoryType | null;
+  categorySearchFilter: string;
   // Form
   isCategoryFormOpen: boolean;
   categoryNameForm: string | null;
@@ -63,6 +65,7 @@ type InventoryActionsType = {
   // Table
   setInventorySelectedRows: any;
   setCurrentEditingInventory: any;
+  setInventorySearchFilter: any;
   // Form
   openInventoryForm: any;
   closeInventoryForm: any;
@@ -91,6 +94,7 @@ type CategoryActionsType = {
   // Table
   setCategorySelectedRows: any;
   setCurrentEditingCategory: any;
+  setCategorySearchFilter: any;
   // Form
   openCategoryForm: any;
   closeCategoryForm: any;

@@ -16,6 +16,7 @@
         pInputText
         placeholder="فیلتر..."
         [pTooltip]="'فیلتر جدول'"
+        [value]="pageSearchFilter | async"
         tooltipPosition="top"
         (input)="onFilterTextBoxChanged()"
         id="filter-text-box"
