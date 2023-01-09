@@ -43,18 +43,18 @@ import { DialogModule } from 'primeng/dialog';
 // Components
 import { InventoryManagementComponent } from './inventory-management.component';
 import { InventoryComponent } from './basic-information/inventory/inventory.component';
-import { GroupComponent } from './basic-information/group/group.component';
 import { PrintTableComponent } from 'src/app/modules/partials/print-table/print-table.component';
 import { MaterialComponent } from './basic-information/material/material.component';
 import { ProductComponent } from './basic-information/product/product.component';
 import { UnitComponent } from './basic-information/unit/unit.component';
+import { CategoryComponent } from './basic-information/category/category.component';
 // Icons
 
 @NgModule({
   declarations: [
     InventoryManagementComponent,
     InventoryComponent,
-    GroupComponent,
+    CategoryComponent,
     ProductComponent,
     UnitComponent,
     MaterialComponent,

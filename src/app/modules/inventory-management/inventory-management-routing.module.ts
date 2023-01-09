@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { GroupComponent } from './basic-information/group/group.component';
+import { CategoryComponent } from './basic-information/category/category.component';
 import { InventoryComponent } from './basic-information/inventory/inventory.component';
 import { MaterialComponent } from './basic-information/material/material.component';
 import { ProductComponent } from './basic-information/product/product.component';
@@ -27,7 +27,7 @@ const routes: Routes = [
       },
       { path: 'product', component: ProductComponent },
       { path: 'material', component: MaterialComponent },
-      { path: 'group', component: GroupComponent },
+      { path: 'category', component: CategoryComponent },
       { path: 'unit', component: UnitComponent },
 
       // Operations

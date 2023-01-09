@@ -130,7 +130,6 @@ export class GridStyle01Component implements OnInit {
       sortable: true,
       filter: true,
       tooltipComponent: CustomTooltipComponent,
-      tooltipComponentParams: { color: 'red' },
       autoHeight: true,
       cellStyle: {
         overflow: 'hidden',
