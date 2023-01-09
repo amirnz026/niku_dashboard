@@ -29,7 +29,7 @@ import { InventoryManagementService } from 'src/app/services/inventory-managemen
 import { ConfirmationService, MessageService } from 'primeng/api';
 // Ag-Grid
 import { ColDef } from 'ag-grid-community';
-import { ActionsCellComponent } from 'src/app/modules/ag-grid/actions-cell/actions-cell.component';
+import { ActionsCellComponent } from 'src/app/modules/inventory-management/basic-information/inventory/inventory-actions-cell.component';
 import { UsersCellComponent } from 'src/app/modules/ag-grid/users-cell/users-cell.component';
 import { StatusCellComponent } from 'src/app/modules/ag-grid/status-cell/status-cell.component';
 

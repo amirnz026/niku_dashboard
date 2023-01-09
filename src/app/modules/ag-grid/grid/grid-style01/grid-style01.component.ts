@@ -154,13 +154,13 @@ export class GridStyle01Component implements OnInit {
   }
   onCellClicked(event: CellClickedEvent) {
     this.currentEditingRow$.subscribe((currentEditingRow) => {
-      if (
-        currentEditingRow &&
-        currentEditingRow?.name !== event.api.getSelectedRows()[0].name
-      ) {
-        this.store.dispatch(this.setCurrentEditingMethod({ row: null }));
-        this.gridOptions.rowClassRules = {};
-        this.gridApi.redrawRows();
+      // Type Narrowing
+      if (event.api.getSelectedRows()[0] && currentEditingRow) {
+        if (currentEditingRow?.name !== event.api.getSelectedRows()[0].name) {
+          this.store.dispatch(this.setCurrentEditingMethod({ row: null }));
+          this.gridOptions.rowClassRules = {};
+          this.gridApi.redrawRows();
+        }
       }
     });
   }

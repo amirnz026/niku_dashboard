@@ -10,8 +10,49 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { InventoryManagementService } from 'src/app/services/inventory-management/inventory-management.service';
 @Component({
   selector: 'app-actions-cell',
-  templateUrl: './actions-cell.component.html',
-  styleUrls: ['./actions-cell.component.scss'],
+  template: `<form class="container" [formGroup]="actionsForm" #form>
+    <button
+      pButton
+      pRipple
+      type="button"
+      class="p-button-rounded p-button-danger p-button-outlined"
+      icon="pi pi-trash"
+      (click)="onDelete()"
+      pTooltip="حذف آیتم"
+    ></button>
+
+    <p-toggleButton
+      [ngModel]="this.data.name === (currentEditingInventory$ | async)?.name"
+      onIcon="pi pi-file-edit"
+      class="p-button-rounded p-button-warning"
+      offIcon="pi pi-file-edit"
+      pTooltip="ویرایش آیتم"
+      (click)="onEdit()"
+      formControlName="editToggle"
+    ></p-toggleButton>
+  </form> `,
+  styles: [
+    `
+      .container {
+        display: flex;
+        gap: 1rem;
+      }
+      button {
+        height: 3rem;
+        gap: 0.5rem;
+      }
+
+      :host ::ng-deep .p-button {
+        padding-inline-start: 0.4rem;
+      }
+
+      :host ::ng-deep .p-togglebutton {
+        height: 3rem;
+        border-radius: 2rem;
+        padding-inline-start: 0.8rem;
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ActionsCellComponent implements OnInit, ICellRendererAngularComp {
