@@ -33,6 +33,7 @@ import { ColDef } from 'ag-grid-community';
 import { InventoryActionsCellComponent } from 'src/app/modules/inventory-management/basic-information/inventory/inventory-actions-cell.component';
 import { UsersCellComponent } from 'src/app/modules/ag-grid/users-cell/users-cell.component';
 import { StatusCellComponent } from 'src/app/modules/ag-grid/status-cell/status-cell.component';
+import { CustomTooltipComponent } from 'src/app/modules/ag-grid/tooltip/custom-tooltip.component';
 
 @Component({
   selector: 'app-inventory',
@@ -86,6 +87,7 @@ export class InventoryComponent implements OnInit {
       headerName: 'کاربران',
       field: 'users',
       cellRenderer: UsersCellComponent,
+      tooltipComponent: CustomTooltipComponent,
       tooltipField: 'users',
       flex: 1,
       minWidth: 100,

@@ -30,7 +30,9 @@
       <div class="header">
         <div class="header-right">
           <h3>
-            {{ currentEditing ? "ویرایش دسته بندی" : "دسته بندی جدید" }}
+            {{
+              currentEditing ? "ویرایش دسته بندی انبار" : "دسته بندی انبار جدید"
+            }}
           </h3>
           <div
             class="redo"
@@ -59,7 +61,7 @@
         #form
       >
         <!-- Name-Start -->
-        <h5>نام دسته بندی</h5>
+        <h5>نام دسته بندی انبار</h5>
 
         <input
           type="text"
@@ -75,7 +77,7 @@
         />
         <ng-container *ngIf="isNameFieldError">
           <app-form-validation-error
-            error="نام دسته بندی نمی تواند خالی باشد"
+            error="نام دسته بندی انبار نمی تواند خالی باشد"
           ></app-form-validation-error>
         </ng-container>
         <!-- Name-End -->
@@ -84,7 +86,7 @@
           <h5>فعال</h5>
           <i
             class="pi pi-question-circle"
-            [pTooltip]="'وضعیت دسته بندی'"
+            [pTooltip]="'وضعیت دسته بندی انبار'"
             tooltipPosition="left"
           ></i>
         </div>
@@ -110,7 +112,9 @@
 
         <!-- Desc-End -->
         <p-button
-          [label]="currentEditing ? 'ویرایش دسته بندی' : 'ایجاد دسته بندی'"
+          [label]="
+            currentEditing ? 'ویرایش دسته بندی انبار' : 'ایجاد دسته بندی انبار'
+          "
           [loading]="false"
           type="submit"
           [disabled]="!isRowEdited(currentEditing)"

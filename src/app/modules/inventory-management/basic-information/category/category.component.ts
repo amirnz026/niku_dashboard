@@ -46,7 +46,7 @@ export class CategoryComponent implements OnInit {
   ) {}
   categoryActions = categoryActions;
   // Navigation
-  tabName = 'دسته بندی';
+  tabName = 'دسته بندی انبار';
   tabRoute = '/inventory-management/category';
   // Table
   categories$: Observable<any[]>;
@@ -56,7 +56,7 @@ export class CategoryComponent implements OnInit {
   categorySelectedRowsCount$: Observable<number>;
   colDefs: ColDef[] = [
     {
-      headerName: 'نام دسته بندی',
+      headerName: 'نام دسته بندی انبار',
       field: 'name',
       headerCheckboxSelection: true,
       checkboxSelection: true,
