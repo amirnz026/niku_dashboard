@@ -11,7 +11,8 @@ import { ModalsModule, WidgetsModule } from '../../_metronic/partials';
 // Ag-Grid
 import { AgGridModule } from 'ag-grid-angular';
 import 'ag-grid-enterprise';
-import { ActionsCellComponent } from './basic-information/inventory/inventory-actions-cell.component';
+import { InventoryActionsCellComponent } from './basic-information/inventory/inventory-actions-cell.component';
+import { CategoryActionsCellComponent } from './basic-information/category/category-actions-cell.component';
 import { CustomTooltipComponent } from '../ag-grid/tooltip/custom-tooltip.component';
 import { UsersCellComponent } from '../ag-grid/users-cell/users-cell.component';
 import { StatusCellComponent } from '../ag-grid/status-cell/status-cell.component';
@@ -63,7 +64,8 @@ import { CategoryComponent } from './basic-information/category/category.compone
     UsersCellComponent,
     StatusCellComponent,
     GridStyle01Component,
-    ActionsCellComponent,
+    InventoryActionsCellComponent,
+    CategoryActionsCellComponent,
     CustomTooltipComponent,
     FormValidationErrorComponent,
   ],

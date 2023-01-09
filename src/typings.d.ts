@@ -7,6 +7,7 @@ type AppStateType = {
 
 interface InventoryManagementStateType {
   inventoryPage: InventoryPageStateType;
+  categoryPage: CategoryPageStateType;
 }
 
 type InventoryPageStateType = {
@@ -30,6 +31,19 @@ type InventoryPageStateType = {
   isInventoryUsersLoading: boolean;
   errorInventoryUsers: string;
   inventoryUsersForm: string[];
+};
+type CategoryPageStateType = {
+  // Table
+  categories: CategoryType[];
+  isCategoriesLoading: boolean;
+  errorCategories: string;
+  categorySelectedRows: CategoryType[];
+  currentEditingCategory: CategoryType | null;
+  // Form
+  isCategoryFormOpen: boolean;
+  categoryNameForm: string | null;
+  categoryStatusForm: boolean | null;
+  categoryDescForm: string | null;
 };
 
 type InventoryActionsType = {
@@ -63,6 +77,32 @@ type InventoryType = {
   category: string;
   status: string;
   users: string[];
+};
+
+type CategoryActionsType = {
+  // Get
+  getCategories: any;
+  getCategoriesSuccess: any;
+  getCategoriesFailure: any;
+  // Post
+  submitCategoryCreationForm: any;
+  submitCategoryCreationFormSuccess: any;
+  submitCategoryCreationFormFailure: any;
+  // Table
+  setCategorySelectedRows: any;
+  setCurrentEditingCategory: any;
+  // Form
+  openCategoryForm: any;
+  closeCategoryForm: any;
+  categoryNameFormUpdate: any;
+  categoryStatusFormUpdate: any;
+  categoryDescFormUpdate: any;
+};
+
+type CategoryType = {
+  name: string;
+  status: string;
+  desc: string;
 };
 
 type TabsStateType = {

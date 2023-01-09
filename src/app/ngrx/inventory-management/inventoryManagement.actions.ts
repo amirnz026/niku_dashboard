@@ -1,8 +1,8 @@
 import { createAction, props } from '@ngrx/store';
 
 // Inventory-Start
-// Get
 export const inventoryActions: InventoryActionsType = {
+  // Get
   getInventories: createAction('[Inventory] Get Inventories'),
 
   getInventoriesSuccess: createAction(
@@ -75,6 +75,63 @@ export const inventoryActions: InventoryActionsType = {
   inventoryUsersFormUpdate: createAction(
     '[Inventory] Change Inventory Users Form Element',
     props<{ inventoryUsers: string[] }>()
+  ),
+
+  // Inventory-End
+};
+
+// Inventory-Start
+export const categoryActions: CategoryActionsType = {
+  // Get
+  getCategories: createAction('[Category] Get Categories'),
+
+  getCategoriesSuccess: createAction(
+    '[Category] Get Category Success',
+    props<{ items: CategoryType[] }>()
+  ),
+
+  getCategoriesFailure: createAction(
+    '[Category] Get Category Failure',
+    props<{ error: 'error while fetching categories' }>()
+  ),
+
+  // Post
+  submitCategoryCreationForm: createAction(
+    '[Category] Submit Category Creation Form'
+  ),
+
+  submitCategoryCreationFormSuccess: createAction(
+    '[Category] Submit Category Creation Form Success'
+  ),
+  submitCategoryCreationFormFailure: createAction(
+    '[Category] Submit Category Creation Form Failure',
+    props<{ error: 'An error occurred while submitting the form' }>()
+  ),
+  // Table
+  setCategorySelectedRows: createAction(
+    '[Category] Set Category Selected Rows',
+    props<{ rows: CategoryType[] }>()
+  ),
+  setCurrentEditingCategory: createAction(
+    '[Category] Change Current Editing Row',
+    props<{ row: CategoryType | null }>()
+  ),
+  // Form
+  openCategoryForm: createAction('[Category] Open Category Form'),
+
+  closeCategoryForm: createAction('[Category] Close Category Form'),
+
+  categoryNameFormUpdate: createAction(
+    '[Category] Change Category Name Form Element',
+    props<{ name: string | null }>()
+  ),
+  categoryStatusFormUpdate: createAction(
+    '[Category] Change Category Status Form Element',
+    props<{ status: boolean }>()
+  ),
+  categoryDescFormUpdate: createAction(
+    '[Category] Change Category Desc Form Element',
+    props<{ desc: string | null }>()
   ),
 
   // Inventory-End

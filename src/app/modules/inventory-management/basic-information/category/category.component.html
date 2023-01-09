@@ -1,0 +1,130 @@
+<!-- Popups-Start -->
+
+<p-dialog
+  header="خطا"
+  [(visible)]="isErrorModal"
+  [modal]="true"
+  [draggable]="true"
+  [resizable]="true"
+>
+  {{ errorModalText }}
+  <ng-template pTemplate="footer">
+    <p-button
+      icon="pi pi-check"
+      (click)="isErrorModal = false"
+      label="باشه"
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+</p-dialog>
+<p-toast position="top-left"></p-toast>
+<!-- Popups-End -->
+
+<div class="i-container">
+  <ng-container *ngrxLet="currentEditingCategory$ as currentEditing">
+    <!-- Form-Start -->
+    <div
+      *ngIf="(isCategoryFormOpen$ | async) || currentEditing"
+      class="card form"
+    >
+      <div class="header">
+        <div class="header-right">
+          <h3>
+            {{ currentEditing ? "ویرایش دسته بندی" : "دسته بندی جدید" }}
+          </h3>
+          <div
+            class="redo"
+            [pTooltip]="'باز نشاندن فرم'"
+            tooltipPosition="top"
+            (click)="onAgain()"
+          >
+            <p>مجدد</p>
+            <i class="pi pi-refresh"></i>
+          </div>
+        </div>
+        <i
+          (click)="closeForm()"
+          class="pi pi-times"
+          [pTooltip]="'بستن فرم'"
+          tooltipPosition="top"
+        ></i>
+      </div>
+      <form
+        [formGroup]="categoryCreationForm"
+        (ngSubmit)="
+          currentEditing
+            ? onSubmitEdit(name?.value, currentEditing.name)
+            : onSubmitCreate(name?.value)
+        "
+        #form
+      >
+        <!-- Name-Start -->
+        <h5>نام دسته بندی</h5>
+
+        <input
+          type="text"
+          pInputText
+          placeholder="مثال: تولید شده"
+          formControlName="name"
+          class="input"
+          tooltipPosition="left"
+          (ngModelChange)="onChange('name', $event)"
+          [ngClass]="{
+            'ng-invalid ng-dirty': isNameFieldError
+          }"
+        />
+        <ng-container *ngIf="isNameFieldError">
+          <app-form-validation-error
+            error="نام دسته بندی نمی تواند خالی باشد"
+          ></app-form-validation-error>
+        </ng-container>
+        <!-- Name-End -->
+        <!-- Status-Start -->
+        <div class="title-container">
+          <h5>فعال</h5>
+          <i
+            class="pi pi-question-circle"
+            [pTooltip]="'وضعیت دسته بندی'"
+            tooltipPosition="left"
+          ></i>
+        </div>
+        <p-inputSwitch
+          formControlName="status"
+          trueValue="فعال"
+          falseValue="غیر فعال"
+          (ngModelChange)="onChange('status', $event)"
+        ></p-inputSwitch>
+        <!-- Status-End -->
+        <p-button
+          [label]="currentEditing ? 'ویرایش دسته بندی' : 'ایجاد دسته بندی'"
+          [loading]="false"
+          type="submit"
+          [disabled]="!isRowEdited(currentEditing)"
+          [pTooltip]="
+            !isRowEdited(currentEditing)
+              ? 'لطفا حداقل یک فیلد را تغییر دهید.'
+              : ''
+          "
+          tooltipPosition="left"
+        ></p-button>
+      </form>
+    </div>
+    <!-- Form-End -->
+  </ng-container>
+
+  <app-grid-style01
+    class="table-container"
+    [rowInputData]="categories$ | async"
+    [colInputDefs]="colDefs"
+    [pageName]="'category'"
+    [isLoading]="isCategoriesLoading$ | async"
+    [columnKeys]="['name', 'status', 'desc']"
+    [gridSelectedRows]="categorySelectedRows$ | async"
+    [isGridLoading$]="isCategoriesLoading$"
+    [currentEditingRow$]="currentEditingCategory$"
+    [openFormMethod]="categoryActions.openCategoryForm"
+    [refreshPageMethods]="[categoryActions.getCategories]"
+    [setCurrentEditingMethod]="categoryActions.setCurrentEditingCategory"
+    [onSelectionChangedMethod]="categoryActions.setCategorySelectedRows"
+  ></app-grid-style01>
+</div>

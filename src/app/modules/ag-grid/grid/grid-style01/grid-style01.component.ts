@@ -39,8 +39,8 @@ export class GridStyle01Component implements OnInit {
   @Input() pageName: string;
   @Input() isLoading: boolean | null;
   @Input() columnKeys: string[];
-  @Input() currentEditingRow$: Observable<InventoryType | null>;
-  @Input() gridSelectedRows: InventoryType[] | null;
+  @Input() currentEditingRow$: Observable<InventoryType | CategoryType | null>;
+  @Input() gridSelectedRows: InventoryType[] | CategoryType[] | null;
   @Input() isGridLoading$: Observable<boolean | null>;
   @Input() openFormMethod: Function;
   @Input() refreshPageMethods: Function[];

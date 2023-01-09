@@ -29,7 +29,7 @@ import { InventoryManagementService } from 'src/app/services/inventory-managemen
 import { ConfirmationService, MessageService } from 'primeng/api';
 // Ag-Grid
 import { ColDef } from 'ag-grid-community';
-import { ActionsCellComponent } from 'src/app/modules/inventory-management/basic-information/inventory/inventory-actions-cell.component';
+import { InventoryActionsCellComponent } from 'src/app/modules/inventory-management/basic-information/inventory/inventory-actions-cell.component';
 import { UsersCellComponent } from 'src/app/modules/ag-grid/users-cell/users-cell.component';
 import { StatusCellComponent } from 'src/app/modules/ag-grid/status-cell/status-cell.component';
 
@@ -92,7 +92,7 @@ export class InventoryComponent implements OnInit {
     {
       headerName: 'عملیات',
       field: 'actions',
-      cellRenderer: ActionsCellComponent,
+      cellRenderer: InventoryActionsCellComponent,
       resizable: false,
       width: 140,
       autoHeight: false,

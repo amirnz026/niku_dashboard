@@ -1,15 +1,21 @@
 import { Injectable } from '@angular/core';
 import { delay, Observable, of } from 'rxjs';
 import {
+  // Inventory-Start
   inventories,
   inventoryCategories,
   inventoryUsers,
+  // Inventory-End
+  // Category-Start
+  categories,
+  // Category-End
 } from 'src/app/_fake/mockData';
 
 @Injectable({
   providedIn: 'root',
 })
 export class InventoryManagementService {
+  // Inventory-Start
   getInventories(): Observable<InventoryType[]> {
     return of(inventories).pipe(delay(1000));
   }
@@ -22,4 +28,14 @@ export class InventoryManagementService {
   postSubmitInventoryCreationForm(): Observable<boolean> {
     return of(true).pipe(delay(3000));
   }
+  // Inventory-End
+
+  // Category-Start
+  getCategories(): Observable<CategoryType[]> {
+    return of(categories).pipe(delay(0));
+  }
+  postSubmitCategoryCreationForm(): Observable<boolean> {
+    return of(true).pipe(delay(3000));
+  }
+  // Category-End
 }

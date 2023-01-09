@@ -3,6 +3,10 @@ import { createSelector } from '@ngrx/store';
 export const selectInventoryPageFeature = (state: AppStateType) =>
   state.inventoryManagement.inventoryPage;
 
+export const selectCategoryPageFeature = (state: AppStateType) =>
+  state.inventoryManagement.categoryPage;
+
+// Inventory-Selectors-Start
 export const inventoriesSelector = createSelector(
   selectInventoryPageFeature,
   (state) => state.inventories
@@ -63,3 +67,46 @@ export const currentEditingInventorySelector = createSelector(
   selectInventoryPageFeature,
   (state) => state.currentEditingInventory
 );
+// Inventory-Selectors-End
+
+// Category-Selectors-Start
+export const categoriesSelector = createSelector(
+  selectCategoryPageFeature,
+  (state) => state.categories
+);
+export const isCategoriesLoadingSelector = createSelector(
+  selectCategoryPageFeature,
+  (state) => state.isCategoriesLoading
+);
+
+export const isCategoryFormOpenSelector = createSelector(
+  selectCategoryPageFeature,
+  (state) => state.isCategoryFormOpen
+);
+
+export const categoryNameFormSelector = createSelector(
+  selectCategoryPageFeature,
+  (state) => state.categoryNameForm
+);
+export const categoryStatusFormSelector = createSelector(
+  selectCategoryPageFeature,
+  (state) => state.categoryStatusForm
+);
+export const categoryDescFormSelector = createSelector(
+  selectCategoryPageFeature,
+  (state) => state.categoryDescForm
+);
+export const categorySelectedRowsSelector = createSelector(
+  selectCategoryPageFeature,
+  (state) => state.categorySelectedRows
+);
+export const categorySelectedRowsCountSelector = createSelector(
+  selectCategoryPageFeature,
+  (state) => state.categorySelectedRows.length
+);
+
+export const currentEditingCategorySelector = createSelector(
+  selectCategoryPageFeature,
+  (state) => state.currentEditingCategory
+);
+// Category-Selectors-End

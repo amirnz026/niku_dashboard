@@ -55,7 +55,7 @@ import { InventoryManagementService } from 'src/app/services/inventory-managemen
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InventoryActionsCellComponent
+export class CategoryActionsCellComponent
   implements OnInit, ICellRendererAngularComp
 {
   data: any;

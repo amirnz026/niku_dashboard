@@ -1,0 +1,107 @@
+i {
+  cursor: pointer;
+  color: #5e6278;
+}
+
+.i-container {
+  display: flex;
+  gap: 2rem;
+
+  .card {
+    padding: 0.5rem 1rem 1rem 1rem;
+    width: 90%;
+    height: 100%;
+    margin: 0 auto;
+  }
+  .form {
+    flex: 1;
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 0.5rem 0.5rem 0;
+      .header-right {
+        display: flex;
+        gap: 1rem;
+        .redo {
+          display: flex;
+          justify-content: center;
+          color: #3b82f6;
+          gap: 0.2rem;
+          cursor: pointer;
+          i {
+            margin-top: 0.3rem;
+            font-size: 0.8em;
+            color: #3b82f6;
+          }
+        }
+      }
+      i {
+        margin-bottom: 1.24rem;
+        margin-inline-end: 0.3rem;
+        cursor: pointer;
+      }
+    }
+    h5 {
+      color: #5e6278;
+      padding: 1rem 0 0.5rem 0;
+    }
+    .input {
+      width: 100%;
+    }
+    .title-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  }
+  .table-container {
+    flex: 4;
+  }
+  app-grid-style01 {
+    width: 100%;
+  }
+}
+// Table
+
+// Primeng
+:host ::ng-deep .p-dropdown {
+  width: 100%;
+}
+:host ::ng-deep .p-multiselect {
+  width: 100%;
+}
+p-button {
+  margin-right: auto;
+  margin-top: 2rem;
+}
+:host ::ng-deep .p-multiselect-header {
+  padding: 1rem 0;
+  gap: 1rem;
+}
+
+:host ::ng-deep .p-multiselect-token-icon {
+  margin-right: 0.5rem;
+}
+
+:host ::ng-deep .p-multiselect-item {
+  gap: 0.5rem;
+}
+
+:host ::ng-deep .p-toast-summary {
+  margin-inline-start: 0.5rem;
+  margin-top: 0.2rem;
+}
+
+@media screen and (max-width: 960px) {
+  button {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .i-container {
+    flex-direction: column;
+  }
+}

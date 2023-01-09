@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { map, catchError, mergeMap, of } from 'rxjs';
-import { inventoryActions } from './inventoryManagement.actions';
+import {
+  categoryActions,
+  inventoryActions,
+} from './inventoryManagement.actions';
 import { InventoryManagementService } from 'src/app/services/inventory-management/inventory-management.service';
 
 @Injectable()
@@ -87,4 +90,42 @@ export class InventoryManagementEffects {
   );
 
   // Inventory-End
+
+  // Category-Start
+  getCategories$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(categoryActions.getCategories),
+      mergeMap(() => {
+        return this.inventoryManagementService.getCategories().pipe(
+          map((categories) =>
+            categoryActions.getCategoriesSuccess({ items: categories })
+          ),
+          catchError((error) =>
+            of(categoryActions.getCategoriesFailure({ error: error.message }))
+          )
+        );
+      })
+    )
+  );
+
+  submitCategoryCreationForm$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(categoryActions.submitCategoryCreationForm),
+      mergeMap(() => {
+        return this.inventoryManagementService
+          .postSubmitCategoryCreationForm()
+          .pipe(
+            map(() => categoryActions.submitCategoryCreationFormSuccess()),
+            catchError((error) =>
+              of(
+                categoryActions.submitCategoryCreationFormFailure({
+                  error: error.message,
+                })
+              )
+            )
+          );
+      })
+    )
+  );
+  // Category-End
 }

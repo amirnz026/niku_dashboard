@@ -1,6 +1,9 @@
-import { createReducer, on } from '@ngrx/store';
+import { ActionReducerMap, createReducer, on } from '@ngrx/store';
 import { immerOn } from 'ngrx-immer/store';
-import { inventoryActions } from './inventoryManagement.actions';
+import {
+  categoryActions,
+  inventoryActions,
+} from './inventoryManagement.actions';
 
 export const initialState: InventoryManagementStateType = {
   inventoryPage: {
@@ -25,7 +28,20 @@ export const initialState: InventoryManagementStateType = {
     errorInventoryUsers: '',
     inventoryUsersForm: [],
   },
+  categoryPage: {
+    categories: [],
+    isCategoriesLoading: false,
+    errorCategories: '',
+    categorySelectedRows: [],
+    currentEditingCategory: null,
+    // Form
+    isCategoryFormOpen: false,
+    categoryNameForm: null,
+    categoryStatusForm: null,
+    categoryDescForm: null,
+  },
 };
+
 export const inventoryManagementReducers = createReducer(
   // Inventory-Start
   // Get
@@ -95,6 +111,49 @@ export const inventoryManagementReducers = createReducer(
   }),
   immerOn(inventoryActions.inventoryUsersFormUpdate, (state, action) => {
     state.inventoryPage.inventoryUsersForm = action.inventoryUsers;
-  })
+  }),
   // Inventory-End
+  // Category-Start
+  // Get
+  immerOn(categoryActions.getCategories, (state) => {
+    state.categoryPage.isCategoriesLoading = true;
+  }),
+  immerOn(categoryActions.getCategoriesSuccess, (state, action) => {
+    state.categoryPage.categories = action.items;
+    state.categoryPage.isCategoriesLoading = false;
+  }),
+  immerOn(categoryActions.getCategoriesFailure, (state, action) => {
+    state.categoryPage.errorCategories = action.error;
+    state.categoryPage.isCategoriesLoading = false;
+  }),
+  // Table
+  immerOn(categoryActions.setCategorySelectedRows, (state, action) => {
+    state.categoryPage.categorySelectedRows = action.rows;
+  }),
+  immerOn(categoryActions.setCurrentEditingCategory, (state, action) => {
+    state.categoryPage.currentEditingCategory = action.row;
+  }),
+  // Form
+  immerOn(categoryActions.openCategoryForm, (state) => {
+    state.categoryPage.isCategoryFormOpen = true;
+    state.categoryPage.currentEditingCategory = null;
+    state.categoryPage.categoryNameForm = '';
+    state.categoryPage.categoryStatusForm = true;
+    state.categoryPage.categoryDescForm = '';
+  }),
+  immerOn(categoryActions.closeCategoryForm, (state) => {
+    state.categoryPage.isCategoryFormOpen = false;
+    state.categoryPage.currentEditingCategory = null;
+  }),
+
+  immerOn(categoryActions.categoryNameFormUpdate, (state, action) => {
+    state.categoryPage.categoryNameForm = action.name;
+  }),
+  immerOn(categoryActions.categoryStatusFormUpdate, (state, action) => {
+    state.categoryPage.categoryStatusForm = action.status;
+  }),
+  immerOn(categoryActions.categoryDescFormUpdate, (state, action) => {
+    state.categoryPage.categoryDescForm = action.desc;
+  })
+  // Category-End
 );
