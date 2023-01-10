@@ -257,7 +257,7 @@ export class UnitComponent implements OnInit {
     }
   }
 
-  onChange(elementType: 'name' | 'status' | 'desc', val: any): void {
+  onChange(elementType: 'name' | 'status', val: any): void {
     if (elementType === 'name') {
       this.store.dispatch(unitActions.unitNameFormUpdate({ name: val }));
     } else if (elementType === 'status') {

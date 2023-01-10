@@ -1,9 +1,14 @@
+// Angular
 import {
   Component,
   OnInit,
   Input,
   ChangeDetectionStrategy,
 } from '@angular/core';
+// NgRx
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+// Ag-Grid
 import {
   ColDef,
   GridApi,
@@ -12,19 +17,19 @@ import {
   ColumnApi,
   GetContextMenuItemsParams,
   MenuItemDef,
+  IDetailCellRendererParams,
 } from 'ag-grid-community';
 import {
   CellClickedEvent,
   SelectionChangedEvent,
 } from 'ag-grid-community/dist/lib/events';
 import { AG_GRID_LOCALE_FA } from 'src/app/language/persian/ag-grid/AG_GRID_LOCALE_FA';
-import { Action, ActionType, Store } from '@ngrx/store';
 import { CustomTooltipComponent } from 'src/app/modules/ag-grid/tooltip/custom-tooltip.component';
 import { LoadingOverlayComponent } from '../../loading-overlay/loading-overlay.component';
-
+// Primeng
 import { ConfirmationService, MessageService } from 'primeng/api';
+// Services
 import { InventoryManagementService } from 'src/app/services/inventory-management/inventory-management.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-grid-style02',
@@ -36,16 +41,18 @@ export class GridStyle02Component implements OnInit {
   langFa = AG_GRID_LOCALE_FA;
   @Input() rowInputData: any[] | null;
   @Input() colInputDefs: ColDef[];
+  @Input() detailCellRendererParams: any;
   @Input() pageName: string;
   @Input() isLoading: boolean | null;
   @Input() columnKeys: string[];
   @Input() currentEditingRow$: Observable<
-    InventoryType | CategoryType | UnitType | null
+    InventoryType | CategoryType | UnitType | ProductType | null
   >;
   @Input() gridSelectedRows:
     | InventoryType[]
     | CategoryType[]
     | UnitType[]
+    | ProductType[]
     | null;
   @Input() isGridLoading$: Observable<boolean | null>;
   @Input() openFormMethod: Function;
@@ -124,6 +131,7 @@ export class GridStyle02Component implements OnInit {
     this.gridOptions = {
       onGridReady: (event) => {},
       getRowHeight: (params) => 60,
+      detailRowAutoHeight: true,
 
       loadingOverlayComponent: LoadingOverlayComponent,
       loadingOverlayComponentParams: {},

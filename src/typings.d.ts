@@ -154,8 +154,8 @@ type ProductPageStateType = {
   products: ProductType[];
   isProductsLoading: boolean;
   errorProducts: string;
-  productSelectedRows: UnitType[];
-  currentEditingProduct: UnitType | null;
+  productSelectedRows: ProductType[];
+  currentEditingProduct: ProductType | null;
   productSearchFilter: string;
   // Form
   isProductFormOpen: boolean;
@@ -185,7 +185,25 @@ type ProductActionsType = {
 
 type ProductType = {
   name: string;
+  category: string;
+  unit: string;
+  prepTime: string;
+  productNumber: string;
+  tags: string[];
+  customizations: string[];
+  productDetails: ProductDetailsType[];
+};
+
+type ProductDetailsType = {
+  salesChannel: string;
+  price: string;
+  discount: string;
+  tax: string;
+  maxPerOrder: string;
+  minQty: string;
+  inventory: string;
   status: string;
+  supplyDate: string;
 };
 
 type TabsStateType = {

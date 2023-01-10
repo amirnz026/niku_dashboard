@@ -87,7 +87,6 @@ export class InventoryComponent implements OnInit {
       headerName: 'کاربران',
       field: 'users',
       cellRenderer: UsersCellComponent,
-      tooltipComponent: CustomTooltipComponent,
       tooltipField: 'users',
       flex: 1,
       minWidth: 100,

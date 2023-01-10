@@ -119,6 +119,7 @@
     class="table-container"
     [rowInputData]="products$ | async"
     [colInputDefs]="colDefs"
+    [detailCellRendererParams]="detailCellRendererParams"
     [pageName]="'unit'"
     [isLoading]="isProductsLoading$ | async"
     [columnKeys]="['name', 'status']"
