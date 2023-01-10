@@ -1,0 +1,40 @@
+.container {
+  background-color: #f6f6f6;
+  border-radius: 0.5rem;
+  height: 5rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  .active {
+    background: #3b82f6;
+  }
+  .inactive {
+    background: #cecece;
+  }
+  .complete {
+    background: #22c55e;
+  }
+  .completeText {
+    color: #22c55e;
+    font-weight: 700;
+  }
+  .circle {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span {
+      margin-top: 0.2rem;
+      color: white;
+    }
+  }
+  .line {
+    height: 0.2rem;
+    width: 1rem;
+  }
+}

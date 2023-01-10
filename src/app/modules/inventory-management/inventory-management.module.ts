@@ -53,6 +53,7 @@ import { MaterialComponent } from './basic-information/material/material.compone
 import { ProductComponent } from './basic-information/product/product.component';
 import { CategoryComponent } from './basic-information/category/category.component';
 import { UnitComponent } from './basic-information/unit/unit.component';
+import { StepperComponent } from '../partials/stepper/stepper.component';
 // Icons
 
 @NgModule({
@@ -63,6 +64,7 @@ import { UnitComponent } from './basic-information/unit/unit.component';
     ProductComponent,
     UnitComponent,
     MaterialComponent,
+    StepperComponent,
     // Ag-Grid
     PrintTableComponent,
     UsersCellComponent,

@@ -21,7 +21,7 @@ import {
 // Utils
 import { isEqual } from 'lodash';
 import { InventoryManagementService } from 'src/app/services/inventory-management/inventory-management.service';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 // Ag-Grid
 import {
   ColDef,
@@ -57,6 +57,12 @@ export class ProductComponent implements OnInit {
   tabName = 'کالا / خدمت';
   tabRoute = '/inventory-management/product';
   // Table
+  items: MenuItem[] = [
+    { label: 'اطلاعات کلی' },
+    { label: 'مواد اولیه' },
+    { label: 'فروش' },
+  ];
+
   products$: Observable<any[]>;
   isProductsLoading$: Observable<boolean>;
   productSelectedRows$: Observable<ProductType[]>;

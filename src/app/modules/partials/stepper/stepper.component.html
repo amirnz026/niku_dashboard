@@ -1,0 +1,54 @@
+<div class="container">
+  <div
+    [ngClass]="{
+      active: productStepperIndex === 0,
+      complete: productStepperIndex >= 1
+    }"
+    class="circle"
+  >
+    <span>1</span>
+  </div>
+  <div
+    [ngClass]="{
+      active: productStepperIndex === 0,
+      completeText: productStepperIndex >= 1
+    }"
+  >
+    اطلاعات کلی
+  </div>
+  <div
+    [ngClass]="{
+      active: productStepperIndex === 0,
+      complete: productStepperIndex >= 1
+    }"
+    class="line"
+  ></div>
+  <div
+    [ngClass]="{
+      inactive: productStepperIndex === 0,
+      active: productStepperIndex === 1,
+      complete: productStepperIndex === 2
+    }"
+    class="circle"
+  >
+    <span>2</span>
+  </div>
+  <div>مواد اولیه</div>
+  <div
+    [ngClass]="{
+      inactive: productStepperIndex === 1,
+      active: productStepperIndex === 2
+    }"
+    class="line"
+  ></div>
+  <div
+    [ngClass]="{
+      inactive: productStepperIndex === 1,
+      active: productStepperIndex === 2
+    }"
+    class="circle"
+  >
+    <span>3</span>
+  </div>
+  <div>فروش</div>
+</div>
