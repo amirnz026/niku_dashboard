@@ -190,3 +190,57 @@ export const unitActions: UnitActionsType = {
     props<{ status: boolean }>()
   ),
 };
+
+export const productActions: ProductActionsType = {
+  // Get
+  getProducts: createAction('[Product] Get Products'),
+
+  getProductsSuccess: createAction(
+    '[Product] Get Product Success',
+    props<{ items: ProductType[] }>()
+  ),
+
+  getProductsFailure: createAction(
+    '[Product] Get Product Failure',
+    props<{ error: 'error while fetching Products' }>()
+  ),
+
+  // Post
+  submitProductCreationForm: createAction(
+    '[Product] Submit Product Creation Form'
+  ),
+
+  submitProductCreationFormSuccess: createAction(
+    '[Product] Submit Product Creation Form Success'
+  ),
+  submitProductCreationFormFailure: createAction(
+    '[Product] Submit Product Creation Form Failure',
+    props<{ error: 'An error occurred while submitting the form' }>()
+  ),
+  // Table
+  setProductSelectedRows: createAction(
+    '[Product] Set Product Selected Rows',
+    props<{ rows: ProductType[] }>()
+  ),
+  setCurrentEditingProduct: createAction(
+    '[Product] Change Current Editing Row',
+    props<{ row: ProductType | null }>()
+  ),
+  setProductSearchFilter: createAction(
+    '[Product] Change Product Search Field',
+    props<{ input: string }>()
+  ),
+  // Form
+  openProductForm: createAction('[Product] Open Product Form'),
+
+  closeProductForm: createAction('[Product] Close Product Form'),
+
+  productNameFormUpdate: createAction(
+    '[Product] Change Product Name Form Element',
+    props<{ name: string | null }>()
+  ),
+  productStatusFormUpdate: createAction(
+    '[Product] Change Product Status Form Element',
+    props<{ status: boolean }>()
+  ),
+};

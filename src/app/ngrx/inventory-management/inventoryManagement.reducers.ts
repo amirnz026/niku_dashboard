@@ -3,6 +3,7 @@ import { immerOn } from 'ngrx-immer/store';
 import {
   categoryActions,
   inventoryActions,
+  productActions,
   unitActions,
 } from './inventoryManagement.actions';
 
@@ -54,6 +55,18 @@ export const initialState: InventoryManagementStateType = {
     isUnitFormOpen: false,
     unitNameForm: null,
     unitStatusForm: null,
+  },
+  productPage: {
+    products: [],
+    isProductsLoading: false,
+    errorProducts: '',
+    productSelectedRows: [],
+    currentEditingProduct: null,
+    productSearchFilter: '',
+    // Form
+    isProductFormOpen: false,
+    productNameForm: null,
+    productStatusForm: null,
   },
 };
 
@@ -217,7 +230,51 @@ export const inventoryManagementReducers = createReducer(
   }),
   immerOn(unitActions.unitStatusFormUpdate, (state, action) => {
     state.unitPage.unitStatusForm = action.status;
-  })
+  }),
 
   // Unit-End
+
+  // Product-Start
+  // Get
+  immerOn(productActions.getProducts, (state) => {
+    state.productPage.isProductsLoading = true;
+  }),
+  immerOn(productActions.getProductsSuccess, (state, action) => {
+    state.productPage.products = action.items;
+    state.productPage.isProductsLoading = false;
+  }),
+  immerOn(productActions.getProductsFailure, (state, action) => {
+    state.productPage.errorProducts = action.error;
+    state.productPage.isProductsLoading = false;
+  }),
+  // Table
+  immerOn(productActions.setProductSelectedRows, (state, action) => {
+    state.productPage.productSelectedRows = action.rows;
+  }),
+  immerOn(productActions.setCurrentEditingProduct, (state, action) => {
+    state.productPage.currentEditingProduct = action.row;
+  }),
+  immerOn(productActions.setProductSearchFilter, (state, action) => {
+    state.productPage.productSearchFilter = action.input;
+  }),
+  // Form
+  immerOn(productActions.openProductForm, (state) => {
+    state.productPage.isProductFormOpen = true;
+    state.productPage.currentEditingProduct = null;
+    state.productPage.productNameForm = '';
+    state.productPage.productStatusForm = true;
+  }),
+  immerOn(productActions.closeProductForm, (state) => {
+    state.productPage.isProductFormOpen = false;
+    state.productPage.currentEditingProduct = null;
+  }),
+
+  immerOn(productActions.productNameFormUpdate, (state, action) => {
+    state.productPage.productNameForm = action.name;
+  }),
+  immerOn(productActions.productStatusFormUpdate, (state, action) => {
+    state.productPage.productStatusForm = action.status;
+  })
+
+  // Product-End
 );

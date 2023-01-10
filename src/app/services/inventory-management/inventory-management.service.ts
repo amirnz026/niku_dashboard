@@ -9,6 +9,7 @@ import {
   // Category-Start
   categories,
   units,
+  products,
   // Category-End
 } from 'src/app/_fake/mockData';
 
@@ -48,4 +49,13 @@ export class InventoryManagementService {
     return of(true).pipe(delay(3000));
   }
   // Unit-End
+
+  // Product-Start
+  getProducts(): Observable<ProductType[]> {
+    return of(products).pipe(delay(0));
+  }
+  postSubmitProductCreationForm(): Observable<boolean> {
+    return of(true).pipe(delay(3000));
+  }
+  // Product-End
 }

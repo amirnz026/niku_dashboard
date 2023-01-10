@@ -9,6 +9,8 @@ export const selectCategoryPageFeature = (state: AppStateType) =>
 export const selectUnitPageFeature = (state: AppStateType) =>
   state.inventoryManagement.unitPage;
 
+export const selectProductPageFeature = (state: AppStateType) =>
+  state.inventoryManagement.productPage;
 // Inventory-Selectors-Start
 // Table-Start
 export const inventoriesSelector = createSelector(
@@ -165,3 +167,45 @@ export const unitStatusFormSelector = createSelector(
 );
 
 // Unit-Selectors-End
+
+// Product-Selectors-Start
+// Table-Start
+export const productsSelector = createSelector(
+  selectProductPageFeature,
+  (state) => state.products
+);
+export const productSelectedRowsSelector = createSelector(
+  selectProductPageFeature,
+  (state) => state.productSelectedRows
+);
+export const productSelectedRowsCountSelector = createSelector(
+  selectProductPageFeature,
+  (state) => state.productSelectedRows.length
+);
+export const currentEditingProductSelector = createSelector(
+  selectProductPageFeature,
+  (state) => state.currentEditingProduct
+);
+export const productSearchFilterSelector = createSelector(
+  selectProductPageFeature,
+  (state) => state.productSearchFilter
+);
+// Table-End
+export const isProductsLoadingSelector = createSelector(
+  selectProductPageFeature,
+  (state) => state.isProductsLoading
+);
+export const isProductFormOpenSelector = createSelector(
+  selectProductPageFeature,
+  (state) => state.isProductFormOpen
+);
+export const productNameFormSelector = createSelector(
+  selectProductPageFeature,
+  (state) => state.productNameForm
+);
+export const productStatusFormSelector = createSelector(
+  selectProductPageFeature,
+  (state) => state.productStatusForm
+);
+
+// Product-Selectors-End

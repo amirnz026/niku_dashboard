@@ -1,0 +1,119 @@
+<p-confirmDialog icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+<p-toolbar>
+  <div class="p-toolbar-group-start">
+    <p-button
+      icon="pi pi-refresh"
+      (click)="refreshPage()"
+      [pTooltip]="isLoading! ? 'در حال بروزرسانی صفحه' : 'بروزرسانی صفحه'"
+      tooltipPosition="top"
+      [loading]="isLoading!"
+    ></p-button>
+    <span class="p-input-icon-right">
+      <i class="pi pi-search"></i>
+      <input
+        type="text"
+        pInputText
+        placeholder="فیلتر..."
+        [pTooltip]="'فیلتر جدول'"
+        [value]="pageSearchFilter | async"
+        tooltipPosition="top"
+        (input)="onFilterTextBoxChanged()"
+        id="filter-text-box"
+        type="text"
+        class="table-search-input"
+      />
+    </span>
+  </div>
+
+  <div class="p-toolbar-group-end">
+    <span
+      [pTooltip]="
+        !selectedRowsCount ? 'هنوز آیتمی برای چاپ انتخاب نشده است.' : ''
+      "
+    >
+      <button
+        pButton
+        type="button"
+        class="p-button-secondary"
+        icon="pi pi-print"
+        [pTooltip]="
+          selectedRowsCount === 1
+            ? 'چاپ آیتم انتخاب شده'
+            : 'چاپ آیتم های انتخاب شده'
+        "
+        tooltipPosition="top"
+        iconPos="right"
+        [disabled]="!selectedRowsCount"
+        printSectionId="print-section"
+        ngxPrint
+        printTitle="جدول انبار"
+        [printStyle]="{
+          table: { direction: 'rtl' }
+        }"
+        [useExistingCss]="true"
+      ></button>
+    </span>
+    <span
+      [pTooltip]="
+        !(selectedRowsCount > 1)
+          ? 'برای حذف گروهی لازم است حداقل دو آیتم انتخاب شده باشد.'
+          : ''
+      "
+    >
+      <button
+        pButton
+        type="button"
+        class="p-button-danger"
+        (click)="onDelete()"
+        icon="pi pi-trash"
+        [pTooltip]="'حذف آیتم های انتخاب شده'"
+        tooltipPosition="top"
+        iconPos="right"
+        [disabled]="!(selectedRowsCount > 1)"
+      ></button>
+    </span>
+    <button
+      pButton
+      label="جدید"
+      icon="pi pi-plus-circle"
+      iconPos="right"
+      [pTooltip]="'انبار جدید'"
+      tooltipPosition="top"
+      (click)="openCreationForm()"
+      class="p-button-success"
+    ></button>
+  </div>
+</p-toolbar>
+
+<ag-grid-angular
+  class="ag-theme-alpine card"
+  style="
+    height: 72vh;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 0 0 1rem 1rem;
+  "
+  [rowData]="rowInputData"
+  [columnDefs]="colInputDefs"
+  [defaultColDef]="defaultColDef"
+  [rowSelection]="'multiple'"
+  [animateRows]="true"
+  (cellClicked)="onCellClicked($event)"
+  [enableRtl]="true"
+  [localeText]="langFa"
+  [gridOptions]="gridOptions"
+  (gridReady)="onGridReady($event)"
+  [tooltipShowDelay]="0"
+  [pagination]="true"
+  [tooltipMouseTrack]="true"
+  [sideBar]="sideBar"
+  (selectionChanged)="onSelectionChanged($event)"
+  [getContextMenuItems]="getContextMenuItems"
+></ag-grid-angular>
+<app-print-table
+  id="print-section"
+  [cols]="displayedColumns"
+  [pageSelectedRowsSelectorMethod]="pageSelectedRowsSelectorMethod"
+  style="display: none"
+></app-print-table>

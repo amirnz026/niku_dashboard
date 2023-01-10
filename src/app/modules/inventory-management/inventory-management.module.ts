@@ -15,9 +15,11 @@ import { CustomTooltipComponent } from '../ag-grid/tooltip/custom-tooltip.compon
 import { UsersCellComponent } from '../ag-grid/users-cell/users-cell.component';
 import { StatusCellComponent } from '../ag-grid/status-cell/status-cell.component';
 import { GridStyle01Component } from '../ag-grid/grid/grid-style01/grid-style01.component';
+import { GridStyle02Component } from '../ag-grid/grid/grid-style02/grid-style02.component';
 import { InventoryActionsCellComponent } from './basic-information/inventory/inventory-actions-cell.component';
 import { CategoryActionsCellComponent } from './basic-information/category/category-actions-cell.component';
 import { UnitActionsCellComponent } from './basic-information/unit/unit-actions-cell.component';
+import { ProductActionsCellComponent } from './basic-information/product/product-actions-cell.component';
 // Utils
 import { NgxPrintModule } from 'ngx-print';
 import { FormValidationErrorComponent } from '../partials/form-validation-error/form-validation-error.component';
@@ -66,11 +68,13 @@ import { UnitComponent } from './basic-information/unit/unit.component';
     UsersCellComponent,
     StatusCellComponent,
     GridStyle01Component,
+    GridStyle02Component,
     CustomTooltipComponent,
     FormValidationErrorComponent,
     InventoryActionsCellComponent,
     CategoryActionsCellComponent,
     UnitActionsCellComponent,
+    ProductActionsCellComponent,
   ],
   imports: [
     // Angular

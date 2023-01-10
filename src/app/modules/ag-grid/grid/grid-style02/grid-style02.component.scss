@@ -1,0 +1,40 @@
+:host ::ng-deep .p-button-icon {
+  margin-right: 0.5rem;
+  padding-bottom: 0.1rem;
+}
+
+.table-controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  margin-top: -3.7rem;
+}
+
+:host ::ng-deep .p-button-icon {
+  margin-left: 0.5rem;
+}
+
+:host ::ng-deep .disabled-row {
+  opacity: 0.4;
+}
+
+:host ::ng-deep .p-toolbar {
+  padding: 1rem 1rem;
+  background-color: white;
+  border: none;
+  border-radius: 1rem 1rem 0 0;
+  box-shadow: 0px 0px 20px 0px rgba(76, 87, 125, 0.02);
+}
+:host ::ng-deep .p-toolbar-group-start {
+  .p-button {
+    margin-inline-end: 0.4rem;
+  }
+}
+
+:host ::ng-deep .p-toolbar-group-end {
+  margin-inline-end: 1.5rem;
+  .p-button {
+    margin-inline-start: 0.4rem;
+  }
+}

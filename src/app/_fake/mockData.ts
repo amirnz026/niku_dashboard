@@ -110,3 +110,26 @@ export const units: UnitType[] = [
     status: 'فعال',
   },
 ];
+
+export const products: ProductType[] = [
+  {
+    name: 'اسپرسو',
+    status: 'فعال',
+  },
+  {
+    name: 'چای',
+    status: 'فعال',
+  },
+  {
+    name: 'پیتزا',
+    status: 'غیر فعال',
+  },
+  {
+    name: 'قرمه سبزی',
+    status: 'فعال',
+  },
+  {
+    name: 'هات داگ',
+    status: 'فعال',
+  },
+];

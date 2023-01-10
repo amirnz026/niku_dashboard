@@ -9,6 +9,7 @@ interface InventoryManagementStateType {
   inventoryPage: InventoryPageStateType;
   categoryPage: CategoryPageStateType;
   unitPage: UnitPageStateType;
+  productPage: ProductPageStateType;
 }
 
 type InventoryPageStateType = {
@@ -144,6 +145,45 @@ type UnitActionsType = {
 };
 
 type UnitType = {
+  name: string;
+  status: string;
+};
+
+type ProductPageStateType = {
+  // Table
+  products: ProductType[];
+  isProductsLoading: boolean;
+  errorProducts: string;
+  productSelectedRows: UnitType[];
+  currentEditingProduct: UnitType | null;
+  productSearchFilter: string;
+  // Form
+  isProductFormOpen: boolean;
+  productNameForm: string | null;
+  productStatusForm: boolean | null;
+};
+
+type ProductActionsType = {
+  // Get
+  getProducts: any;
+  getProductsSuccess: any;
+  getProductsFailure: any;
+  // Post
+  submitProductCreationForm: any;
+  submitProductCreationFormSuccess: any;
+  submitProductCreationFormFailure: any;
+  // Table
+  setProductSelectedRows: any;
+  setCurrentEditingProduct: any;
+  setProductSearchFilter: any;
+  // Form
+  openProductForm: any;
+  closeProductForm: any;
+  productNameFormUpdate: any;
+  productStatusFormUpdate: any;
+};
+
+type ProductType = {
   name: string;
   status: string;
 };
