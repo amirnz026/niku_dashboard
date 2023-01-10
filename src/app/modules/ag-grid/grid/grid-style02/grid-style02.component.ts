@@ -129,6 +129,8 @@ export class GridStyle02Component implements OnInit {
   ngOnInit(): void {
     // Table
     this.gridOptions = {
+      embedFullWidthRows: true,
+
       onGridReady: (event) => {},
       getRowHeight: (params) => 60,
       detailRowAutoHeight: true,

@@ -64,7 +64,7 @@ export const initialState: InventoryManagementStateType = {
     currentEditingProduct: null,
     productSearchFilter: '',
     // Form
-    isProductFormOpen: false,
+    isProductFormOpen: true,
     productNameForm: null,
     productStatusForm: null,
   },
